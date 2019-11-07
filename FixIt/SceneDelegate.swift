@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SwiftUI
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
@@ -19,9 +20,14 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         guard let windowScene = (scene as? UIWindowScene) else { return }
         window = UIWindow(frame: windowScene.coordinateSpace.bounds)
         window?.windowScene = windowScene
-        let navBar = UINavigationController(rootViewController: loggedIn ? Home() : LoginScreen())
-//        navBar.navigationBar.setBackgroundImage(UIImage(), for: .default)
+        let navBar = UINavigationController(rootViewController: LoginScreen())
         navBar.navigationBar.shadowImage = UIImage()
+        navBar.isNavigationBarHidden = true
+        if loggedIn == true {
+            let home = Home()
+            window?.rootViewController = home
+            navBar.show(home, sender: navBar.view)
+        }
         window?.rootViewController = navBar
         window?.makeKeyAndVisible()
     }

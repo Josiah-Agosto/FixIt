@@ -9,11 +9,25 @@
 /* Begin PBXBuildFile section */
 		BDF98EBC236B8047007A4F3A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDF98EBB236B8047007A4F3A /* AppDelegate.swift */; };
 		BDF98EBE236B8047007A4F3A /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDF98EBD236B8047007A4F3A /* SceneDelegate.swift */; };
-		BDF98EC0236B8047007A4F3A /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDF98EBF236B8047007A4F3A /* ViewController.swift */; };
+		BDF98EC0236B8047007A4F3A /* Home.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDF98EBF236B8047007A4F3A /* Home.swift */; };
 		BDF98EC8236B804E007A4F3A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BDF98EC7236B804E007A4F3A /* Assets.xcassets */; };
 		BDF98ECB236B804E007A4F3A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BDF98EC9236B804E007A4F3A /* LaunchScreen.storyboard */; };
 		BDF98ED7236B8EBD007A4F3A /* LoginScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDF98ED6236B8EBD007A4F3A /* LoginScreen.swift */; };
 		BDF98ED9236B946B007A4F3A /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = BDF98ED8236B946B007A4F3A /* GoogleService-Info.plist */; };
+		BDF98EDF236BC943007A4F3A /* SignUpController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDF98EDE236BC943007A4F3A /* SignUpController.swift */; };
+		BDF98EE2236C8A5C007A4F3A /* CustomerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDF98EE1236C8A5C007A4F3A /* CustomerCell.swift */; };
+		BDF98EF4236E0511007A4F3A /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDF98EF3236E0511007A4F3A /* Constants.swift */; };
+		BDF98EF6236E22CC007A4F3A /* CustomerModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDF98EF5236E22CC007A4F3A /* CustomerModel.swift */; };
+		BDF98EF8236E2334007A4F3A /* EmployeeModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDF98EF7236E2334007A4F3A /* EmployeeModel.swift */; };
+		BDF98EFA236E29B7007A4F3A /* CitySelectorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDF98EF9236E29B7007A4F3A /* CitySelectorView.swift */; };
+		BDF98EFC236E3C5C007A4F3A /* CityRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDF98EFB236E3C5C007A4F3A /* CityRequest.swift */; };
+		BDF98EFF236E484B007A4F3A /* NewTaskView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDF98EFE236E484B007A4F3A /* NewTaskView.swift */; };
+		BDF98F01236E592C007A4F3A /* StatesModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDF98F00236E592C007A4F3A /* StatesModel.swift */; };
+		BDF98F04236E5AB2007A4F3A /* TaskData.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDF98F03236E5AB2007A4F3A /* TaskData.swift */; };
+		BDF98F0723709F6D007A4F3A /* UserProfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDF98F0623709F6D007A4F3A /* UserProfile.swift */; };
+		BDF98F0A2370C1E7007A4F3A /* ProfileData.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDF98F092370C1E7007A4F3A /* ProfileData.swift */; };
+		BDF98F0D2372205B007A4F3A /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDF98F0C2372205B007A4F3A /* MapViewController.swift */; };
+		BDF98F1123729DB7007A4F3A /* UserLocationDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDF98F1023729DB7007A4F3A /* UserLocationDelegate.swift */; };
 		C87FB683170D164CCF4B46E9 /* Pods_FixIt.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8EB849628EBC261BA254149A /* Pods_FixIt.framework */; };
 /* End PBXBuildFile section */
 
@@ -24,12 +38,26 @@
 		BDF98EB8236B8047007A4F3A /* FixIt.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FixIt.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BDF98EBB236B8047007A4F3A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		BDF98EBD236B8047007A4F3A /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		BDF98EBF236B8047007A4F3A /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		BDF98EBF236B8047007A4F3A /* Home.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Home.swift; sourceTree = "<group>"; };
 		BDF98EC7236B804E007A4F3A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		BDF98ECA236B804E007A4F3A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		BDF98ECC236B804E007A4F3A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		BDF98ED6236B8EBD007A4F3A /* LoginScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginScreen.swift; sourceTree = "<group>"; };
 		BDF98ED8236B946B007A4F3A /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		BDF98EDE236BC943007A4F3A /* SignUpController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpController.swift; sourceTree = "<group>"; };
+		BDF98EE1236C8A5C007A4F3A /* CustomerCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomerCell.swift; sourceTree = "<group>"; };
+		BDF98EF3236E0511007A4F3A /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		BDF98EF5236E22CC007A4F3A /* CustomerModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomerModel.swift; sourceTree = "<group>"; };
+		BDF98EF7236E2334007A4F3A /* EmployeeModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmployeeModel.swift; sourceTree = "<group>"; };
+		BDF98EF9236E29B7007A4F3A /* CitySelectorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CitySelectorView.swift; sourceTree = "<group>"; };
+		BDF98EFB236E3C5C007A4F3A /* CityRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CityRequest.swift; sourceTree = "<group>"; };
+		BDF98EFE236E484B007A4F3A /* NewTaskView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewTaskView.swift; sourceTree = "<group>"; };
+		BDF98F00236E592C007A4F3A /* StatesModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatesModel.swift; sourceTree = "<group>"; };
+		BDF98F03236E5AB2007A4F3A /* TaskData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskData.swift; sourceTree = "<group>"; };
+		BDF98F0623709F6D007A4F3A /* UserProfile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfile.swift; sourceTree = "<group>"; };
+		BDF98F092370C1E7007A4F3A /* ProfileData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileData.swift; sourceTree = "<group>"; };
+		BDF98F0C2372205B007A4F3A /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
+		BDF98F1023729DB7007A4F3A /* UserLocationDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserLocationDelegate.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -84,8 +112,10 @@
 			children = (
 				BDF98EBB236B8047007A4F3A /* AppDelegate.swift */,
 				BDF98EBD236B8047007A4F3A /* SceneDelegate.swift */,
+				BDF98EF2236E04FF007A4F3A /* Constants */,
 				BDF98ED2236B844F007A4F3A /* Login */,
 				BDF98ED3236B8456007A4F3A /* Home */,
+				BDF98F0523709F4C007A4F3A /* UserProfile */,
 				BDF98ED5236B8467007A4F3A /* Network Manager */,
 				BDF98ED4236B8462007A4F3A /* Models */,
 				BDF98EC7236B804E007A4F3A /* Assets.xcassets */,
@@ -100,6 +130,8 @@
 			isa = PBXGroup;
 			children = (
 				BDF98ED6236B8EBD007A4F3A /* LoginScreen.swift */,
+				BDF98F1023729DB7007A4F3A /* UserLocationDelegate.swift */,
+				BDF98EE0236BCEF2007A4F3A /* SignUp */,
 			);
 			path = Login;
 			sourceTree = "<group>";
@@ -107,7 +139,9 @@
 		BDF98ED3236B8456007A4F3A /* Home */ = {
 			isa = PBXGroup;
 			children = (
-				BDF98EBF236B8047007A4F3A /* ViewController.swift */,
+				BDF98EBF236B8047007A4F3A /* Home.swift */,
+				BDF98EE1236C8A5C007A4F3A /* CustomerCell.swift */,
+				BDF98EFD236E4832007A4F3A /* NewTask */,
 			);
 			path = Home;
 			sourceTree = "<group>";
@@ -115,6 +149,8 @@
 		BDF98ED4236B8462007A4F3A /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				BDF98EF5236E22CC007A4F3A /* CustomerModel.swift */,
+				BDF98EF7236E2334007A4F3A /* EmployeeModel.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -122,8 +158,70 @@
 		BDF98ED5236B8467007A4F3A /* Network Manager */ = {
 			isa = PBXGroup;
 			children = (
+				BDF98EFB236E3C5C007A4F3A /* CityRequest.swift */,
 			);
 			path = "Network Manager";
+			sourceTree = "<group>";
+		};
+		BDF98EE0236BCEF2007A4F3A /* SignUp */ = {
+			isa = PBXGroup;
+			children = (
+				BDF98EDE236BC943007A4F3A /* SignUpController.swift */,
+				BDF98EF9236E29B7007A4F3A /* CitySelectorView.swift */,
+				BDF98F0B2372200E007A4F3A /* MapView */,
+			);
+			path = SignUp;
+			sourceTree = "<group>";
+		};
+		BDF98EF2236E04FF007A4F3A /* Constants */ = {
+			isa = PBXGroup;
+			children = (
+				BDF98EF3236E0511007A4F3A /* Constants.swift */,
+			);
+			path = Constants;
+			sourceTree = "<group>";
+		};
+		BDF98EFD236E4832007A4F3A /* NewTask */ = {
+			isa = PBXGroup;
+			children = (
+				BDF98EFE236E484B007A4F3A /* NewTaskView.swift */,
+				BDF98F00236E592C007A4F3A /* StatesModel.swift */,
+				BDF98F02236E5A98007A4F3A /* TaskData */,
+			);
+			path = NewTask;
+			sourceTree = "<group>";
+		};
+		BDF98F02236E5A98007A4F3A /* TaskData */ = {
+			isa = PBXGroup;
+			children = (
+				BDF98F03236E5AB2007A4F3A /* TaskData.swift */,
+			);
+			path = TaskData;
+			sourceTree = "<group>";
+		};
+		BDF98F0523709F4C007A4F3A /* UserProfile */ = {
+			isa = PBXGroup;
+			children = (
+				BDF98F0623709F6D007A4F3A /* UserProfile.swift */,
+				BDF98F082370C1D6007A4F3A /* ProfileData */,
+			);
+			path = UserProfile;
+			sourceTree = "<group>";
+		};
+		BDF98F082370C1D6007A4F3A /* ProfileData */ = {
+			isa = PBXGroup;
+			children = (
+				BDF98F092370C1E7007A4F3A /* ProfileData.swift */,
+			);
+			path = ProfileData;
+			sourceTree = "<group>";
+		};
+		BDF98F0B2372200E007A4F3A /* MapView */ = {
+			isa = PBXGroup;
+			children = (
+				BDF98F0C2372205B007A4F3A /* MapViewController.swift */,
+			);
+			path = MapView;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -241,10 +339,24 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				BDF98EC0236B8047007A4F3A /* ViewController.swift in Sources */,
+				BDF98EC0236B8047007A4F3A /* Home.swift in Sources */,
 				BDF98EBC236B8047007A4F3A /* AppDelegate.swift in Sources */,
+				BDF98F0723709F6D007A4F3A /* UserProfile.swift in Sources */,
+				BDF98EFC236E3C5C007A4F3A /* CityRequest.swift in Sources */,
 				BDF98EBE236B8047007A4F3A /* SceneDelegate.swift in Sources */,
+				BDF98F04236E5AB2007A4F3A /* TaskData.swift in Sources */,
+				BDF98F1123729DB7007A4F3A /* UserLocationDelegate.swift in Sources */,
+				BDF98EF6236E22CC007A4F3A /* CustomerModel.swift in Sources */,
+				BDF98F0A2370C1E7007A4F3A /* ProfileData.swift in Sources */,
+				BDF98F01236E592C007A4F3A /* StatesModel.swift in Sources */,
+				BDF98EFA236E29B7007A4F3A /* CitySelectorView.swift in Sources */,
+				BDF98EDF236BC943007A4F3A /* SignUpController.swift in Sources */,
+				BDF98EE2236C8A5C007A4F3A /* CustomerCell.swift in Sources */,
+				BDF98EFF236E484B007A4F3A /* NewTaskView.swift in Sources */,
 				BDF98ED7236B8EBD007A4F3A /* LoginScreen.swift in Sources */,
+				BDF98EF8236E2334007A4F3A /* EmployeeModel.swift in Sources */,
+				BDF98EF4236E0511007A4F3A /* Constants.swift in Sources */,
+				BDF98F0D2372205B007A4F3A /* MapViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

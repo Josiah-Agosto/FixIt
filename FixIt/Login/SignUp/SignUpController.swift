@@ -9,40 +9,62 @@
 import UIKit
 import Firebase
 
-class SignUpController: UIViewController {
+class SignUpController: UIViewController, UserLocationDelegate {
+// MARK: - Constants
+    // Empty View
+    private let emptyView = UIView(frame: CGRect.zero)
     // Sign Up Label
-    private let signUpLabel = UILabel(frame: CGRect(x: UIScreen.main.bounds.width / 2 - 50, y: 40, width: 100, height: 30))
+    private let signUpLabel = UILabel(frame: CGRect.zero)
     // Name
-    private let nameField = UITextField(frame: CGRect(x: UIScreen.main.bounds.width / 2 - 150, y: 120, width: 300, height: 40))
+    private let nameField = UITextField(frame: CGRect.zero)
     // Email
-    private let emailField = UITextField(frame: CGRect(x: UIScreen.main.bounds.width / 2 - 150, y: 180, width: 300, height: 40))
+    private let emailField = UITextField(frame: CGRect.zero)
     // Password
-    private let passwordField = UITextField(frame: CGRect(x: UIScreen.main.bounds.width / 2 - 150, y: 240, width: 300, height: 40))
-    // Location
-    private let locationField = UITextField(frame: CGRect(x: UIScreen.main.bounds.width / 2 - 150, y: 300, width: 300, height: 40))
-    // Employee Main Skill
-    private let employeeSkill = UITextField(frame: CGRect(x: UIScreen.main.bounds.width / 2 - 150, y: 360, width: 300, height: 40))
+    private let passwordField = UITextField(frame: CGRect.zero)
+    // City
+    private let cityField = UIButton(frame: CGRect.zero)
+    // Optional Employee Main Skill
+    private let employeeSkill = UITextField(frame: CGRect.zero)
     // Error Label
-    private let errorLabel = UILabel(frame: CGRect(x: 0, y: UIScreen.main.bounds.height - 220, width: UIScreen.main.bounds.width, height: 20))
+    private let errorLabel = UILabel(frame: CGRect.zero)
+    // Switch Label
+    private let employeeSwitchLabel = UILabel(frame: CGRect.zero)
     // Switch to Employee
-    let employeeSwitch = UISwitch(frame: CGRect(x: UIScreen.main.bounds.width - 72, y: 40, width: 60, height: 30))
+    let employeeSwitch = UISwitch(frame: CGRect.zero)
+    // Account Holder Button
+    let accountHolderButton = UIButton(frame: CGRect.zero)
     // Login Button
-    private let registerButton = UIButton(frame: CGRect(x: UIScreen.main.bounds.width / 2 - 150, y: UIScreen.main.bounds.height - 150, width: 300, height: 65))
+    private let registerButton = UIButton(frame: CGRect.zero)
+    // Protocol
+    weak var protocolController: LoginScreen?
     // Variables
     var employeeSignIn: Bool = false
-    
+    var userLocationName: String? = ""
     
     override func viewDidLoad() {
         super.viewDidLoad()
         setup()
+        setupConstraints()
     }
     
-    
+// MARK: - Large UI Setup
     private func setup() {
+        self.navigationController?.isNavigationBarHidden = true
         self.view.backgroundColor = UIColor(red: 220/255, green: 220/255, blue: 220/255, alpha: 1.0)
+        // Protocol
+//        protocolController?.delegate = self
         // Label
         signUpLabel.text = "Register"
-        signUpLabel.font = UIFont.systemFont(ofSize: 25)
+        signUpLabel.textAlignment = NSTextAlignment.center
+        signUpLabel.backgroundColor = UIColor.clear
+        signUpLabel.font = UIFont(name: "Avenir", size: 30)
+        signUpLabel.translatesAutoresizingMaskIntoConstraints = false
+        // Empty View
+        emptyView.backgroundColor = UIColor(red: 200/255, green: 200/255, blue: 200/255, alpha: 0.9)
+        emptyView.layer.cornerRadius = 10
+        emptyView.layer.borderColor = UIColor.gray.cgColor
+        emptyView.layer.borderWidth = 1
+        emptyView.translatesAutoresizingMaskIntoConstraints = false
         // Name
         nameField.attributedPlaceholder = NSAttributedString(string: "Name", attributes: [NSAttributedString.Key.foregroundColor: UIColor(red: 88/255, green: 88/255, blue: 88/255, alpha: 1.0)])
         nameField.layer.cornerRadius = 10
@@ -52,7 +74,7 @@ class SignUpController: UIViewController {
         nameField.layer.shadowOpacity = 0.5
         nameField.layer.masksToBounds = false
         nameField.backgroundColor = UIColor.clear
-        // UIColor(red: 230/255, green: 230/255, blue: 230/255, alpha: 1.0)
+        nameField.translatesAutoresizingMaskIntoConstraints = false
         // Email
         emailField.attributedPlaceholder = NSAttributedString(string: "Email", attributes: [NSAttributedString.Key.foregroundColor: UIColor(red: 88/255, green: 88/255, blue: 88/255, alpha: 1.0)])
         emailField.layer.cornerRadius = 10
@@ -62,6 +84,7 @@ class SignUpController: UIViewController {
         emailField.layer.shadowOpacity = 0.5
         emailField.layer.masksToBounds = false
         emailField.backgroundColor = UIColor.clear
+        emailField.translatesAutoresizingMaskIntoConstraints = false
         // Password
         passwordField.attributedPlaceholder = NSAttributedString(string: "Password", attributes: [NSAttributedString.Key.foregroundColor: UIColor(red: 88/255, green: 88/255, blue: 88/255, alpha: 1.0)])
         passwordField.layer.cornerRadius = 10
@@ -72,15 +95,19 @@ class SignUpController: UIViewController {
         passwordField.layer.masksToBounds = false
         passwordField.isSecureTextEntry = true
         passwordField.backgroundColor = UIColor.clear
-        // Location
-        locationField.attributedPlaceholder = NSAttributedString(string: "City, State", attributes: [NSAttributedString.Key.foregroundColor: UIColor(red: 88/255, green: 88/255, blue: 88/255, alpha: 1.0)])
-        locationField.layer.cornerRadius = 10
-        locationField.layer.shadowColor = UIColor.black.cgColor
-        locationField.layer.shadowOffset = CGSize(width: 5, height: 1)
-        locationField.layer.shadowRadius = 90
-        locationField.layer.shadowOpacity = 0.5
-        locationField.layer.masksToBounds = false
-        locationField.backgroundColor = UIColor.clear
+        passwordField.translatesAutoresizingMaskIntoConstraints = false
+        // City
+        cityField.setTitle("Your Location: \(userLocationName ?? "Location")", for: .normal)
+        cityField.layer.cornerRadius = 10
+        cityField.layer.shadowColor = UIColor.black.cgColor
+        cityField.layer.shadowOffset = CGSize(width: 5, height: 1)
+        cityField.layer.shadowRadius = 90
+        cityField.layer.shadowOpacity = 0.5
+        cityField.backgroundColor = UIColor.clear
+        cityField.setTitleColor(UIColor(red: 88/255, green: 88/255, blue: 88/255, alpha: 1.0), for: .normal)
+        cityField.layer.masksToBounds = true
+        cityField.contentHorizontalAlignment = .left
+        cityField.translatesAutoresizingMaskIntoConstraints = false
         // Employee Skill
         employeeSkill.attributedPlaceholder = NSAttributedString(string: "Main Skill", attributes: [NSAttributedString.Key.foregroundColor: UIColor(red: 88/255, green: 88/255, blue: 88/255, alpha: 1.0)])
         employeeSkill.layer.cornerRadius = 10
@@ -91,37 +118,63 @@ class SignUpController: UIViewController {
         employeeSkill.layer.masksToBounds = false
         employeeSkill.isHidden = true
         employeeSkill.backgroundColor = UIColor.clear
-        // Login Button
-        registerButton.setTitleColor(UIColor.white, for: .normal)
-        registerButton.setTitle("Register", for: .normal)
-        registerButton.backgroundColor = UIColor(red: 77/255, green: 130/255, blue: 199/255, alpha: 1.0)
-        registerButton.layer.cornerRadius = 10
+        employeeSkill.translatesAutoresizingMaskIntoConstraints = false
         // Employee Switch
         employeeSwitch.isOn = false
         employeeSwitch.onTintColor = UIColor.black
+        employeeSwitch.translatesAutoresizingMaskIntoConstraints = false
+        // Employee Switch Label
+        employeeSwitchLabel.text = "Employee Sign In:"
+        employeeSwitchLabel.textColor = UIColor(red: 88/255, green: 88/255, blue: 88/255, alpha: 1.0)
+        employeeSwitchLabel.backgroundColor = UIColor.clear
+        employeeSwitchLabel.textAlignment = NSTextAlignment.left
+        employeeSwitchLabel.translatesAutoresizingMaskIntoConstraints = false
         // Error Label
         errorLabel.text = "Error signing in, check Email and Password and Try Again."
         errorLabel.backgroundColor = UIColor.clear
         errorLabel.numberOfLines = 2
+        errorLabel.adjustsFontSizeToFitWidth = true
         errorLabel.textColor = UIColor.red
         errorLabel.font = UIFont.systemFont(ofSize: 13)
         errorLabel.isHidden = true
         errorLabel.textAlignment = NSTextAlignment.center
+        errorLabel.translatesAutoresizingMaskIntoConstraints = false
+        // Account Holder
+        accountHolderButton.setTitle("Already have an account? Sign In", for: .normal)
+        accountHolderButton.backgroundColor = UIColor.clear
+        accountHolderButton.titleLabel?.font = UIFont.systemFont(ofSize: 15)
+        accountHolderButton.setTitleColor(UIColor.red, for: .normal)
+        accountHolderButton.translatesAutoresizingMaskIntoConstraints = false
+        // Login Button
+        registerButton.setTitleColor(UIColor.white, for: .normal)
+        registerButton.setTitle("Register", for: .normal)
+        registerButton.backgroundColor = UIColor(red: 77/255, green: 130/255, blue: 199/255, alpha: 1.0)
+        registerButton.translatesAutoresizingMaskIntoConstraints = false
         // Actions
         registerButton.addTarget(self, action: #selector(createSpecifiedUser(sender:)), for: .touchUpInside)
         employeeSwitch.addTarget(self, action: #selector(signedInWithEmployee(sender:)), for: .valueChanged)
+        cityField.addTarget(self, action: #selector(showMapView(sender:)), for: .touchUpInside)
+        accountHolderButton.addTarget(self, action: #selector(accountHolderAction(sender:)), for: .touchUpInside)
         // Subviews
+        self.view.addSubview(emptyView)
+        emptyView.addSubview(nameField)
+        emptyView.addSubview(emailField)
+        emptyView.addSubview(passwordField)
+        emptyView.addSubview(cityField)
+        emptyView.addSubview(employeeSkill)
         self.view.addSubview(signUpLabel)
-        self.view.addSubview(nameField)
-        self.view.addSubview(emailField)
-        self.view.addSubview(passwordField)
-        self.view.addSubview(locationField)
-        self.view.addSubview(employeeSkill)
         self.view.addSubview(employeeSwitch)
         self.view.addSubview(errorLabel)
+        self.view.addSubview(accountHolderButton)
         self.view.addSubview(registerButton)
+        self.view.addSubview(employeeSwitchLabel)
     }
     
+//MARK: - Delegate Function
+    func getLocationName(location: String) {
+        userLocationName = location
+    }
+// MARK: - Actions
     // Employee Sign in or Not
     @objc private func signedInWithEmployee(sender: UISwitch) {
         switch sender.isOn {
@@ -136,57 +189,141 @@ class SignUpController: UIViewController {
         }
     }
     
-    // Authorizing the entered Credentials
+    // MARK: Firebase Authentication
     @objc func createSpecifiedUser(sender: UIButton) {
-        guard let email = emailField.text, let password = passwordField.text, let name = nameField.text, let location = locationField.text, let skill = employeeSkill.text else {
+        guard let email = emailField.text, let password = passwordField.text, let name = nameField.text, let location = userLocationName, let skill = employeeSkill.text else {
             errorLabel.isHidden = false
             errorLabel.text = "Invalid Form"
+            loggedIn = false
             return
         }
-        // Create Users
+        // Create User
         Auth.auth().createUser(withEmail: email, password: password) { (user, error) in
             guard let uid = user?.user.uid else { return }
             if error != nil {
                 self.errorLabel.isHidden = false
+                loggedIn = false
                 self.errorLabel.text = "\(error!.localizedDescription)"
             } else {
+                let home = Home()
                 if self.employeeSignIn == true {
                     // Employees
-                    let employeeReference = dBReference.child("Employees").child(uid)
+                    let employeeReference = dbReference.child("Employees").child(uid)
                     let employeeValues = ["name": name, "email": email, "location": location, "skill": skill]
-                    employeeReference.updateChildValues(employeeValues) { (error, reference) in
+                    employeeReference.updateChildValues(employeeValues) { (error, _) in
                         if error != nil {
                             self.errorLabel.isHidden = false
                             self.errorLabel.text = "Error indexing values"
                         }
                         loggedIn = true
-                        print(loggedIn)
+                        print("Login from Sign Up: \(loggedIn)")
                         self.saveSetting()
+                        self.show(home, sender: self)
                     }
                 } else if self.employeeSignIn == false {
                     // Customers
                     // Customer
-                    let customerReference = dBReference.child("Customers").child(uid)
+                    let customerReference = dbReference.child("Customers").child(uid)
                     let customerValues = ["name": name, "email": email, "location": location]
-                    customerReference.updateChildValues(customerValues) { (error, reference) in
+                    customerReference.updateChildValues(customerValues) { (error, _) in
                         if error != nil {
                             self.errorLabel.isHidden = false
                             self.errorLabel.text = "Error indexing values"
                         }
                         loggedIn = true
-                        print(loggedIn)
+                        print("Login from Sign Up: \(loggedIn)")
                         self.saveSetting()
+                        self.show(home, sender: self)
                     }
-                }
-                let home = Home()
-                self.navigationController?.pushViewController(home, animated: true)
+//                    dbReference.child("Open_Orders")
+                } // Elses else
             } // Else End
         } // Auth End
+        errorLabel.isHidden = false
     } // createSpecificUser Func End
     
+    // MARK: - Map View Action
+    @objc private func showMapView(sender: UIButton) {
+        let mapViewController = MapViewController()
+        self.navigationController?.present(mapViewController, animated: true)
+    }
+    
+    // MARK: - Account Holder Action
+    @objc private func accountHolderAction(sender: UIButton) {
+        self.navigationController?.popToRootViewController(animated: true)
+    }
+    // MARK: - Save Data
     // Sets the value set for Bool
     func saveSetting() {
         defaults.set(loggedIn, forKey: "logInKey")
     }
-    
+} // Class End
+
+
+// MARK: - Constraints Extension
+extension SignUpController {
+    private func setupConstraints() {
+        // Empty View
+        emptyView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        emptyView.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: -75).isActive = true
+        emptyView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20).isActive = true
+        emptyView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20).isActive = true
+        emptyView.heightAnchor.constraint(equalToConstant: 320).isActive = true
+        // Sign Up Label
+        signUpLabel.topAnchor.constraint(equalTo: view.topAnchor, constant: 40).isActive = true
+        signUpLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        signUpLabel.widthAnchor.constraint(equalTo: view.widthAnchor).isActive = true
+        signUpLabel.heightAnchor.constraint(equalToConstant: 40).isActive = true
+        // Name Field
+        nameField.topAnchor.constraint(equalTo: emptyView.topAnchor, constant: 10).isActive = true
+        nameField.centerXAnchor.constraint(equalTo: emptyView.centerXAnchor).isActive = true
+        nameField.widthAnchor.constraint(equalTo: emptyView.widthAnchor, constant: -20).isActive = true
+        nameField.heightAnchor.constraint(equalToConstant: 40).isActive = true
+        // Email Field
+        emailField.topAnchor.constraint(equalTo: emptyView.topAnchor, constant: 70).isActive = true
+        emailField.widthAnchor.constraint(equalTo: emptyView.widthAnchor, constant: -20).isActive = true
+        emailField.centerXAnchor.constraint(equalTo: emptyView.centerXAnchor).isActive = true
+        emailField.heightAnchor.constraint(equalToConstant: 40).isActive = true
+        // Password Field
+        passwordField.topAnchor.constraint(equalTo: emptyView.topAnchor, constant: 130).isActive = true
+        passwordField.widthAnchor.constraint(equalTo: emptyView.widthAnchor, constant: -20).isActive = true
+        passwordField.centerXAnchor.constraint(equalTo: emptyView.centerXAnchor).isActive = true
+        passwordField.heightAnchor.constraint(equalToConstant: 40).isActive = true
+        // City Field
+        cityField.topAnchor.constraint(equalTo: emptyView.topAnchor, constant: 190).isActive = true
+        cityField.widthAnchor.constraint(equalTo: emptyView.widthAnchor, constant: -20).isActive = true
+        cityField.centerXAnchor.constraint(equalTo: emptyView.centerXAnchor).isActive = true
+        cityField.heightAnchor.constraint(equalToConstant: 40).isActive = true
+        // Employee Skill
+        employeeSkill.topAnchor.constraint(equalTo: emptyView.topAnchor, constant: 250).isActive = true
+        employeeSkill.widthAnchor.constraint(equalTo: emptyView.widthAnchor, constant: -20).isActive = true
+        employeeSkill.centerXAnchor.constraint(equalTo: emptyView.centerXAnchor).isActive = true
+        employeeSkill.heightAnchor.constraint(equalToConstant: 40).isActive = true
+        // Employee Switch
+        employeeSwitch.topAnchor.constraint(equalTo: emptyView.bottomAnchor, constant: 20).isActive = true
+        employeeSwitch.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20).isActive = true
+        employeeSwitch.widthAnchor.constraint(equalToConstant: 60).isActive = true
+        employeeSwitch.heightAnchor.constraint(equalToConstant: 30).isActive = true
+        // Employee Switch Label
+        employeeSwitchLabel.topAnchor.constraint(equalTo: emptyView.bottomAnchor, constant: 20).isActive = true
+        employeeSwitchLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20).isActive = true
+        employeeSwitchLabel.trailingAnchor.constraint(equalTo: employeeSwitch.leadingAnchor).isActive = true
+        employeeSwitchLabel.heightAnchor.constraint(equalToConstant: 30).isActive = true
+        // Error Label
+        errorLabel.bottomAnchor.constraint(equalTo: accountHolderButton.topAnchor, constant: -45).isActive = true
+        errorLabel.widthAnchor.constraint(equalTo: view.widthAnchor, constant: -20).isActive = true
+        errorLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        errorLabel.heightAnchor.constraint(equalToConstant: 35).isActive = true
+        // Account Holder Button
+        accountHolderButton.bottomAnchor.constraint(equalTo: registerButton.topAnchor, constant: -10).isActive = true
+        accountHolderButton.widthAnchor.constraint(equalTo: view.widthAnchor).isActive = true
+        accountHolderButton.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        accountHolderButton.heightAnchor.constraint(equalToConstant: 35).isActive = true
+        // Register Button
+        registerButton.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
+        registerButton.widthAnchor.constraint(equalTo: view.widthAnchor).isActive = true
+        registerButton.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
+        registerButton.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
+        registerButton.heightAnchor.constraint(equalToConstant: 65).isActive = true
+    }
 }
