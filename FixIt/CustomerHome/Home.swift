@@ -18,23 +18,12 @@ class Home: UIViewController {
         return view
     }()
     
-//    override func viewWillAppear(_ animated: Bool) {
-//        super.viewWillAppear(true)
-//        if loggedIn == false {
-//            let logInScreen = LoginScreen()
-//            let mainWindow = UIApplication.shared.keyWindow
-//            mainWindow?.addSubview(logInScreen.view)
-//        } else {
-//            self.navigationController?.popToRootViewController(animated: true)
-//        }
-//    }
-
     override func viewDidLoad() {
         super.viewDidLoad()
         setup()
     }
     
-    
+// MARK: - Setup
     private func setup() {
         view.backgroundColor = UIColor(red: 220/255, green: 220/255, blue: 220/255, alpha: 1.0)
         self.navigationController?.isNavigationBarHidden = false
@@ -58,7 +47,7 @@ class Home: UIViewController {
         setupConstraints()
     }
     
-    
+// MARK: - Actions
     @objc private func displayProfile(sender: UIBarButtonItem) {
         let profileSwiftUIView = UserProfile()
         let hostedView = UIHostingController(rootView: profileSwiftUIView)
@@ -72,19 +61,17 @@ class Home: UIViewController {
         self.navigationController?.present(hostedView, animated: true)
     }
     
-    
+// MARK: - Constraints
     private func setupConstraints() {
         tableView.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
         tableView.leftAnchor.constraint(equalTo: view.leftAnchor).isActive = true
         tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
         tableView.rightAnchor.constraint(equalTo: view.rightAnchor).isActive = true
     }
-    
-    
 } // Class End
 
 
-
+// MARK: - TableView Extensions
 extension Home: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return 5
@@ -103,16 +90,13 @@ extension Home: UITableViewDataSource {
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
-    
-    
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 115.0
-    }
 }
 
 
 
 extension Home: UITableViewDelegate {
-    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 115.0
+    }
 }
 

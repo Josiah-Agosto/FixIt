@@ -38,8 +38,9 @@ class SignUpController: UIViewController, UserLocationDelegate {
     // Protocol
     weak var protocolController: LoginScreen?
     // Variables
-    var employeeSignIn: Bool = false
+    var isEmployeeSwitchOn: Bool = false
     var userLocationName: String? = ""
+    var userState: String? = ""
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -51,8 +52,6 @@ class SignUpController: UIViewController, UserLocationDelegate {
     private func setup() {
         self.navigationController?.isNavigationBarHidden = true
         self.view.backgroundColor = UIColor(red: 220/255, green: 220/255, blue: 220/255, alpha: 1.0)
-        // Protocol
-//        protocolController?.delegate = self
         // Label
         signUpLabel.text = "Register"
         signUpLabel.textAlignment = NSTextAlignment.center
@@ -74,6 +73,7 @@ class SignUpController: UIViewController, UserLocationDelegate {
         nameField.layer.shadowOpacity = 0.5
         nameField.layer.masksToBounds = false
         nameField.backgroundColor = UIColor.clear
+        nameField.autocorrectionType = UITextAutocorrectionType.no
         nameField.translatesAutoresizingMaskIntoConstraints = false
         // Email
         emailField.attributedPlaceholder = NSAttributedString(string: "Email", attributes: [NSAttributedString.Key.foregroundColor: UIColor(red: 88/255, green: 88/255, blue: 88/255, alpha: 1.0)])
@@ -84,6 +84,7 @@ class SignUpController: UIViewController, UserLocationDelegate {
         emailField.layer.shadowOpacity = 0.5
         emailField.layer.masksToBounds = false
         emailField.backgroundColor = UIColor.clear
+        emailField.autocorrectionType = UITextAutocorrectionType.no
         emailField.translatesAutoresizingMaskIntoConstraints = false
         // Password
         passwordField.attributedPlaceholder = NSAttributedString(string: "Password", attributes: [NSAttributedString.Key.foregroundColor: UIColor(red: 88/255, green: 88/255, blue: 88/255, alpha: 1.0)])
@@ -97,7 +98,7 @@ class SignUpController: UIViewController, UserLocationDelegate {
         passwordField.backgroundColor = UIColor.clear
         passwordField.translatesAutoresizingMaskIntoConstraints = false
         // City
-        cityField.setTitle("Your Location: \(userLocationName ?? "Location")", for: .normal)
+        cityField.setTitle("Your Location: \(userLocationName ?? "Unable to find Location")", for: .normal)
         cityField.layer.cornerRadius = 10
         cityField.layer.shadowColor = UIColor.black.cgColor
         cityField.layer.shadowOffset = CGSize(width: 5, height: 1)
@@ -118,18 +119,19 @@ class SignUpController: UIViewController, UserLocationDelegate {
         employeeSkill.layer.masksToBounds = false
         employeeSkill.isHidden = true
         employeeSkill.backgroundColor = UIColor.clear
+        employeeSkill.autocorrectionType = UITextAutocorrectionType.no
         employeeSkill.translatesAutoresizingMaskIntoConstraints = false
         // Employee Switch
         employeeSwitch.isOn = false
         employeeSwitch.onTintColor = UIColor.black
         employeeSwitch.translatesAutoresizingMaskIntoConstraints = false
         // Employee Switch Label
-        employeeSwitchLabel.text = "Employee Sign In:"
+        employeeSwitchLabel.text = "Employee Sign Up:"
         employeeSwitchLabel.textColor = UIColor(red: 88/255, green: 88/255, blue: 88/255, alpha: 1.0)
         employeeSwitchLabel.backgroundColor = UIColor.clear
         employeeSwitchLabel.textAlignment = NSTextAlignment.left
         employeeSwitchLabel.translatesAutoresizingMaskIntoConstraints = false
-        // Error Label
+        // Error Label2
         errorLabel.text = "Error signing in, check Email and Password and Try Again."
         errorLabel.backgroundColor = UIColor.clear
         errorLabel.numberOfLines = 2
@@ -170,20 +172,25 @@ class SignUpController: UIViewController, UserLocationDelegate {
         self.view.addSubview(employeeSwitchLabel)
     }
     
-//MARK: - Delegate Function
+//MARK: - Delegate Functions
     func getLocationName(location: String) {
         userLocationName = location
+    }
+    
+    
+    func getUserState(location: String) {
+        userState = location
     }
 // MARK: - Actions
     // Employee Sign in or Not
     @objc private func signedInWithEmployee(sender: UISwitch) {
         switch sender.isOn {
         case true:
-            employeeSignIn = true
+            isEmployeeSwitchOn = true
             self.errorLabel.isHidden = true
             self.employeeSkill.isHidden = false
         case false:
-            employeeSignIn = false
+            isEmployeeSwitchOn = false
             self.errorLabel.isHidden = true
             self.employeeSkill.isHidden = true
         }
@@ -191,55 +198,7 @@ class SignUpController: UIViewController, UserLocationDelegate {
     
     // MARK: Firebase Authentication
     @objc func createSpecifiedUser(sender: UIButton) {
-        guard let email = emailField.text, let password = passwordField.text, let name = nameField.text, let location = userLocationName, let skill = employeeSkill.text else {
-            errorLabel.isHidden = false
-            errorLabel.text = "Invalid Form"
-            loggedIn = false
-            return
-        }
-        // Create User
-        Auth.auth().createUser(withEmail: email, password: password) { (user, error) in
-            guard let uid = user?.user.uid else { return }
-            if error != nil {
-                self.errorLabel.isHidden = false
-                loggedIn = false
-                self.errorLabel.text = "\(error!.localizedDescription)"
-            } else {
-                let home = Home()
-                if self.employeeSignIn == true {
-                    // Employees
-                    let employeeReference = dbReference.child("Employees").child(uid)
-                    let employeeValues = ["name": name, "email": email, "location": location, "skill": skill]
-                    employeeReference.updateChildValues(employeeValues) { (error, _) in
-                        if error != nil {
-                            self.errorLabel.isHidden = false
-                            self.errorLabel.text = "Error indexing values"
-                        }
-                        loggedIn = true
-                        print("Login from Sign Up: \(loggedIn)")
-                        self.saveSetting()
-                        self.show(home, sender: self)
-                    }
-                } else if self.employeeSignIn == false {
-                    // Customers
-                    // Customer
-                    let customerReference = dbReference.child("Customers").child(uid)
-                    let customerValues = ["name": name, "email": email, "location": location]
-                    customerReference.updateChildValues(customerValues) { (error, _) in
-                        if error != nil {
-                            self.errorLabel.isHidden = false
-                            self.errorLabel.text = "Error indexing values"
-                        }
-                        loggedIn = true
-                        print("Login from Sign Up: \(loggedIn)")
-                        self.saveSetting()
-                        self.show(home, sender: self)
-                    }
-//                    dbReference.child("Open_Orders")
-                } // Elses else
-            } // Else End
-        } // Auth End
-        errorLabel.isHidden = false
+        createUserDetails()
     } // createSpecificUser Func End
     
     // MARK: - Map View Action
@@ -257,6 +216,72 @@ class SignUpController: UIViewController, UserLocationDelegate {
     func saveSetting() {
         defaults.set(loggedIn, forKey: "logInKey")
     }
+    
+//MARK: - Functions
+    private func createAtSignUpDate() -> String {
+        let signUpDate = Date()
+        let formatter = DateFormatter()
+        formatter.timeStyle = .medium
+        formatter.dateStyle = .long
+        formatter.string(from: signUpDate)
+        return formatter.string(from: signUpDate)
+    }
+    
+    
+    private func createUserDetails() {
+        guard let email = emailField.text, let password = passwordField.text, let name = nameField.text, let location = userLocationName, let skill = employeeSkill.text, let state = userState else {
+            errorLabel.isHidden = false
+            errorLabel.text = "Invalid Form"
+            loggedIn = false
+            return
+        }
+        // Create User
+        Auth.auth().createUser(withEmail: email, password: password) { (user, error) in
+            guard let uid = user?.user.uid else { return }
+            if error != nil {
+                loggedIn = false
+                DispatchQueue.main.async {
+                    self.errorLabel.isHidden = true
+                    self.errorLabel.text = "\(error!.localizedDescription)"
+                }
+            } else {
+                let home = Home()
+                if self.isEmployeeSwitchOn == true {
+                    // Employees
+                    isCustomer = false
+                    let employeeReference = dbReference.child("Employees").child("UsersById").child(uid)
+                    let employeeValues = ["name": name, "email": email, "location": location, "skill": skill, "state": state, "signedUp": self.createAtSignUpDate(), "employee": isCustomer] as [String : Any]
+                    employeeReference.updateChildValues(employeeValues) { (error, _) in
+                        if error != nil {
+                            self.errorLabel.isHidden = false
+                            self.errorLabel.text = "Error indexing values"
+                        }
+                        loggedIn = true
+                        print("Login from Sign Up2: \(loggedIn)")
+                        self.saveSetting()
+                        print("After save settings2: \(loggedIn)")
+                        self.navigationController?.show(home, sender: self)
+                    }
+                } else if self.isEmployeeSwitchOn == false {
+                    // Customer
+                    isCustomer = true
+                    let customerReference = dbReference.child("Customers").child("UsersById").child(uid)
+                    let customerValues = ["name": name, "email": email, "location": location, "state": state, "signedUp": self.createAtSignUpDate(), "employee": isCustomer] as [String : Any]
+                    customerReference.updateChildValues(customerValues) { (error, _) in
+                        if error != nil {
+                            self.errorLabel.isHidden = false
+                            self.errorLabel.text = "Error indexing values"
+                        }
+                        loggedIn = true
+                        print("Login from Sign Up1: \(loggedIn)")
+                        self.saveSetting()
+                        print("After save settings1: \(loggedIn)")
+                        self.navigationController?.show(home, sender: self)
+                    }
+                } // Elses else
+            } // Else End
+        } // Auth End
+    } // Func End
 } // Class End
 
 

@@ -10,4 +10,5 @@ import Foundation
 
 protocol UserLocationDelegate: class {
     func getLocationName(location: String)
+    func getUserState(location: String)
 }

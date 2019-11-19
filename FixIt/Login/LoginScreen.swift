@@ -10,6 +10,8 @@ import UIKit
 import Firebase
 import CoreLocation
 
+// TODO: - Add Geofence and fix Label issues from isCustomer.
+
 class LoginScreen: UIViewController {
     // Login Label
     private let loginLabel = UILabel(frame: CGRect.zero)
@@ -24,9 +26,10 @@ class LoginScreen: UIViewController {
     // Login Button
     private let loginButton = UIButton(frame: CGRect.zero)
     // Location Manager
-    let locationManager = CLLocationManager()
+    private let locationManager = CLLocationManager()
     var delegate: UserLocationDelegate?
     var userTownAndState: String = ""
+    var userState: String = ""
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
@@ -35,8 +38,8 @@ class LoginScreen: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        setup()
         checkForLoggedIn()
+        setup()
         setupConstraints()
     }
     
@@ -64,6 +67,7 @@ class LoginScreen: UIViewController {
         emailField.layer.borderColor = UIColor.lightGray.cgColor
         emailField.layer.borderWidth = 1
         emailField.translatesAutoresizingMaskIntoConstraints = false
+        emailField.autocorrectionType = UITextAutocorrectionType.no
         let emailEmptyView = UIView()
         emailEmptyView.frame = CGRect(x: 0, y: 0, width: 10, height: 10)
         emailField.leftViewMode = .always
@@ -75,7 +79,9 @@ class LoginScreen: UIViewController {
         passwordField.layer.cornerRadius = 5
         passwordField.layer.borderColor = UIColor.lightGray.cgColor
         passwordField.layer.borderWidth = 1
+        passwordField.autocorrectionType = UITextAutocorrectionType.no
         passwordField.translatesAutoresizingMaskIntoConstraints = false
+        passwordField.isSecureTextEntry = true
         let passwordEmptyView = UIView()
         passwordEmptyView.frame = CGRect(x: 0, y: 0, width: 10, height: 10)
         passwordField.leftViewMode = .always
@@ -111,33 +117,37 @@ class LoginScreen: UIViewController {
         let signUpSheet = SignUpController()
         delegate = signUpSheet
         delegate?.getLocationName(location: userTownAndState)
-        self.navigationController?.show(signUpSheet, sender: nil)
+        delegate?.getUserState(location: userState)
+        self.navigationController?.show(signUpSheet, sender: self)
     }
     
     
     @objc private func loggingIn(sender: UIButton) {
         guard let email = emailField.text, let password = passwordField.text else {
+            errorLabel.isHidden = false
             errorLabel.text = "Invalid Inputs"
             return
         }
         // Logging In
         Auth.auth().signIn(withEmail: email, password: password) { (user, error) in
             if error != nil {
+                self.errorLabel.isHidden = false
                 self.errorLabel.text = error?.localizedDescription
             } else {
                 let home = Home()
-                self.show(home, sender: self)
-            }
-        }
-    }
+                self.errorLabel.isHidden = true
+                loggedIn = true
+                self.navigationController?.show(home, sender: self)
+            } // Else End
+        } // Auth End
+    } // Func End
     
 // MARK: - Functions
     func checkForLoggedIn() {
         let log = defaults.bool(forKey: "logInKey")
         if log {
-            print("Logged")
-            let home = Home()
-            self.show(home, sender: self)
+            print("Logged from checker100 \(loggedIn)")
+            self.navigationController?.popToRootViewController(animated: true)
         }
     }
     
@@ -146,8 +156,7 @@ class LoginScreen: UIViewController {
         if CLLocationManager.locationServicesEnabled() {
             locationManager.delegate = self
             locationManager.desiredAccuracy = kCLLocationAccuracyBest
-            locationManager.requestWhenInUseAuthorization()
-            locationManager.requestLocation()
+            locationManager.requestAlwaysAuthorization()
             getUserLocationDetails()
         } else {
             let locationDisabledAlertController = UIAlertController(title: "In order for FixIt to work, Location Services need to be Enabled.", message: "To enable go to, Settings > Privacy > Location Services", preferredStyle: .alert)
@@ -177,12 +186,18 @@ class LoginScreen: UIViewController {
             guard let placemark = placemark else { print("Error Placemarking"); return }
             
             if let town = placemark.locality {
+                self.userTownAndState = ""
                 self.userTownAndState = self.userTownAndState + "\(town),"
             }
             if let state = placemark.administrativeArea {
+                self.userState = ""
+                self.userState = self.userState + "\(state)"
                 self.userTownAndState = self.userTownAndState + " \(state)"
             }
+            
+            
             print("Real Location: \(self.userTownAndState)")
+            print("User State: \(self.userState)")
         }
     }
     
@@ -233,31 +248,28 @@ class LoginScreen: UIViewController {
         loginButton.heightAnchor.constraint(equalToConstant: 45).isActive = true
         loginButton.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         // Error Label
-        errorLabel.bottomAnchor.constraint(equalTo: loginButton.topAnchor, constant: 40).isActive = true
+        errorLabel.bottomAnchor.constraint(equalTo: loginButton.topAnchor, constant: -30).isActive = true
         errorLabel.widthAnchor.constraint(equalTo: view.widthAnchor).isActive = true
         errorLabel.heightAnchor.constraint(equalToConstant: 20).isActive = true
         errorLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
     }
 
-}
+} // Class End
 
-
+// MARK: - Delegate
 // Core Location Delegate
 extension LoginScreen: CLLocationManagerDelegate {
     func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
-        if status == .authorizedWhenInUse {
+        if status == .authorizedAlways {
             locationManager.requestLocation()
-            print("Authorized!")
         } else {
-            print("Authorization Changed")
+            print("Authorization Changed Error 251")
         }
     }
     
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-//        if let location = locations.first {
-//
-//        }
+        
     }
     
     
