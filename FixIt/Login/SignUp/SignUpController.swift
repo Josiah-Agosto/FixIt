@@ -35,8 +35,6 @@ class SignUpController: UIViewController, UserLocationDelegate {
     let accountHolderButton = UIButton(frame: CGRect.zero)
     // Login Button
     private let registerButton = UIButton(frame: CGRect.zero)
-    // Protocol
-    weak var protocolController: LoginScreen?
     // Variables
     var isEmployeeSwitchOn: Bool = false
     var userLocationName: String? = ""

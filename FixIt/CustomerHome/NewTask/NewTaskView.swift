@@ -59,18 +59,15 @@ struct NewTaskView: View {
                         self.passed = true
                         guard let currentUserId = Auth.auth().currentUser?.uid else { return }
                         self.newUser.getUserState(id: currentUserId) { (userState) in
-                            let openOrders = dbReference.child("CustomerIssues").child("OutgoingIssues").child("byState").child(userState).child(currentUserId)
+                            let openOrders = dbReference.child("CustomerIssues").child("OutgoingIssues").child("byState").child(userState).child(currentUserId).childByAutoId()
                             let userOpenOrderValues = ["sender": self.taskData.name, "taskName": self.taskNameField, "location": self.taskData.location, "description": self.detailField, "email": self.taskData.email, "dateAdded": self.newUser.dateAdded()]
-                            openOrders.updateChildValues(userOpenOrderValues) { (error, reference) in
+                            self.userIssues = userOpenOrderValues
+                            openOrders.updateChildValues(self.userIssues) { (error, reference) in
                                 if error != nil {
                                     self.errorField = error!.localizedDescription
                                 }
-                                print("New Task Reference: \(reference)")
-                                print("Added new Task")
-                                
                             }
-                            print("Passed constraints: \(self.passed)")
-                        }
+                        } // getUserState Func End
                     } else {
                         self.passed = false
                         print("Passed constraints: \(self.passed)")
@@ -83,6 +80,7 @@ struct NewTaskView: View {
             .edgesIgnoringSafeArea(.bottom)
     } // body End
 }
+
 
 struct NewTaskView_Previews: PreviewProvider {
     static var previews: some View {

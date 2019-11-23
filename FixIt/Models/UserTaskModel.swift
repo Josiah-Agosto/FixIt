@@ -8,18 +8,20 @@
 
 import Foundation
 
-struct UserTaskModel: Hashable {
-    var sender: String?
-    var location: String?
-    var description: String?
-    var email: String?
-    var dateAdded: String?
+struct UserTaskModel {
+    var userDateAdded: String
+    var taskDescription: String
+    var userEmail: String?
+    var userLocation: String?
+    var userName: String
+    var userTaskName: String
     
-    init(data: [AnyHashable: Any]) {
-        sender = data["sender"] as? String ?? ""
-        location = data["location"] as? String ?? ""
-        description = data["description"] as? String ?? ""
-        email = data["email"] as? String ?? ""
-        dateAdded = data["dateAdded"] as? String ?? ""
+    init(userTaskName: String, userName: String, userTaskDescription: String, userEmail: String?, userLocation: String?, userTaskDate: String) {
+        self.userTaskName = userTaskName
+        self.userName = userName
+        self.taskDescription = userTaskDescription
+        self.userEmail = userEmail ?? "Add Email in Profile"
+        self.userLocation = userLocation ?? "Unavailable Location"
+        self.userDateAdded = userTaskDate
     }
 }

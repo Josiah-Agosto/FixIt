@@ -94,7 +94,6 @@ class MapViewController: UIViewController {
 // MARK: - Search Controller Updater Protocol
 extension MapViewController: UISearchResultsUpdating {
     func updateSearchResults(for searchController: UISearchController) {
-        
     }
 }
 

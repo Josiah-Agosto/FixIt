@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		BD2F0FEA2384F78700C1E694 /* HomeTableViewDataProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD2F0FE92384F78700C1E694 /* HomeTableViewDataProtocol.swift */; };
+		BDD3D8F0238729F70028F37E /* HomeTableViewData.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDD3D8EF238729F70028F37E /* HomeTableViewData.swift */; };
 		BDF98EBC236B8047007A4F3A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDF98EBB236B8047007A4F3A /* AppDelegate.swift */; };
 		BDF98EBE236B8047007A4F3A /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDF98EBD236B8047007A4F3A /* SceneDelegate.swift */; };
 		BDF98EC0236B8047007A4F3A /* Home.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDF98EBF236B8047007A4F3A /* Home.swift */; };
@@ -33,6 +35,8 @@
 		3BE90E8DAB03F1C8E5D08D52 /* Pods-FixIt.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FixIt.debug.xcconfig"; path = "Target Support Files/Pods-FixIt/Pods-FixIt.debug.xcconfig"; sourceTree = "<group>"; };
 		8EB849628EBC261BA254149A /* Pods_FixIt.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_FixIt.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		8FB8D913EC9EEBA0FC54A6FF /* Pods-FixIt.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FixIt.release.xcconfig"; path = "Target Support Files/Pods-FixIt/Pods-FixIt.release.xcconfig"; sourceTree = "<group>"; };
+		BD2F0FE92384F78700C1E694 /* HomeTableViewDataProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeTableViewDataProtocol.swift; sourceTree = "<group>"; };
+		BDD3D8EF238729F70028F37E /* HomeTableViewData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeTableViewData.swift; sourceTree = "<group>"; };
 		BDF98EB8236B8047007A4F3A /* FixIt.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FixIt.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BDF98EBB236B8047007A4F3A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		BDF98EBD236B8047007A4F3A /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -198,6 +202,8 @@
 			children = (
 				BDF98F092370C1E7007A4F3A /* ProfileDataModel.swift */,
 				BDF98F00236E592C007A4F3A /* TaskDataModel.swift */,
+				BDD3D8EF238729F70028F37E /* HomeTableViewData.swift */,
+				BD2F0FE92384F78700C1E694 /* HomeTableViewDataProtocol.swift */,
 			);
 			path = DataModels;
 			sourceTree = "<group>";
@@ -331,7 +337,9 @@
 				BDF98F0723709F6D007A4F3A /* UserProfile.swift in Sources */,
 				BDF98EBE236B8047007A4F3A /* SceneDelegate.swift in Sources */,
 				BDF98F1123729DB7007A4F3A /* UserLocationDelegate.swift in Sources */,
+				BDD3D8F0238729F70028F37E /* HomeTableViewData.swift in Sources */,
 				BDF98EF6236E22CC007A4F3A /* CustomerModel.swift in Sources */,
+				BD2F0FEA2384F78700C1E694 /* HomeTableViewDataProtocol.swift in Sources */,
 				BDF98F0A2370C1E7007A4F3A /* ProfileDataModel.swift in Sources */,
 				BDF98F01236E592C007A4F3A /* TaskDataModel.swift in Sources */,
 				BDF98EDF236BC943007A4F3A /* SignUpController.swift in Sources */,

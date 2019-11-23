@@ -194,10 +194,6 @@ class LoginScreen: UIViewController {
                 self.userState = self.userState + "\(state)"
                 self.userTownAndState = self.userTownAndState + " \(state)"
             }
-            
-            
-            print("Real Location: \(self.userTownAndState)")
-            print("User State: \(self.userState)")
         }
     }
     

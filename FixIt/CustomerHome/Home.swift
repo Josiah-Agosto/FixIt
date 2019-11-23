@@ -10,19 +10,22 @@ import Foundation
 import UIKit
 import SwiftUI
 
-class Home: UIViewController {
+class Home: UIViewController, HomeTableViewDataProtocol {
     let tableView: UITableView = {
         let view = UITableView()
         view.translatesAutoresizingMaskIntoConstraints = false
         view.allowsSelection = true
         return view
     }()
+    // For Protocol
+    private var homeData = HomeTableViewData()
+    // User Variables
+    private var userTaskHolder: [UserTaskModel] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
         setup()
     }
-    
 // MARK: - Setup
     private func setup() {
         view.backgroundColor = UIColor(red: 220/255, green: 220/255, blue: 220/255, alpha: 1.0)
@@ -34,6 +37,8 @@ class Home: UIViewController {
         tableView.delegate = self
         tableView.dataSource = self
         tableView.register(CustomerCell.self, forCellReuseIdentifier: "cellId")
+        // Table View Protocol
+        homeData.delegate = self
         // Navigation Bar
         self.title = "Tasks"
         let leftButtonImage = UIImage(systemName: "person.circle")?.withTintColor(UIColor.black, renderingMode: .alwaysOriginal)
@@ -61,6 +66,14 @@ class Home: UIViewController {
         self.navigationController?.present(hostedView, animated: true)
     }
     
+// MARK: - Protocol
+    func retrieveUserTasks(userTaskData: [UserTaskModel]) {
+        for task in userTaskData {
+            userTaskHolder.append(task)
+        }
+        self.tableView.reloadData()
+    }
+    
 // MARK: - Constraints
     private func setupConstraints() {
         tableView.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
@@ -74,15 +87,16 @@ class Home: UIViewController {
 // MARK: - TableView Extensions
 extension Home: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 5
+        return userTaskHolder.count
     }
     
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cellId", for: indexPath) as! CustomerCell
-        cell.taskName.text = "Put up a Ceiling Fan"
-        cell.descriptionLabel.text = "Some stuff here just for now to see how it looks. Some stuff here just for now to see how it looks. Some stuff here just for now to see how it looks. Some stuff here just for now to see how it looks. Some stuff here just for now to see how it looks."
-        cell.userName.text = "Josiah Agosto"
+        let modelForIndex = userTaskHolder[indexPath.row] as UserTaskModel
+        cell.taskName.text = modelForIndex.userTaskName
+        cell.descriptionLabel.text = modelForIndex.taskDescription
+        cell.userName.text = modelForIndex.userName
         return cell
     }
     
