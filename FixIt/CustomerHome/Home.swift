@@ -104,7 +104,7 @@ extension Home: UITableViewDataSource {
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
-}
+} // DataSource End
 
 
 
@@ -112,5 +112,5 @@ extension Home: UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 115.0
     }
-}
+} // Delegate End
 

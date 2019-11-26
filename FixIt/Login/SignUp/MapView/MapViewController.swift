@@ -25,9 +25,10 @@ class MapViewController: UIViewController {
     let searchControllerTableView: UITableView = {
         let tableView = UITableView(frame: CGRect.zero)
         tableView.translatesAutoresizingMaskIntoConstraints = false
-        tableView.isHidden = true
         return tableView
     }()
+    // Variables
+    private var showingTableView: Bool = false
 // MARK: - View Did Load
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -35,29 +36,25 @@ class MapViewController: UIViewController {
         setupConstraints()
     }
     
-// MARK: - Setup
+// MARK: - Setups
     private func setup() {
+        self.navigationController?.isNavigationBarHidden = false
         searchControllerTableView.delegate = self
         searchControllerTableView.dataSource = self
         setupSearchController()
         setupSearchBar()
+        setupTableView()
         self.view.addSubview(mapView)
         self.view.addSubview(searchBarContainer)
         self.view.addSubview(searchControllerTableView)
-        self.navigationController?.isNavigationBarHidden = false
     }
     
-// MARK: - Search Controller Setup
+
     private func setupSearchBar() {
         let searchBar = resultSearchController!.searchBar
         searchBar.sizeToFit()
-        searchBar.placeholder = "Search your town"
+        searchBar.placeholder = "Ex: City, State"
         searchBarContainer.addSubview(searchBar)
-        if searchBar.isUserInteractionEnabled == true {
-            searchControllerTableView.isHidden = false
-        } else {
-            searchControllerTableView.isHidden = true
-        }
     }
     
     
@@ -68,6 +65,11 @@ class MapViewController: UIViewController {
         resultSearchController?.searchBar.delegate = self
         resultSearchController?.hidesNavigationBarDuringPresentation = false
         definesPresentationContext = true
+    }
+    
+    
+    private func setupTableView() {
+        searchControllerTableView.register(MapTableViewCell.self, forCellReuseIdentifier: "cell")
     }
     
 // MARK: - Constraints
@@ -101,11 +103,19 @@ extension MapViewController: UISearchResultsUpdating {
 // MARK: - Search Bar Delegate
 extension MapViewController: UISearchBarDelegate {
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
-        
+        print("Searched")
+        showingTableView = false
     }
     
+    
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
-        
+        print("Cancelled")
+        showingTableView = false
+    }
+    
+    
+    func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
+        showingTableView = true
     }
 }
 
@@ -118,7 +128,7 @@ extension MapViewController: UITableViewDataSource {
     
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 5
+        return 0
     }
 }
 
@@ -126,7 +136,23 @@ extension MapViewController: UITableViewDataSource {
 
 extension MapViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        return UITableViewCell()
+        let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! MapTableViewCell
+        cell.locationText.text = "Stuff"
+        return cell
+    }
+    
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 40.0
+    }
+    
+    
+    override func viewWillAppear(_ animated: Bool) {
+        if showingTableView == false {
+            self.searchControllerTableView.isHidden = true
+        } else {
+            self.searchControllerTableView.isHidden = false
+        }
     }
 }
 

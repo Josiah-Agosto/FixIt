@@ -1,14 +1,15 @@
 //
-//  HomeTableViewCell.swift
+//  EmployeeCell.swift
 //  FixIt
 //
-//  Created by Josiah Agosto on 11/1/19.
+//  Created by Josiah Agosto on 11/23/19.
 //  Copyright © 2019 Josiah Agosto. All rights reserved.
 //
 
+import Foundation
 import UIKit
 
-class CustomerCell: UITableViewCell {
+class EmployeeCell: UITableViewCell {
     // Task Name
     let taskName: UILabel = {
         let label = UILabel()
@@ -50,6 +51,8 @@ class CustomerCell: UITableViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
+        // Initialization code
+        
     }
     
     

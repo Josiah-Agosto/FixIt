@@ -194,22 +194,22 @@ class SignUpController: UIViewController, UserLocationDelegate {
         }
     }
     
-    // MARK: Firebase Authentication
+// MARK: Firebase Authentication
     @objc func createSpecifiedUser(sender: UIButton) {
-        createUserDetails()
+        createUser()
     } // createSpecificUser Func End
     
-    // MARK: - Map View Action
+// MARK: - Map View Action
     @objc private func showMapView(sender: UIButton) {
         let mapViewController = MapViewController()
         self.navigationController?.present(mapViewController, animated: true)
     }
     
-    // MARK: - Account Holder Action
+// MARK: - Account Holder Action
     @objc private func accountHolderAction(sender: UIButton) {
         self.navigationController?.popToRootViewController(animated: true)
     }
-    // MARK: - Save Data
+// MARK: - Save Data
     // Sets the value set for Bool
     func saveSetting() {
         defaults.set(loggedIn, forKey: "logInKey")
@@ -226,7 +226,7 @@ class SignUpController: UIViewController, UserLocationDelegate {
     }
     
     
-    private func createUserDetails() {
+    private func createUser() {
         guard let email = emailField.text, let password = passwordField.text, let name = nameField.text, let location = userLocationName, let skill = employeeSkill.text, let state = userState else {
             errorLabel.isHidden = false
             errorLabel.text = "Invalid Form"
@@ -243,7 +243,6 @@ class SignUpController: UIViewController, UserLocationDelegate {
                     self.errorLabel.text = "\(error!.localizedDescription)"
                 }
             } else {
-                let home = Home()
                 if self.isEmployeeSwitchOn == true {
                     // Employees
                     isCustomer = false
@@ -254,11 +253,10 @@ class SignUpController: UIViewController, UserLocationDelegate {
                             self.errorLabel.isHidden = false
                             self.errorLabel.text = "Error indexing values"
                         }
+                        let employeeHome = EmployeeHome()
                         loggedIn = true
-                        print("Login from Sign Up2: \(loggedIn)")
                         self.saveSetting()
-                        print("After save settings2: \(loggedIn)")
-                        self.navigationController?.show(home, sender: self)
+                        self.navigationController?.show(employeeHome, sender: self)
                     }
                 } else if self.isEmployeeSwitchOn == false {
                     // Customer
@@ -270,11 +268,10 @@ class SignUpController: UIViewController, UserLocationDelegate {
                             self.errorLabel.isHidden = false
                             self.errorLabel.text = "Error indexing values"
                         }
+                        let customerHome = Home()
                         loggedIn = true
-                        print("Login from Sign Up1: \(loggedIn)")
                         self.saveSetting()
-                        print("After save settings1: \(loggedIn)")
-                        self.navigationController?.show(home, sender: self)
+                        self.navigationController?.show(customerHome, sender: self)
                     }
                 } // Elses else
             } // Else End

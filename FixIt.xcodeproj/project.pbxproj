@@ -8,7 +8,11 @@
 
 /* Begin PBXBuildFile section */
 		BD2F0FEA2384F78700C1E694 /* HomeTableViewDataProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD2F0FE92384F78700C1E694 /* HomeTableViewDataProtocol.swift */; };
+		BDCD448F238C5C35000C7A49 /* DataRetriever.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDCD448E238C5C35000C7A49 /* DataRetriever.swift */; };
+		BDCD4492238C60FC000C7A49 /* MapTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDCD4491238C60FC000C7A49 /* MapTableViewCell.swift */; };
 		BDD3D8F0238729F70028F37E /* HomeTableViewData.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDD3D8EF238729F70028F37E /* HomeTableViewData.swift */; };
+		BDD3D8F32389B6DB0028F37E /* EmployeeHome.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDD3D8F22389B6DB0028F37E /* EmployeeHome.swift */; };
+		BDD3D8F52389B92F0028F37E /* EmployeeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDD3D8F42389B92F0028F37E /* EmployeeCell.swift */; };
 		BDF98EBC236B8047007A4F3A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDF98EBB236B8047007A4F3A /* AppDelegate.swift */; };
 		BDF98EBE236B8047007A4F3A /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDF98EBD236B8047007A4F3A /* SceneDelegate.swift */; };
 		BDF98EC0236B8047007A4F3A /* Home.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDF98EBF236B8047007A4F3A /* Home.swift */; };
@@ -36,7 +40,11 @@
 		8EB849628EBC261BA254149A /* Pods_FixIt.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_FixIt.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		8FB8D913EC9EEBA0FC54A6FF /* Pods-FixIt.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FixIt.release.xcconfig"; path = "Target Support Files/Pods-FixIt/Pods-FixIt.release.xcconfig"; sourceTree = "<group>"; };
 		BD2F0FE92384F78700C1E694 /* HomeTableViewDataProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeTableViewDataProtocol.swift; sourceTree = "<group>"; };
+		BDCD448E238C5C35000C7A49 /* DataRetriever.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataRetriever.swift; sourceTree = "<group>"; };
+		BDCD4491238C60FC000C7A49 /* MapTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapTableViewCell.swift; sourceTree = "<group>"; };
 		BDD3D8EF238729F70028F37E /* HomeTableViewData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeTableViewData.swift; sourceTree = "<group>"; };
+		BDD3D8F22389B6DB0028F37E /* EmployeeHome.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmployeeHome.swift; sourceTree = "<group>"; };
+		BDD3D8F42389B92F0028F37E /* EmployeeCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmployeeCell.swift; sourceTree = "<group>"; };
 		BDF98EB8236B8047007A4F3A /* FixIt.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FixIt.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BDF98EBB236B8047007A4F3A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		BDF98EBD236B8047007A4F3A /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -89,6 +97,23 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		BDCD4490238C5EFD000C7A49 /* PublicClasses */ = {
+			isa = PBXGroup;
+			children = (
+				BDCD448E238C5C35000C7A49 /* DataRetriever.swift */,
+			);
+			path = PublicClasses;
+			sourceTree = "<group>";
+		};
+		BDD3D8F12389B6960028F37E /* EmployeeHome */ = {
+			isa = PBXGroup;
+			children = (
+				BDD3D8F22389B6DB0028F37E /* EmployeeHome.swift */,
+				BDD3D8F42389B92F0028F37E /* EmployeeCell.swift */,
+			);
+			path = EmployeeHome;
+			sourceTree = "<group>";
+		};
 		BDF98EAF236B8047007A4F3A = {
 			isa = PBXGroup;
 			children = (
@@ -115,6 +140,7 @@
 				BDF98EF2236E04FF007A4F3A /* Constants */,
 				BDF98ED2236B844F007A4F3A /* Login */,
 				BDF98ED3236B8456007A4F3A /* CustomerHome */,
+				BDD3D8F12389B6960028F37E /* EmployeeHome */,
 				BDF98F0523709F4C007A4F3A /* UserProfile */,
 				BDF98ED5236B8467007A4F3A /* Network Manager */,
 				BDF98ED4236B8462007A4F3A /* Models */,
@@ -204,6 +230,7 @@
 				BDF98F00236E592C007A4F3A /* TaskDataModel.swift */,
 				BDD3D8EF238729F70028F37E /* HomeTableViewData.swift */,
 				BD2F0FE92384F78700C1E694 /* HomeTableViewDataProtocol.swift */,
+				BDCD4490238C5EFD000C7A49 /* PublicClasses */,
 			);
 			path = DataModels;
 			sourceTree = "<group>";
@@ -212,6 +239,7 @@
 			isa = PBXGroup;
 			children = (
 				BDF98F0C2372205B007A4F3A /* MapViewController.swift */,
+				BDCD4491238C60FC000C7A49 /* MapTableViewCell.swift */,
 			);
 			path = MapView;
 			sourceTree = "<group>";
@@ -228,6 +256,7 @@
 				BDF98EB5236B8047007A4F3A /* Frameworks */,
 				BDF98EB6236B8047007A4F3A /* Resources */,
 				1679760D898CE12782E54B3C /* [CP] Embed Pods Frameworks */,
+				4C8CBEDE614E1D216B6A2876 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -302,6 +331,23 @@
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-FixIt/Pods-FixIt-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
+		4C8CBEDE614E1D216B6A2876 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-FixIt/Pods-FixIt-resources-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-FixIt/Pods-FixIt-resources-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-FixIt/Pods-FixIt-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		F8100D2FDACCD22426B836CC /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -337,13 +383,17 @@
 				BDF98F0723709F6D007A4F3A /* UserProfile.swift in Sources */,
 				BDF98EBE236B8047007A4F3A /* SceneDelegate.swift in Sources */,
 				BDF98F1123729DB7007A4F3A /* UserLocationDelegate.swift in Sources */,
+				BDCD4492238C60FC000C7A49 /* MapTableViewCell.swift in Sources */,
+				BDD3D8F32389B6DB0028F37E /* EmployeeHome.swift in Sources */,
 				BDD3D8F0238729F70028F37E /* HomeTableViewData.swift in Sources */,
 				BDF98EF6236E22CC007A4F3A /* CustomerModel.swift in Sources */,
+				BDD3D8F52389B92F0028F37E /* EmployeeCell.swift in Sources */,
 				BD2F0FEA2384F78700C1E694 /* HomeTableViewDataProtocol.swift in Sources */,
 				BDF98F0A2370C1E7007A4F3A /* ProfileDataModel.swift in Sources */,
 				BDF98F01236E592C007A4F3A /* TaskDataModel.swift in Sources */,
 				BDF98EDF236BC943007A4F3A /* SignUpController.swift in Sources */,
 				BDF98EE2236C8A5C007A4F3A /* CustomerCell.swift in Sources */,
+				BDCD448F238C5C35000C7A49 /* DataRetriever.swift in Sources */,
 				BDF98EFF236E484B007A4F3A /* NewTaskView.swift in Sources */,
 				BDF98ED7236B8EBD007A4F3A /* LoginScreen.swift in Sources */,
 				BDF98EF8236E2334007A4F3A /* EmployeeModel.swift in Sources */,

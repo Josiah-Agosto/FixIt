@@ -27,6 +27,7 @@ class LoginScreen: UIViewController {
     private let loginButton = UIButton(frame: CGRect.zero)
     // Location Manager
     private let locationManager = CLLocationManager()
+    // Variables
     var delegate: UserLocationDelegate?
     var userTownAndState: String = ""
     var userState: String = ""
@@ -123,23 +124,7 @@ class LoginScreen: UIViewController {
     
     
     @objc private func loggingIn(sender: UIButton) {
-        guard let email = emailField.text, let password = passwordField.text else {
-            errorLabel.isHidden = false
-            errorLabel.text = "Invalid Inputs"
-            return
-        }
-        // Logging In
-        Auth.auth().signIn(withEmail: email, password: password) { (user, error) in
-            if error != nil {
-                self.errorLabel.isHidden = false
-                self.errorLabel.text = error?.localizedDescription
-            } else {
-                let home = Home()
-                self.errorLabel.isHidden = true
-                loggedIn = true
-                self.navigationController?.show(home, sender: self)
-            } // Else End
-        } // Auth End
+        signInUser()
     } // Func End
     
 // MARK: - Functions
@@ -216,7 +201,41 @@ class LoginScreen: UIViewController {
         }
     }
     
-// MARK: - Constraints
+    
+    private func signInUser() {
+        guard let email = emailField.text, let password = passwordField.text else {
+            errorLabel.isHidden = false
+            errorLabel.text = "Invalid Inputs"
+            return
+        }
+        
+        Auth.auth().signIn(withEmail: email, password: password) { (user, error) in
+            if error != nil {
+                self.errorLabel.isHidden = false
+                self.errorLabel.text = error?.localizedDescription
+            } else {
+                guard let userId = Auth.auth().currentUser?.uid else { print("Error getting UserID, 100"); return }
+                DataRetriever().getUserAccessLevel(id: userId) { (isCustomer) in
+                    switch isCustomer {
+                    case true:
+                        print("Customer")
+                        let customerHome = Home()
+                        self.errorLabel.isHidden = true
+                        loggedIn = true
+                        self.navigationController?.show(customerHome, sender: self)
+                    case false:
+                        print("Employee")
+                        let employeeHome = EmployeeHome()
+                        self.errorLabel.isHidden = true
+                        loggedIn = true
+                        self.navigationController?.show(employeeHome, sender: self)
+                    }
+                }
+            } // Else End
+        } // Auth End
+    }
+    
+// MARK: Constraints
     private func setupConstraints() {
         // Login Label
         loginLabel.topAnchor.constraint(equalTo: view.topAnchor, constant: 50).isActive = true

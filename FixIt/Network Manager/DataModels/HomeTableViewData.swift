@@ -24,7 +24,7 @@ class HomeTableViewData {
     
     private func getUserTasks(completion: @escaping(_ userDateAdded: String, _ taskDescription: String, _ userEmail: String, _ userLocation: String, _ userName: String, _ userTaskName: String) -> Void) -> Void {
         guard let currentUserId = Auth.auth().currentUser?.uid else { return }
-        getUserState { (userState) in dbReference.child("CustomerIssues").child("OutgoingIssues").child("byState").child(userState).child(currentUserId).observeSingleEvent(of: .value, with: { (mainSnapshot) in
+        DataRetriever().getUserState { (userState) in dbReference.child("CustomerIssues").child("OutgoingIssues").child("byState").child(userState).child(currentUserId).observeSingleEvent(of: .value, with: { (mainSnapshot) in
                 if let children = mainSnapshot.children.allObjects as? [DataSnapshot] {
                     for child in children {
                         let userAutoId: String = child.key as String
@@ -54,16 +54,4 @@ class HomeTableViewData {
         } // getUserState End
     } // Func End
     
-    
-    private func getUserState(completion: @escaping (_ userState: String) -> Void) -> Void {
-        guard let userId = Auth.auth().currentUser?.uid else { return }
-        dbReference.child("Customers").child("UsersById").child(userId).observeSingleEvent(of: .value, with: { (snapshot) in
-            if let userDictionary = snapshot.value as? [String: Any] {
-                let userState = userDictionary["state"] as? String ?? "nil"
-                completion(userState)
-            }
-        }) { (error) in
-            fatalError("\(error.localizedDescription)")
-        }
-    }
 }

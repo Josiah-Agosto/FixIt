@@ -24,7 +24,7 @@ class TaskDataModel: ObservableObject {
     
     func retrieveUserData() {
         guard let userId = Auth.auth().currentUser?.uid else { print("Error getting User Id"); return }
-        getUserAccessLevel(id: userId) { (isCustomer) in
+        DataRetriever().getUserAccessLevel(id: userId) { (isCustomer) in
             switch isCustomer {
             case true:
                 dbReference.child("Customers").child("UsersById").child(userId).observeSingleEvent(of: .value, with: { (snapshot) in
@@ -64,29 +64,6 @@ class TaskDataModel: ObservableObject {
                 }
             }
         }
-    } // Func End
-    
-    
-    private func getUserAccessLevel(id userId: String, completion: @escaping (_ isEmployee: Bool) -> Void) -> Void {
-        if isCustomer == true {
-            dbReference.child("Customers").child("UsersById").child(userId).observeSingleEvent(of: .value, with: { (snapshot) in
-                if let userDictionary = snapshot.value as? [String: Any] {
-                    let userCustomer = userDictionary["employee"] as? Bool ?? false
-                    completion(userCustomer)
-                }
-            }) { (error) in
-                print(error.localizedDescription)
-            }
-        } else {
-            dbReference.child("Employees").child("UsersById").child(userId).observeSingleEvent(of: .value, with: { (snapshot) in
-                if let userDictionary = snapshot.value as? [String: Any] {
-                    let userEmployee = userDictionary["employee"] as? Bool ?? true
-                    completion(userEmployee)
-                }
-            }) { (error) in
-                print(error.localizedDescription)
-            }
-        } // Else End
     } // Func End
 
 }
