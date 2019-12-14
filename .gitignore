@@ -23,6 +23,6 @@ Packages/
 .build/
 
 # CocoaPods
-Pods
+Pods/
 
 .DS_Store
