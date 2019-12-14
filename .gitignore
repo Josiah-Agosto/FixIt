@@ -1,6 +1,6 @@
 Constants.swift
 build/
-DerivedData
+DerivedData/
 ## Various settings
 *.pbxuser
 !default.pbxuser
@@ -10,7 +10,7 @@ DerivedData
 !default.mode2v3
 *.perspectivev3
 !default.perspectivev3
-xcuserdata
+xcuserdata/
 
 ## Other
 *.xccheckout
