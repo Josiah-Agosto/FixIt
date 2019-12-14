@@ -28,7 +28,7 @@ class LoginScreen: UIViewController {
     // Location Manager
     private let locationManager = CLLocationManager()
     // Variables
-    var delegate: UserLocationDelegate?
+    var delegate: UserLocationProtocol?
     var userTownAndState: String = ""
     var userState: String = ""
     
@@ -131,7 +131,6 @@ class LoginScreen: UIViewController {
     func checkForLoggedIn() {
         let log = defaults.bool(forKey: "logInKey")
         if log {
-            print("Logged from checker100 \(loggedIn)")
             self.navigationController?.popToRootViewController(animated: true)
         }
     }
@@ -208,8 +207,7 @@ class LoginScreen: UIViewController {
             errorLabel.text = "Invalid Inputs"
             return
         }
-        
-        Auth.auth().signIn(withEmail: email, password: password) { (user, error) in
+        Auth.auth().signIn(withEmail: email, password: password) { (_, error) in
             if error != nil {
                 self.errorLabel.isHidden = false
                 self.errorLabel.text = error?.localizedDescription
@@ -217,20 +215,20 @@ class LoginScreen: UIViewController {
                 guard let userId = Auth.auth().currentUser?.uid else { print("Error getting UserID, 100"); return }
                 DataRetriever().getUserAccessLevel(id: userId) { (isCustomer) in
                     switch isCustomer {
-                    case true:
-                        print("Customer")
-                        let customerHome = Home()
-                        self.errorLabel.isHidden = true
-                        loggedIn = true
-                        self.navigationController?.show(customerHome, sender: self)
-                    case false:
-                        print("Employee")
-                        let employeeHome = EmployeeHome()
-                        self.errorLabel.isHidden = true
-                        loggedIn = true
-                        self.navigationController?.show(employeeHome, sender: self)
+                        case true:
+                            let customerHome = Home()
+                            self.errorLabel.isHidden = true
+                            loggedIn = true
+                            DataRetriever().saveSetting()
+                            self.navigationController?.show(customerHome, sender: self)
+                        case false:
+                            let employeeHome = EmployeeHome()
+                            self.errorLabel.isHidden = true
+                            loggedIn = true
+                            DataRetriever().saveSetting()
+                            self.navigationController?.show(employeeHome, sender: self)
                     }
-                }
+                } // Data Retriever End
             } // Else End
         } // Auth End
     }

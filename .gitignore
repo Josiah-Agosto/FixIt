@@ -1,1 +1,4 @@
 Constants.swift
+xcuserdata/
+Packages/
+*.xcodeproj

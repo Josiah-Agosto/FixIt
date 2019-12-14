@@ -17,7 +17,6 @@ class HomeTableViewData {
             let userData = [UserTaskModel(userTaskName: userTaskName, userName: userName, userTaskDescription: userDescription, userEmail: userEmail, userLocation: userLocation, userTaskDate: userDate)]
             var userDataArray: [UserTaskModel] = []
             userDataArray = userData
-            print(userDataArray)
             self.delegate?.retrieveUserTasks(userTaskData: userDataArray)
         }
     }
@@ -32,20 +31,20 @@ class HomeTableViewData {
                         autoIdArray.append(userAutoId)
                         // Looping through the users Tasks to get each one not just the last made
                         for id in autoIdArray {
-                            dbReference.child("CustomerIssues").child("OutgoingIssues").child("byState").child(userState).child(currentUserId).child(id).observeSingleEvent(of: .value, with: { (snapshot) in
-                                    if let userDictionary = snapshot.value as? [String: Any] {
-                                        let userDateAdded = userDictionary["dateAdded"] as? String ?? "nil"
-                                        let userTaskDescription = userDictionary["description"] as? String ?? "nil"
-                                        let userEmail = userDictionary["email"] as? String ?? "nil"
-                                        let userLocation = userDictionary["location"] as? String ?? "nil"
-                                        let userName = userDictionary["sender"] as? String ?? "nil"
-                                        let userTaskName = userDictionary["taskName"] as? String ?? "nil"
-                                        completion(userDateAdded, userTaskDescription, userEmail, userLocation, userName, userTaskName)
-                                    }
+                        dbReference.child("CustomerIssues").child("OutgoingIssues").child("byState").child(userState).child(currentUserId).child(id).observeSingleEvent(of: .value, with: { (snapshot) in
+                                if let userDictionary = snapshot.value as? [String: Any] {
+                                    let userDateAdded = userDictionary["dateAdded"] as? String ?? "nil"
+                                    let userTaskDescription = userDictionary["description"] as? String ?? "nil"
+                                    let userEmail = userDictionary["email"] as? String ?? "nil"
+                                    let userLocation = userDictionary["location"] as? String ?? "nil"
+                                    let userName = userDictionary["sender"] as? String ?? "nil"
+                                    let userTaskName = userDictionary["taskName"] as? String ?? "nil"
+                                    completion(userDateAdded, userTaskDescription, userEmail, userLocation, userName, userTaskName)
+                                }
                             }) { (error) in
                                 fatalError(error.localizedDescription)
                             }
-                        }
+                        } // Loop End
                     } // Child End
                 } // Children End
         }) { (error) in

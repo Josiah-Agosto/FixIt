@@ -9,7 +9,9 @@
 /* Begin PBXBuildFile section */
 		BD2F0FEA2384F78700C1E694 /* HomeTableViewDataProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD2F0FE92384F78700C1E694 /* HomeTableViewDataProtocol.swift */; };
 		BDCD448F238C5C35000C7A49 /* DataRetriever.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDCD448E238C5C35000C7A49 /* DataRetriever.swift */; };
-		BDCD4492238C60FC000C7A49 /* MapTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDCD4491238C60FC000C7A49 /* MapTableViewCell.swift */; };
+		BDCD4494238DA3EB000C7A49 /* LocationNameProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDCD4493238DA3EB000C7A49 /* LocationNameProtocol.swift */; };
+		BDCD449723904511000C7A49 /* GeofencingMapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDCD449623904511000C7A49 /* GeofencingMapView.swift */; };
+		BDCD449A2390E8DB000C7A49 /* MapFunctions.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDCD44992390E8DB000C7A49 /* MapFunctions.swift */; };
 		BDD3D8F0238729F70028F37E /* HomeTableViewData.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDD3D8EF238729F70028F37E /* HomeTableViewData.swift */; };
 		BDD3D8F32389B6DB0028F37E /* EmployeeHome.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDD3D8F22389B6DB0028F37E /* EmployeeHome.swift */; };
 		BDD3D8F52389B92F0028F37E /* EmployeeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDD3D8F42389B92F0028F37E /* EmployeeCell.swift */; };
@@ -29,8 +31,8 @@
 		BDF98F01236E592C007A4F3A /* TaskDataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDF98F00236E592C007A4F3A /* TaskDataModel.swift */; };
 		BDF98F0723709F6D007A4F3A /* UserProfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDF98F0623709F6D007A4F3A /* UserProfile.swift */; };
 		BDF98F0A2370C1E7007A4F3A /* ProfileDataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDF98F092370C1E7007A4F3A /* ProfileDataModel.swift */; };
-		BDF98F0D2372205B007A4F3A /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDF98F0C2372205B007A4F3A /* MapViewController.swift */; };
-		BDF98F1123729DB7007A4F3A /* UserLocationDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDF98F1023729DB7007A4F3A /* UserLocationDelegate.swift */; };
+		BDF98F0D2372205B007A4F3A /* PlacesSearchController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDF98F0C2372205B007A4F3A /* PlacesSearchController.swift */; };
+		BDF98F1123729DB7007A4F3A /* UserLocationProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDF98F1023729DB7007A4F3A /* UserLocationProtocol.swift */; };
 		BDF98F132377B0BC007A4F3A /* UserTaskModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDF98F122377B0BC007A4F3A /* UserTaskModel.swift */; };
 		C87FB683170D164CCF4B46E9 /* Pods_FixIt.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8EB849628EBC261BA254149A /* Pods_FixIt.framework */; };
 /* End PBXBuildFile section */
@@ -41,7 +43,9 @@
 		8FB8D913EC9EEBA0FC54A6FF /* Pods-FixIt.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FixIt.release.xcconfig"; path = "Target Support Files/Pods-FixIt/Pods-FixIt.release.xcconfig"; sourceTree = "<group>"; };
 		BD2F0FE92384F78700C1E694 /* HomeTableViewDataProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeTableViewDataProtocol.swift; sourceTree = "<group>"; };
 		BDCD448E238C5C35000C7A49 /* DataRetriever.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataRetriever.swift; sourceTree = "<group>"; };
-		BDCD4491238C60FC000C7A49 /* MapTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapTableViewCell.swift; sourceTree = "<group>"; };
+		BDCD4493238DA3EB000C7A49 /* LocationNameProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationNameProtocol.swift; sourceTree = "<group>"; };
+		BDCD449623904511000C7A49 /* GeofencingMapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeofencingMapView.swift; sourceTree = "<group>"; };
+		BDCD44992390E8DB000C7A49 /* MapFunctions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapFunctions.swift; sourceTree = "<group>"; };
 		BDD3D8EF238729F70028F37E /* HomeTableViewData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeTableViewData.swift; sourceTree = "<group>"; };
 		BDD3D8F22389B6DB0028F37E /* EmployeeHome.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmployeeHome.swift; sourceTree = "<group>"; };
 		BDD3D8F42389B92F0028F37E /* EmployeeCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmployeeCell.swift; sourceTree = "<group>"; };
@@ -63,8 +67,8 @@
 		BDF98F00236E592C007A4F3A /* TaskDataModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskDataModel.swift; sourceTree = "<group>"; };
 		BDF98F0623709F6D007A4F3A /* UserProfile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfile.swift; sourceTree = "<group>"; };
 		BDF98F092370C1E7007A4F3A /* ProfileDataModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileDataModel.swift; sourceTree = "<group>"; };
-		BDF98F0C2372205B007A4F3A /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
-		BDF98F1023729DB7007A4F3A /* UserLocationDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserLocationDelegate.swift; sourceTree = "<group>"; };
+		BDF98F0C2372205B007A4F3A /* PlacesSearchController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlacesSearchController.swift; sourceTree = "<group>"; };
+		BDF98F1023729DB7007A4F3A /* UserLocationProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserLocationProtocol.swift; sourceTree = "<group>"; };
 		BDF98F122377B0BC007A4F3A /* UserTaskModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserTaskModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -97,12 +101,28 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		BDCD4490238C5EFD000C7A49 /* PublicClasses */ = {
+		BDCD4490238C5EFD000C7A49 /* Public Functions */ = {
 			isa = PBXGroup;
 			children = (
 				BDCD448E238C5C35000C7A49 /* DataRetriever.swift */,
 			);
-			path = PublicClasses;
+			path = "Public Functions";
+			sourceTree = "<group>";
+		};
+		BDCD44952390442A000C7A49 /* GeofenceMapView */ = {
+			isa = PBXGroup;
+			children = (
+				BDCD449623904511000C7A49 /* GeofencingMapView.swift */,
+			);
+			path = GeofenceMapView;
+			sourceTree = "<group>";
+		};
+		BDCD44982390E8C5000C7A49 /* MapFunctions */ = {
+			isa = PBXGroup;
+			children = (
+				BDCD44992390E8DB000C7A49 /* MapFunctions.swift */,
+			);
+			path = MapFunctions;
 			sourceTree = "<group>";
 		};
 		BDD3D8F12389B6960028F37E /* EmployeeHome */ = {
@@ -110,6 +130,7 @@
 			children = (
 				BDD3D8F22389B6DB0028F37E /* EmployeeHome.swift */,
 				BDD3D8F42389B92F0028F37E /* EmployeeCell.swift */,
+				BDCD44952390442A000C7A49 /* GeofenceMapView */,
 			);
 			path = EmployeeHome;
 			sourceTree = "<group>";
@@ -156,7 +177,7 @@
 			isa = PBXGroup;
 			children = (
 				BDF98ED6236B8EBD007A4F3A /* LoginScreen.swift */,
-				BDF98F1023729DB7007A4F3A /* UserLocationDelegate.swift */,
+				BDF98F1023729DB7007A4F3A /* UserLocationProtocol.swift */,
 				BDF98EE0236BCEF2007A4F3A /* SignUp */,
 			);
 			path = Login;
@@ -230,7 +251,7 @@
 				BDF98F00236E592C007A4F3A /* TaskDataModel.swift */,
 				BDD3D8EF238729F70028F37E /* HomeTableViewData.swift */,
 				BD2F0FE92384F78700C1E694 /* HomeTableViewDataProtocol.swift */,
-				BDCD4490238C5EFD000C7A49 /* PublicClasses */,
+				BDCD4490238C5EFD000C7A49 /* Public Functions */,
 			);
 			path = DataModels;
 			sourceTree = "<group>";
@@ -238,8 +259,9 @@
 		BDF98F0B2372200E007A4F3A /* MapView */ = {
 			isa = PBXGroup;
 			children = (
-				BDF98F0C2372205B007A4F3A /* MapViewController.swift */,
-				BDCD4491238C60FC000C7A49 /* MapTableViewCell.swift */,
+				BDF98F0C2372205B007A4F3A /* PlacesSearchController.swift */,
+				BDCD4493238DA3EB000C7A49 /* LocationNameProtocol.swift */,
+				BDCD44982390E8C5000C7A49 /* MapFunctions */,
 			);
 			path = MapView;
 			sourceTree = "<group>";
@@ -381,14 +403,15 @@
 				BDF98F132377B0BC007A4F3A /* UserTaskModel.swift in Sources */,
 				BDF98EBC236B8047007A4F3A /* AppDelegate.swift in Sources */,
 				BDF98F0723709F6D007A4F3A /* UserProfile.swift in Sources */,
+				BDCD449723904511000C7A49 /* GeofencingMapView.swift in Sources */,
 				BDF98EBE236B8047007A4F3A /* SceneDelegate.swift in Sources */,
-				BDF98F1123729DB7007A4F3A /* UserLocationDelegate.swift in Sources */,
-				BDCD4492238C60FC000C7A49 /* MapTableViewCell.swift in Sources */,
+				BDF98F1123729DB7007A4F3A /* UserLocationProtocol.swift in Sources */,
 				BDD3D8F32389B6DB0028F37E /* EmployeeHome.swift in Sources */,
 				BDD3D8F0238729F70028F37E /* HomeTableViewData.swift in Sources */,
 				BDF98EF6236E22CC007A4F3A /* CustomerModel.swift in Sources */,
 				BDD3D8F52389B92F0028F37E /* EmployeeCell.swift in Sources */,
 				BD2F0FEA2384F78700C1E694 /* HomeTableViewDataProtocol.swift in Sources */,
+				BDCD449A2390E8DB000C7A49 /* MapFunctions.swift in Sources */,
 				BDF98F0A2370C1E7007A4F3A /* ProfileDataModel.swift in Sources */,
 				BDF98F01236E592C007A4F3A /* TaskDataModel.swift in Sources */,
 				BDF98EDF236BC943007A4F3A /* SignUpController.swift in Sources */,
@@ -398,7 +421,8 @@
 				BDF98ED7236B8EBD007A4F3A /* LoginScreen.swift in Sources */,
 				BDF98EF8236E2334007A4F3A /* EmployeeModel.swift in Sources */,
 				BDF98EF4236E0511007A4F3A /* Constants.swift in Sources */,
-				BDF98F0D2372205B007A4F3A /* MapViewController.swift in Sources */,
+				BDF98F0D2372205B007A4F3A /* PlacesSearchController.swift in Sources */,
+				BDCD4494238DA3EB000C7A49 /* LocationNameProtocol.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -19,19 +19,9 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         guard let windowScene = (scene as? UIWindowScene) else { return }
         window = UIWindow(frame: windowScene.coordinateSpace.bounds)
         window?.windowScene = windowScene
-        let navBar = UINavigationController(rootViewController: loggedIn ? Home() : LoginScreen())
+        let navBar = UINavigationController(rootViewController: LoginScreen())
         navBar.navigationBar.shadowImage = UIImage()
         navBar.isNavigationBarHidden = true
-//        switch loggedIn {
-//        case true:
-//            print("Is it true: \(loggedIn)")
-//            let home = Home()
-//            navBar.show(home, sender: navBar.view)
-//        case false:
-//            print("Is it false: \(loggedIn)")
-//            let login = LoginScreen()
-//            navBar.show(login, sender: navBar.view)
-//        }
         window?.rootViewController = navBar
         window?.makeKeyAndVisible()
     }

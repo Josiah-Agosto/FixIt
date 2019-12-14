@@ -9,7 +9,7 @@
 import UIKit
 import Firebase
 
-class SignUpController: UIViewController, UserLocationDelegate {
+class SignUpController: UIViewController, UserLocationProtocol, LocationNameProtocol {
 // MARK: - Constants
     // Empty View
     private let emptyView = UIView(frame: CGRect.zero)
@@ -36,7 +36,9 @@ class SignUpController: UIViewController, UserLocationDelegate {
     // Login Button
     private let registerButton = UIButton(frame: CGRect.zero)
     // Variables
-    var isEmployeeSwitchOn: Bool = false
+    lazy var customerHome = Home()
+    lazy var employeeHome = EmployeeHome()
+    private var localIsCustomer: Bool = true
     var userLocationName: String? = ""
     var userState: String? = ""
     
@@ -129,7 +131,7 @@ class SignUpController: UIViewController, UserLocationDelegate {
         employeeSwitchLabel.backgroundColor = UIColor.clear
         employeeSwitchLabel.textAlignment = NSTextAlignment.left
         employeeSwitchLabel.translatesAutoresizingMaskIntoConstraints = false
-        // Error Label2
+        // Error Label
         errorLabel.text = "Error signing in, check Email and Password and Try Again."
         errorLabel.backgroundColor = UIColor.clear
         errorLabel.numberOfLines = 2
@@ -145,9 +147,10 @@ class SignUpController: UIViewController, UserLocationDelegate {
         accountHolderButton.titleLabel?.font = UIFont.systemFont(ofSize: 15)
         accountHolderButton.setTitleColor(UIColor.red, for: .normal)
         accountHolderButton.translatesAutoresizingMaskIntoConstraints = false
-        // Login Button
+        // Register Button
         registerButton.setTitleColor(UIColor.white, for: .normal)
         registerButton.setTitle("Register", for: .normal)
+        registerButton.layer.cornerRadius = 20
         registerButton.backgroundColor = UIColor(red: 77/255, green: 130/255, blue: 199/255, alpha: 1.0)
         registerButton.translatesAutoresizingMaskIntoConstraints = false
         // Actions
@@ -171,6 +174,7 @@ class SignUpController: UIViewController, UserLocationDelegate {
     }
     
 //MARK: - Delegate Functions
+    // User Location Delegate Functions
     func getLocationName(location: String) {
         userLocationName = location
     }
@@ -179,40 +183,44 @@ class SignUpController: UIViewController, UserLocationDelegate {
     func getUserState(location: String) {
         userState = location
     }
+    
+    // Location Name Delegate Functions
+    func userEnteredLocation(forString: String) {
+        cityField.setTitle(forString, for: .normal)
+        print("New Location Set")
+    }
 // MARK: - Actions
     // Employee Sign in or Not
     @objc private func signedInWithEmployee(sender: UISwitch) {
         switch sender.isOn {
         case true:
-            isEmployeeSwitchOn = true
+            isCustomer = false
+            localIsCustomer = false
             self.errorLabel.isHidden = true
             self.employeeSkill.isHidden = false
         case false:
-            isEmployeeSwitchOn = false
+            print("Is False")
+            isCustomer = true
+            localIsCustomer = true
             self.errorLabel.isHidden = true
             self.employeeSkill.isHidden = true
         }
     }
     
 // MARK: Firebase Authentication
-    @objc func createSpecifiedUser(sender: UIButton) {
+    @objc private func createSpecifiedUser(sender: UIButton) {
         createUser()
     } // createSpecificUser Func End
     
 // MARK: - Map View Action
     @objc private func showMapView(sender: UIButton) {
-        let mapViewController = MapViewController()
-        self.navigationController?.present(mapViewController, animated: true)
+        let placesController = PlacesSearchController()
+        self.navigationController?.present(placesController, animated: true)
     }
     
 // MARK: - Account Holder Action
     @objc private func accountHolderAction(sender: UIButton) {
         self.navigationController?.popToRootViewController(animated: true)
-    }
-// MARK: - Save Data
-    // Sets the value set for Bool
-    func saveSetting() {
-        defaults.set(loggedIn, forKey: "logInKey")
     }
     
 //MARK: - Functions
@@ -231,50 +239,44 @@ class SignUpController: UIViewController, UserLocationDelegate {
             errorLabel.isHidden = false
             errorLabel.text = "Invalid Form"
             loggedIn = false
+            print("Invalid Text")
             return
         }
         // Create User
         Auth.auth().createUser(withEmail: email, password: password) { (user, error) in
-            guard let uid = user?.user.uid else { return }
-            if error != nil {
-                loggedIn = false
-                DispatchQueue.main.async {
-                    self.errorLabel.isHidden = true
-                    self.errorLabel.text = "\(error!.localizedDescription)"
+            guard let uid = Auth.auth().currentUser?.uid else { print("Error getting User Id"); return }
+            switch self.localIsCustomer {
+            case true:
+                // Customer
+                isCustomer = true
+                let customerReference = dbReference.child("Users").child("byId").child(uid)
+                let customerValues = ["name": name, "email": email, "location": location, "state": state, "signedUp": self.createAtSignUpDate(), "isCustomer": self.localIsCustomer] as [String : Any]
+                customerReference.updateChildValues(customerValues) { (error, _) in
+                    if error != nil {
+                        self.errorLabel.isHidden = false
+                        self.errorLabel.text = "Error indexing values"
+                    }
+                    loggedIn = true
+                    DataRetriever().saveSetting()
+                    print("New Data: \(self.localIsCustomer)")
+                    self.navigationController?.show(self.customerHome, sender: self)
                 }
-            } else {
-                if self.isEmployeeSwitchOn == true {
-                    // Employees
-                    isCustomer = false
-                    let employeeReference = dbReference.child("Employees").child("UsersById").child(uid)
-                    let employeeValues = ["name": name, "email": email, "location": location, "skill": skill, "state": state, "signedUp": self.createAtSignUpDate(), "employee": isCustomer] as [String : Any]
-                    employeeReference.updateChildValues(employeeValues) { (error, _) in
-                        if error != nil {
-                            self.errorLabel.isHidden = false
-                            self.errorLabel.text = "Error indexing values"
-                        }
-                        let employeeHome = EmployeeHome()
-                        loggedIn = true
-                        self.saveSetting()
-                        self.navigationController?.show(employeeHome, sender: self)
+            case false:
+                // Employee
+                isCustomer = false
+                let employeeReference = dbReference.child("Users").child("byId").child(uid)
+                let employeeValues = ["name": name, "email": email, "location": location, "skill": skill, "state": state, "signedUp": self.createAtSignUpDate(), "isCustomer": self.localIsCustomer] as [String : Any]
+                employeeReference.updateChildValues(employeeValues) { (error, _) in
+                    if error != nil {
+                        self.errorLabel.isHidden = false
+                        self.errorLabel.text = "Error indexing values"
                     }
-                } else if self.isEmployeeSwitchOn == false {
-                    // Customer
-                    isCustomer = true
-                    let customerReference = dbReference.child("Customers").child("UsersById").child(uid)
-                    let customerValues = ["name": name, "email": email, "location": location, "state": state, "signedUp": self.createAtSignUpDate(), "employee": isCustomer] as [String : Any]
-                    customerReference.updateChildValues(customerValues) { (error, _) in
-                        if error != nil {
-                            self.errorLabel.isHidden = false
-                            self.errorLabel.text = "Error indexing values"
-                        }
-                        let customerHome = Home()
-                        loggedIn = true
-                        self.saveSetting()
-                        self.navigationController?.show(customerHome, sender: self)
-                    }
-                } // Elses else
-            } // Else End
+                    loggedIn = true
+                    DataRetriever().saveSetting()
+                    print("New Data 2: \(self.localIsCustomer)")
+                    self.navigationController?.show(self.employeeHome, sender: self)
+                }
+            }
         } // Auth End
     } // Func End
 } // Class End
@@ -330,7 +332,7 @@ extension SignUpController {
         employeeSwitchLabel.trailingAnchor.constraint(equalTo: employeeSwitch.leadingAnchor).isActive = true
         employeeSwitchLabel.heightAnchor.constraint(equalToConstant: 30).isActive = true
         // Error Label
-        errorLabel.bottomAnchor.constraint(equalTo: accountHolderButton.topAnchor, constant: -45).isActive = true
+        errorLabel.bottomAnchor.constraint(equalTo: accountHolderButton.topAnchor, constant: -5).isActive = true
         errorLabel.widthAnchor.constraint(equalTo: view.widthAnchor, constant: -20).isActive = true
         errorLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         errorLabel.heightAnchor.constraint(equalToConstant: 35).isActive = true
@@ -340,10 +342,9 @@ extension SignUpController {
         accountHolderButton.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         accountHolderButton.heightAnchor.constraint(equalToConstant: 35).isActive = true
         // Register Button
-        registerButton.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
-        registerButton.widthAnchor.constraint(equalTo: view.widthAnchor).isActive = true
-        registerButton.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
-        registerButton.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
-        registerButton.heightAnchor.constraint(equalToConstant: 65).isActive = true
+        registerButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -20).isActive = true
+        registerButton.widthAnchor.constraint(equalTo: view.widthAnchor, constant: -20).isActive = true
+        registerButton.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        registerButton.heightAnchor.constraint(equalToConstant: 50).isActive = true
     }
 }

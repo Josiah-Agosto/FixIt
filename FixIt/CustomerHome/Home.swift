@@ -14,7 +14,7 @@ class Home: UIViewController, HomeTableViewDataProtocol {
     let tableView: UITableView = {
         let view = UITableView()
         view.translatesAutoresizingMaskIntoConstraints = false
-        view.allowsSelection = true
+        view.reloadData()
         return view
     }()
     // For Protocol
@@ -26,6 +26,13 @@ class Home: UIViewController, HomeTableViewDataProtocol {
         super.viewDidLoad()
         setup()
     }
+    
+    
+    override func viewDidAppear(_ animated: Bool) {
+        print("viewDidAppear")
+        tableView.reloadData()
+    }
+    
 // MARK: - Setup
     private func setup() {
         view.backgroundColor = UIColor(red: 220/255, green: 220/255, blue: 220/255, alpha: 1.0)
@@ -76,10 +83,10 @@ class Home: UIViewController, HomeTableViewDataProtocol {
     
 // MARK: - Constraints
     private func setupConstraints() {
-        tableView.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
-        tableView.leftAnchor.constraint(equalTo: view.leftAnchor).isActive = true
-        tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
-        tableView.rightAnchor.constraint(equalTo: view.rightAnchor).isActive = true
+        tableView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        tableView.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
+        tableView.widthAnchor.constraint(equalTo: view.widthAnchor).isActive = true
+        tableView.heightAnchor.constraint(equalTo: view.heightAnchor).isActive = true
     }
 } // Class End
 
