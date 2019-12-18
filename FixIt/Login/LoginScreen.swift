@@ -10,8 +10,6 @@ import UIKit
 import Firebase
 import CoreLocation
 
-// TODO: - Add Geofence and fix Label issues from isCustomer.
-
 class LoginScreen: UIViewController {
     // Login Label
     private let loginLabel = UILabel(frame: CGRect.zero)
@@ -28,6 +26,8 @@ class LoginScreen: UIViewController {
     // Location Manager
     private let locationManager = CLLocationManager()
     // Variables
+    lazy var customerHome = Home()
+    lazy var employeeHome = EmployeeHome()
     var delegate: UserLocationProtocol?
     var userTownAndState: String = ""
     var userState: String = ""
@@ -83,6 +83,7 @@ class LoginScreen: UIViewController {
         passwordField.autocorrectionType = UITextAutocorrectionType.no
         passwordField.translatesAutoresizingMaskIntoConstraints = false
         passwordField.isSecureTextEntry = true
+        passwordField.textContentType = .password
         let passwordEmptyView = UIView()
         passwordEmptyView.frame = CGRect(x: 0, y: 0, width: 10, height: 10)
         passwordField.leftViewMode = .always
@@ -124,7 +125,34 @@ class LoginScreen: UIViewController {
     
     
     @objc private func loggingIn(sender: UIButton) {
-        signInUser()
+        guard let email = emailField.text, let password = passwordField.text else {
+            errorLabel.isHidden = false
+            errorLabel.text = "Invalid Inputs"
+            return
+        }
+        Auth.auth().signIn(withEmail: email, password: password) { (_, error) in
+            guard let userId = Auth.auth().currentUser?.uid else { print("Error getting UserID, 100"); return }
+            if error != nil {
+                self.errorLabel.isHidden = false
+                self.errorLabel.text = error!.localizedDescription
+            } else {
+                print("Child 1, \(userId)")
+                DataRetriever().getUserAccessLevel(id: userId) { (isCustomer) in
+                    switch isCustomer {
+                    case true:
+                        self.errorLabel.isHidden = true
+                        loggedIn = true
+                        DataRetriever().saveSetting()
+                        self.navigationController?.show(self.customerHome, sender: self)
+                    case false:
+                        self.errorLabel.isHidden = true
+                        loggedIn = true
+                        DataRetriever().saveSetting()
+                        self.navigationController?.show(self.employeeHome, sender: self)
+                    }
+                } // Data Retriever End
+            } // Else End
+        } // Sign In End
     } // Func End
     
 // MARK: - Functions
@@ -154,7 +182,7 @@ class LoginScreen: UIViewController {
                     }
                 }
             }))
-            locationDisabledAlertController.addAction(UIAlertAction(title: "No thanks!", style: .cancel, handler: nil))
+//            locationDisabledAlertController.addAction(UIAlertAction(title: "No thanks!", style: .cancel, handler: nil))
             present(locationDisabledAlertController, animated: true)
         }
     }
@@ -162,7 +190,7 @@ class LoginScreen: UIViewController {
     
     func getUserLocationDetails() {
         guard let userLocation = locationManager.location else {
-            print("Can't find Location")
+            locationNotFoundAlert()
             return
         }
         
@@ -182,6 +210,15 @@ class LoginScreen: UIViewController {
     }
     
     
+    private func locationNotFoundAlert() {
+        let locationUnavailableAlert = UIAlertController(title: "Location Unavailable", message: "The application requires your location", preferredStyle: .alert)
+        locationUnavailableAlert.addAction(UIAlertAction(title: "Retry", style: .default, handler: { (action) in
+            self.locationManager.requestLocation()
+        }))
+        present(locationUnavailableAlert, animated: true)
+    }
+    
+    
     private func findUsersLocationDetails(in location: CLLocation, completion: @escaping(CLPlacemark?) -> Void) {
         let geocoder = CLGeocoder()
         geocoder.reverseGeocodeLocation(location) { (placemarks, error) in
@@ -198,39 +235,6 @@ class LoginScreen: UIViewController {
             }
             completion(placemark)
         }
-    }
-    
-    
-    private func signInUser() {
-        guard let email = emailField.text, let password = passwordField.text else {
-            errorLabel.isHidden = false
-            errorLabel.text = "Invalid Inputs"
-            return
-        }
-        Auth.auth().signIn(withEmail: email, password: password) { (_, error) in
-            if error != nil {
-                self.errorLabel.isHidden = false
-                self.errorLabel.text = error?.localizedDescription
-            } else {
-                guard let userId = Auth.auth().currentUser?.uid else { print("Error getting UserID, 100"); return }
-                DataRetriever().getUserAccessLevel(id: userId) { (isCustomer) in
-                    switch isCustomer {
-                        case true:
-                            let customerHome = Home()
-                            self.errorLabel.isHidden = true
-                            loggedIn = true
-                            DataRetriever().saveSetting()
-                            self.navigationController?.show(customerHome, sender: self)
-                        case false:
-                            let employeeHome = EmployeeHome()
-                            self.errorLabel.isHidden = true
-                            loggedIn = true
-                            DataRetriever().saveSetting()
-                            self.navigationController?.show(employeeHome, sender: self)
-                    }
-                } // Data Retriever End
-            } // Else End
-        } // Auth End
     }
     
 // MARK: Constraints

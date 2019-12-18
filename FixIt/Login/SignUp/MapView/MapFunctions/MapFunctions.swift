@@ -10,7 +10,7 @@ import Foundation
 import CoreLocation
 
 class MapFunctions {
-    /// Creates a Location and converts it to a coordinate.
+    // Creates a Location and converts it to a coordinate.
     public func getCoordinateLocation(forPlaceCalled name: String, completion: @escaping(CLLocation?, String?, String?) -> Void) {
         let geocoder = CLGeocoder()
         geocoder.geocodeAddressString(name) { (placemarks, error) in

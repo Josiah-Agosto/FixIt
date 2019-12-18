@@ -24,7 +24,7 @@ class TaskDataModel: ObservableObject {
     
     private func retrieveUserData() {
         guard let userId = Auth.auth().currentUser?.uid else { print("Error getting User Id"); return }
-        DataRetriever().getUserAccessLevel(id: userId) { (isRetrievaleCustomer) in
+        DataRetriever().getUserAccessLevel(id: userId) { (isRetrievalCustomer) in
             dbReference.child("Users").child("byId").child(userId).observeSingleEvent(of: .value, with: { (snapshot) in
                 if let userDictionary = snapshot.value as? [String: Any] {
                     let userName = userDictionary["name"] as? String ?? ""

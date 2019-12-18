@@ -9,12 +9,12 @@
 import Foundation
 import Firebase
 
-final class DataRetriever {
+class DataRetriever {
     // Get's the Current Users Access Level, Either 'Customer' or 'Employee'.
     public func getUserAccessLevel(id userId: String, completion: @escaping (_ userAccess: Bool) -> Void) {
         dbReference.child("Users").child("byId").child(userId).observeSingleEvent(of: .value, with: { (snapshot) in
             if let userDictionary = snapshot.value as? [String: Any] {
-                let userAccess = userDictionary["employee"] as? Bool ?? false
+                let userAccess = userDictionary["isCustomer"] as? Bool ?? false
                 completion(userAccess)
             }
         }) { (error) in
@@ -31,7 +31,7 @@ final class DataRetriever {
                 completion(userData)
             }
         }) { (error) in
-            fatalError("\(error.localizedDescription)")
+            print(error.localizedDescription)
         }
     } // Func End
     

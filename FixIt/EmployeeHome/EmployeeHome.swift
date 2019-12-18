@@ -11,18 +11,20 @@ import UIKit
 import SwiftUI
 
 class EmployeeHome: UIViewController {
-    private var viewHandler: UIView = {
-        let viewHandler = UIView(frame: CGRect.zero)
-        viewHandler.translatesAutoresizingMaskIntoConstraints = false
-        return viewHandler
+    private var scrollViewHandler: UIScrollView = {
+        let scrollView = UIScrollView(frame: CGRect.zero)
+        scrollView.translatesAutoresizingMaskIntoConstraints = false
+        return scrollView
     }()
     private var tableView: UITableView = {
-        let tableView = UITableView()
+        let tableView = UITableView(frame: CGRect.zero)
         tableView.translatesAutoresizingMaskIntoConstraints = false
         return tableView
     }()
     // Constants
-    private let geofenceView = GeofencingMapView()
+    lazy var geofenceView = GeofencingMapView()
+    private let screenWidth = UIScreen.main.bounds.width
+    private let screenHeight = UIScreen.main.bounds.height
     // Variable
     private var isListDefault: Bool = true
     
@@ -39,24 +41,26 @@ class EmployeeHome: UIViewController {
     
     private func setup() {
         view.backgroundColor = UIColor(red: 220/255, green: 220/255, blue: 220/255, alpha: 1.0)
-        // Navigation Controller / Bar
+        scrollViewHandler.delegate = self
+        // Navigation Controller
         self.navigationController?.isNavigationBarHidden = false
         self.navigationController?.navigationBar.prefersLargeTitles = false
         self.navigationController?.navigationBar.barTintColor = UIColor.white
         self.navigationItem.hidesBackButton = true
         let leftProfileImage = UIImage(systemName: "person.circle")
         self.navigationItem.leftBarButtonItem = UIBarButtonItem(image: leftProfileImage, style: .plain, target: self, action: #selector(employeeProfileButtonAction))
-        let selectedViewImages = UIImage(systemName: isListDefault ? "list.bullet" : "map")
+        let selectedViewImages = UIImage(systemName: isListDefault ? "map" : "list.bullet")
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(image: selectedViewImages, style: .plain, target: self, action: #selector(listAndMapSwitcherButtonAction))
         self.title = "Issues"
         // Table View
         tableView.delegate = self
         tableView.dataSource = self
         tableView.register(EmployeeCell.self, forCellReuseIdentifier: "cellId")
+        tableView.frame = CGRect(x: 0, y: 0, width: screenWidth, height: screenHeight)
+        // Scroll View
+        scrollViewHandler.frame = CGRect(x: 0, y: 0, width: screenWidth, height: screenHeight)
         // Subviews
-        self.view.addSubview(viewHandler)
-        viewHandler.addSubview(tableView)
-        viewHandler.addSubview(geofenceView)
+        view.addSubview(tableView)
         setupConstraints()
     }
     
@@ -71,29 +75,36 @@ class EmployeeHome: UIViewController {
     @objc private func listAndMapSwitcherButtonAction(sender: UIBarButtonItem) {
         isListDefault = !isListDefault
         if isListDefault {
-            print("Supposed to be True: \(isListDefault)")
+            add(toViewController: tableView)
+            remove(fromViewController: geofenceView)
+            print(isListDefault)
+            print("List")
         } else {
-            print("Supposed to be False: \(isListDefault)")
+            add(toViewController: geofenceView)
+            remove(fromViewController: tableView)
+            print(isListDefault)
+            print("Map")
         }
+    }
+    
+    
+    private func add(toViewController subView: UIView) {
+        view.addSubview(subView)
+        subView.frame = view.bounds
+    }
+    
+    
+    private func remove(fromViewController subView: UIView) {
+        subView.removeFromSuperview()
     }
         
 // MARK: Constraints
     private func setupConstraints() {
-        // View Handler
-        viewHandler.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        viewHandler.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
-        viewHandler.widthAnchor.constraint(equalTo: view.widthAnchor).isActive = true
-        viewHandler.heightAnchor.constraint(equalTo: view.heightAnchor).isActive = true
         // Table View
-        tableView.centerXAnchor.constraint(equalTo: viewHandler.centerXAnchor).isActive = true
-        tableView.centerYAnchor.constraint(equalTo: viewHandler.centerYAnchor).isActive = true
-        tableView.widthAnchor.constraint(equalTo: viewHandler.widthAnchor).isActive = true
-        tableView.heightAnchor.constraint(equalTo: viewHandler.heightAnchor).isActive = true
-        // Map View
-        geofenceView.centerXAnchor.constraint(equalTo: viewHandler.centerXAnchor).isActive = true
-        geofenceView.centerYAnchor.constraint(equalTo: viewHandler.centerYAnchor).isActive = true
-        geofenceView.widthAnchor.constraint(equalTo: viewHandler.widthAnchor).isActive = true
-        geofenceView.heightAnchor.constraint(equalTo: viewHandler.heightAnchor).isActive = true
+        tableView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        tableView.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
+        tableView.widthAnchor.constraint(equalTo: view.widthAnchor).isActive = true
+        tableView.heightAnchor.constraint(equalTo: view.heightAnchor).isActive = true
     }
 } // Class End
 
@@ -129,4 +140,10 @@ extension EmployeeHome: UITableViewDelegate {
         }
         return ""
     }
+}
+
+
+
+extension EmployeeHome: UIScrollViewDelegate {
+    
 }

@@ -19,7 +19,7 @@ class GeofencingMapView: UIView {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        
+        setup()
     }
     
     required init?(coder: NSCoder) {
@@ -42,10 +42,10 @@ class GeofencingMapView: UIView {
     
     
     private func setupConstriants() {
-        mapView.topAnchor.constraint(equalTo: self.topAnchor).isActive = true
-        mapView.trailingAnchor.constraint(equalTo: self.trailingAnchor).isActive = true
-        mapView.bottomAnchor.constraint(equalTo: self.bottomAnchor).isActive = true
-        mapView.leadingAnchor.constraint(equalTo: self.leadingAnchor).isActive = true
+        mapView.widthAnchor.constraint(equalTo: self.widthAnchor).isActive = true
+        mapView.heightAnchor.constraint(equalTo: self.heightAnchor).isActive = true
+        mapView.centerXAnchor.constraint(equalTo: self.centerXAnchor).isActive = true
+        mapView.centerYAnchor.constraint(equalTo: self.centerYAnchor).isActive = true
     }
 } // Class End
 
@@ -66,6 +66,13 @@ extension GeofencingMapView: CLLocationManagerDelegate {
             print("Location Authorized")
         @unknown default:
             fatalError("Unknown Reason")
+        }
+    }
+    
+    
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        if let _ = locations.first {
+            locationManager.startUpdatingLocation()
         }
     }
 }

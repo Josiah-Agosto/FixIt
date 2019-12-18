@@ -95,6 +95,7 @@ class SignUpController: UIViewController, UserLocationProtocol, LocationNameProt
         passwordField.layer.shadowOpacity = 0.5
         passwordField.layer.masksToBounds = false
         passwordField.isSecureTextEntry = true
+        passwordField.textContentType = .newPassword
         passwordField.backgroundColor = UIColor.clear
         passwordField.translatesAutoresizingMaskIntoConstraints = false
         // City

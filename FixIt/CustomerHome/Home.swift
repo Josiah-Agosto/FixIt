@@ -14,7 +14,6 @@ class Home: UIViewController, HomeTableViewDataProtocol {
     let tableView: UITableView = {
         let view = UITableView()
         view.translatesAutoresizingMaskIntoConstraints = false
-        view.reloadData()
         return view
     }()
     // For Protocol
@@ -29,7 +28,6 @@ class Home: UIViewController, HomeTableViewDataProtocol {
     
     
     override func viewDidAppear(_ animated: Bool) {
-        print("viewDidAppear")
         tableView.reloadData()
     }
     

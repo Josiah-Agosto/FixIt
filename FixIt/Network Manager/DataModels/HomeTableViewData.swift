@@ -30,15 +30,16 @@ class HomeTableViewData {
                         var autoIdArray: [String] = []
                         autoIdArray.append(userAutoId)
                         // Looping through the users Tasks to get each one not just the last made
+                        print("State: \(userState)")
                         for id in autoIdArray {
-                        dbReference.child("CustomerIssues").child("OutgoingIssues").child("byState").child(userState).child(currentUserId).child(id).observeSingleEvent(of: .value, with: { (snapshot) in
+                            dbReference.child("CustomerIssues").child("OutgoingIssues").child("byState").child(userState).child(currentUserId).child(id).observeSingleEvent(of: .value, with: { (snapshot) in
                                 if let userDictionary = snapshot.value as? [String: Any] {
-                                    let userDateAdded = userDictionary["dateAdded"] as? String ?? "nil"
-                                    let userTaskDescription = userDictionary["description"] as? String ?? "nil"
-                                    let userEmail = userDictionary["email"] as? String ?? "nil"
-                                    let userLocation = userDictionary["location"] as? String ?? "nil"
-                                    let userName = userDictionary["sender"] as? String ?? "nil"
-                                    let userTaskName = userDictionary["taskName"] as? String ?? "nil"
+                                    let userDateAdded = userDictionary["dateAdded"] as? String ?? ""
+                                    let userTaskDescription = userDictionary["description"] as? String ?? ""
+                                    let userEmail = userDictionary["email"] as? String ?? ""
+                                    let userLocation = userDictionary["location"] as? String ?? ""
+                                    let userName = userDictionary["sender"] as? String ?? ""
+                                    let userTaskName = userDictionary["taskName"] as? String ?? ""
                                     completion(userDateAdded, userTaskDescription, userEmail, userLocation, userName, userTaskName)
                                 }
                             }) { (error) in

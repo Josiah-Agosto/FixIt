@@ -64,7 +64,6 @@ class PlacesSearchController: UIViewController {
     
 // MARK: Actions
     @objc private func textFieldTapped(sender: UITextField) {
-        print("Text Field Tapped")
         self.textField.resignFirstResponder()
         let autoCompleteController = GMSAutocompleteViewController()
         autoCompleteController.delegate = self
@@ -164,6 +163,13 @@ extension PlacesSearchController: CLLocationManagerDelegate {
             print("Location Authorized")
         @unknown default:
             fatalError("Unknown Reason")
+        }
+    }
+    
+    
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        if let _ = locations.first {
+            locationManager.startUpdatingLocation()
         }
     }
 }
