@@ -10,4 +10,10 @@ target 'FixIt' do
   pod 'Firebase/Auth'
   pod 'Firebase/Database'
   pod 'GooglePlaces'
+
+  target 'FixItTests' do
+    inherit! :search_paths
+    pod 'Firebase'
+  end
+
 end

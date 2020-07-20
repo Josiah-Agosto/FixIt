@@ -19,10 +19,12 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         guard let windowScene = (scene as? UIWindowScene) else { return }
         window = UIWindow(frame: windowScene.coordinateSpace.bounds)
         window?.windowScene = windowScene
-        let navBar = UINavigationController(rootViewController: LoginScreen())
-        navBar.navigationBar.shadowImage = UIImage()
-        navBar.isNavigationBarHidden = true
-        window?.rootViewController = navBar
+        let loginScreen = LoginScreen()
+        let navigationController = UINavigationController(rootViewController: loginScreen)
+        navigationController.navigationBar.setBackgroundImage(UIImage(), for: .default)
+        navigationController.navigationBar.shadowImage = UIImage()
+        navigationController.navigationBar.isTranslucent = true
+        window?.rootViewController = navigationController
         window?.makeKeyAndVisible()
     }
 
