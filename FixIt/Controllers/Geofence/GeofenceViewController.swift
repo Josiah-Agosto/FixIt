@@ -13,9 +13,7 @@ import MapKit
 class GeofenceViewController: UIViewController {
     // References / Properties
     public lazy var geofenceMapView = GeofencingMapView()
-    // Delegate
-    public var locationDelegate: LocationDataProtocol?
-    
+
     // MARK: - Lifecycle
     override func loadView() {
         super.loadView()

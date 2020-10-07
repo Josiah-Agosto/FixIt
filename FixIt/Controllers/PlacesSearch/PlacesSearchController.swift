@@ -50,7 +50,6 @@ class PlacesSearchController: UIViewController {
     
     // MARK: - Actions
     @objc private func textFieldTapped(sender: UITextField) {
-        print("Umm")
         placesSearchView.textField.resignFirstResponder()
         let autoCompleteController = GMSAutocompleteViewController()
         autoCompleteController.delegate = self

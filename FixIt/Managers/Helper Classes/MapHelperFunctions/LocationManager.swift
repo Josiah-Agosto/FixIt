@@ -24,12 +24,10 @@ class LocationManager: NSObject, CLLocationManagerDelegate {
         super.init()
         locationManager.delegate = self
         locationSetup()
-        print("Activated")
     }
     
     
     deinit {
-        print("Deinitialized")
         stopLocating()
     }
     
@@ -47,7 +45,6 @@ class LocationManager: NSObject, CLLocationManagerDelegate {
         locationManager.startMonitoringSignificantLocationChanges()
         locationManager.distanceFilter = 100.0
         locationManager.pausesLocationUpdatesAutomatically = true
-        print("After: \(userLocation)")
     }
     
     
