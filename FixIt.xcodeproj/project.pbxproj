@@ -7,8 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		382685E1DC92405AF37E7ECE /* Pods_FixIt.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8799F1860B10355F38802DB0 /* Pods_FixIt.framework */; };
-		78ACFD952F554C0FB160B586 /* Pods_FixItTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 08B92A9AFB5661500F0C57BF /* Pods_FixItTests.framework */; };
+		85C35450F5A42476B81CB9BC /* Pods_FixIt.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 12501E3C16300392AC5BB1AC /* Pods_FixIt.framework */; };
 		BD0F15A924AAC72F00D59E43 /* NewTaskFunctions.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD0F15A824AAC72F00D59E43 /* NewTaskFunctions.swift */; };
 		BD2C5DCF2476F702003A1F96 /* MapHelperFunctions.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD2C5DCE2476F702003A1F96 /* MapHelperFunctions.swift */; };
 		BD2C5DD124783D8A003A1F96 /* PlacesSearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD2C5DD024783D8A003A1F96 /* PlacesSearchView.swift */; };
@@ -18,7 +17,7 @@
 		BD6725B123B1430200AB0D5D /* ValidationError.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD6725B023B1430200AB0D5D /* ValidationError.swift */; };
 		BD6725B523B15C6D00AB0D5D /* UserError.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD6725B423B15C6D00AB0D5D /* UserError.swift */; };
 		BD6725BE23B4158400AB0D5D /* FixItTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD6725BD23B4158400AB0D5D /* FixItTests.swift */; };
-		BD6725C623C52C6500AB0D5D /* LocationDataProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD6725C523C52C6500AB0D5D /* LocationDataProtocol.swift */; };
+		BD75A7FC252E450000A69845 /* PresentedObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD75A7FB252E450000A69845 /* PresentedObject.swift */; };
 		BD7BD3E22475A2810065BE45 /* CustomerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD7BD3E12475A2810065BE45 /* CustomerView.swift */; };
 		BD7BD3E42475A28D0065BE45 /* EmployeeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD7BD3E32475A28D0065BE45 /* EmployeeView.swift */; };
 		BD7BD3E62475A29E0065BE45 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD7BD3E52475A29E0065BE45 /* LoginView.swift */; };
@@ -39,6 +38,7 @@
 		BDD57CA4247D7903008C632E /* LaunchScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDD57CA3247D7903008C632E /* LaunchScreenView.swift */; };
 		BDD57CA7247D85BD008C632E /* LaunchScreenController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDD57CA6247D85BD008C632E /* LaunchScreenController.swift */; };
 		BDD57CAA247EFCB4008C632E /* LoginTextFieldDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDD57CA9247EFCB4008C632E /* LoginTextFieldDelegate.swift */; };
+		BDF4C95724C75C9100ED5596 /* NewTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDF4C95624C75C9100ED5596 /* NewTask.swift */; };
 		BDF98EBC236B8047007A4F3A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDF98EBB236B8047007A4F3A /* AppDelegate.swift */; };
 		BDF98EBE236B8047007A4F3A /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDF98EBD236B8047007A4F3A /* SceneDelegate.swift */; };
 		BDF98EC0236B8047007A4F3A /* CustomerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDF98EBF236B8047007A4F3A /* CustomerViewController.swift */; };
@@ -57,6 +57,7 @@
 		BDF98F0D2372205B007A4F3A /* PlacesSearchController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDF98F0C2372205B007A4F3A /* PlacesSearchController.swift */; };
 		BDF98F1123729DB7007A4F3A /* UserLocationProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDF98F1023729DB7007A4F3A /* UserLocationProtocol.swift */; };
 		BDF98F132377B0BC007A4F3A /* UserTaskModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDF98F122377B0BC007A4F3A /* UserTaskModel.swift */; };
+		BEE591EE819D9A03E866706E /* Pods_FixItTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B747C76B3CAB3F19ABE77AEF /* Pods_FixItTests.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -70,11 +71,12 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		08B92A9AFB5661500F0C57BF /* Pods_FixItTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_FixItTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		3615B5D5C6580DC55008C906 /* Pods-FixItTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FixItTests.release.xcconfig"; path = "Target Support Files/Pods-FixItTests/Pods-FixItTests.release.xcconfig"; sourceTree = "<group>"; };
-		683FBA386EAC297FBF506848 /* Pods-FixIt.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FixIt.release.xcconfig"; path = "Target Support Files/Pods-FixIt/Pods-FixIt.release.xcconfig"; sourceTree = "<group>"; };
-		7A17A23DEA9F0394BE3A81D9 /* Pods-FixIt.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FixIt.debug.xcconfig"; path = "Target Support Files/Pods-FixIt/Pods-FixIt.debug.xcconfig"; sourceTree = "<group>"; };
-		8799F1860B10355F38802DB0 /* Pods_FixIt.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_FixIt.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		12501E3C16300392AC5BB1AC /* Pods_FixIt.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_FixIt.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		305E490FFD8B63AE370475D1 /* Pods-FixIt.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FixIt.debug.xcconfig"; path = "Target Support Files/Pods-FixIt/Pods-FixIt.debug.xcconfig"; sourceTree = "<group>"; };
+		3281E423D9145D0CE2A37009 /* Pods-FixIt.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FixIt.release.xcconfig"; path = "Target Support Files/Pods-FixIt/Pods-FixIt.release.xcconfig"; sourceTree = "<group>"; };
+		7AA12D7179E5F814918CDB78 /* Pods-FixItTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FixItTests.debug.xcconfig"; path = "Target Support Files/Pods-FixItTests/Pods-FixItTests.debug.xcconfig"; sourceTree = "<group>"; };
+		7B83AEDBE4C696AD75458D33 /* Pods-FixItTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FixItTests.release.xcconfig"; path = "Target Support Files/Pods-FixItTests/Pods-FixItTests.release.xcconfig"; sourceTree = "<group>"; };
+		B747C76B3CAB3F19ABE77AEF /* Pods_FixItTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_FixItTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		BD0F15A824AAC72F00D59E43 /* NewTaskFunctions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewTaskFunctions.swift; sourceTree = "<group>"; };
 		BD2C5DCE2476F702003A1F96 /* MapHelperFunctions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapHelperFunctions.swift; sourceTree = "<group>"; };
 		BD2C5DD024783D8A003A1F96 /* PlacesSearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlacesSearchView.swift; sourceTree = "<group>"; };
@@ -86,7 +88,7 @@
 		BD6725BB23B4158400AB0D5D /* FixItTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = FixItTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		BD6725BD23B4158400AB0D5D /* FixItTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FixItTests.swift; sourceTree = "<group>"; };
 		BD6725BF23B4158500AB0D5D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		BD6725C523C52C6500AB0D5D /* LocationDataProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationDataProtocol.swift; sourceTree = "<group>"; };
+		BD75A7FB252E450000A69845 /* PresentedObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PresentedObject.swift; sourceTree = "<group>"; };
 		BD7BD3E12475A2810065BE45 /* CustomerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomerView.swift; sourceTree = "<group>"; };
 		BD7BD3E32475A28D0065BE45 /* EmployeeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmployeeView.swift; sourceTree = "<group>"; };
 		BD7BD3E52475A29E0065BE45 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
@@ -107,6 +109,7 @@
 		BDD57CA3247D7903008C632E /* LaunchScreenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchScreenView.swift; sourceTree = "<group>"; };
 		BDD57CA6247D85BD008C632E /* LaunchScreenController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchScreenController.swift; sourceTree = "<group>"; };
 		BDD57CA9247EFCB4008C632E /* LoginTextFieldDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginTextFieldDelegate.swift; sourceTree = "<group>"; };
+		BDF4C95624C75C9100ED5596 /* NewTask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewTask.swift; sourceTree = "<group>"; };
 		BDF98EB8236B8047007A4F3A /* FixIt.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FixIt.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BDF98EBB236B8047007A4F3A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		BDF98EBD236B8047007A4F3A /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -127,7 +130,6 @@
 		BDF98F0C2372205B007A4F3A /* PlacesSearchController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlacesSearchController.swift; sourceTree = "<group>"; };
 		BDF98F1023729DB7007A4F3A /* UserLocationProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserLocationProtocol.swift; sourceTree = "<group>"; };
 		BDF98F122377B0BC007A4F3A /* UserTaskModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserTaskModel.swift; sourceTree = "<group>"; };
-		C7F2226389EEA461A93F517E /* Pods-FixItTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FixItTests.debug.xcconfig"; path = "Target Support Files/Pods-FixItTests/Pods-FixItTests.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -135,7 +137,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				78ACFD952F554C0FB160B586 /* Pods_FixItTests.framework in Frameworks */,
+				BEE591EE819D9A03E866706E /* Pods_FixItTests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -143,31 +145,31 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				382685E1DC92405AF37E7ECE /* Pods_FixIt.framework in Frameworks */,
+				85C35450F5A42476B81CB9BC /* Pods_FixIt.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		1C6D281EADF7B52D9BE92851 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				12501E3C16300392AC5BB1AC /* Pods_FixIt.framework */,
+				B747C76B3CAB3F19ABE77AEF /* Pods_FixItTests.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		1F8E865535AA673165D68F38 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				7A17A23DEA9F0394BE3A81D9 /* Pods-FixIt.debug.xcconfig */,
-				683FBA386EAC297FBF506848 /* Pods-FixIt.release.xcconfig */,
-				C7F2226389EEA461A93F517E /* Pods-FixItTests.debug.xcconfig */,
-				3615B5D5C6580DC55008C906 /* Pods-FixItTests.release.xcconfig */,
+				305E490FFD8B63AE370475D1 /* Pods-FixIt.debug.xcconfig */,
+				3281E423D9145D0CE2A37009 /* Pods-FixIt.release.xcconfig */,
+				7AA12D7179E5F814918CDB78 /* Pods-FixItTests.debug.xcconfig */,
+				7B83AEDBE4C696AD75458D33 /* Pods-FixItTests.release.xcconfig */,
 			);
 			path = Pods;
-			sourceTree = "<group>";
-		};
-		60ADB79084FC1C044744DA19 /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				8799F1860B10355F38802DB0 /* Pods_FixIt.framework */,
-				08B92A9AFB5661500F0C57BF /* Pods_FixItTests.framework */,
-			);
-			name = Frameworks;
 			sourceTree = "<group>";
 		};
 		BD0F15A724AAC71100D59E43 /* NewTaskHelper */ = {
@@ -228,6 +230,14 @@
 				BD6725BF23B4158500AB0D5D /* Info.plist */,
 			);
 			path = FixItTests;
+			sourceTree = "<group>";
+		};
+		BD75A7FA252E44F100A69845 /* PresentedObject */ = {
+			isa = PBXGroup;
+			children = (
+				BD75A7FB252E450000A69845 /* PresentedObject.swift */,
+			);
+			path = PresentedObject;
 			sourceTree = "<group>";
 		};
 		BD7BD3D4247597380065BE45 /* Views */ = {
@@ -340,7 +350,6 @@
 			isa = PBXGroup;
 			children = (
 				BDD57CA0247C5007008C632E /* GeofenceViewController.swift */,
-				BD6725C523C52C6500AB0D5D /* LocationDataProtocol.swift */,
 			);
 			path = Geofence;
 			sourceTree = "<group>";
@@ -413,6 +422,14 @@
 			path = TextFieldProtocols;
 			sourceTree = "<group>";
 		};
+		BDF4C95824C75CE700ED5596 /* Task */ = {
+			isa = PBXGroup;
+			children = (
+				BDF4C95624C75C9100ED5596 /* NewTask.swift */,
+			);
+			path = Task;
+			sourceTree = "<group>";
+		};
 		BDF98EAF236B8047007A4F3A = {
 			isa = PBXGroup;
 			children = (
@@ -420,7 +437,7 @@
 				BD6725BC23B4158400AB0D5D /* FixItTests */,
 				BDF98EB9236B8047007A4F3A /* Products */,
 				1F8E865535AA673165D68F38 /* Pods */,
-				60ADB79084FC1C044744DA19 /* Frameworks */,
+				1C6D281EADF7B52D9BE92851 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -464,6 +481,7 @@
 			isa = PBXGroup;
 			children = (
 				BDF98EBF236B8047007A4F3A /* CustomerViewController.swift */,
+				BD75A7FA252E44F100A69845 /* PresentedObject */,
 				BDD57C9224786E5C008C632E /* TableViewProtocols */,
 			);
 			path = Customer;
@@ -472,6 +490,7 @@
 		BDF98ED4236B8462007A4F3A /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				BDF4C95824C75CE700ED5596 /* Task */,
 				BD6725AF23B1355B00AB0D5D /* Error */,
 				BDF98EF5236E22CC007A4F3A /* CustomerModel.swift */,
 				BDF98EF7236E2334007A4F3A /* EmployeeModel.swift */,
@@ -549,11 +568,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = BD6725C223B4158500AB0D5D /* Build configuration list for PBXNativeTarget "FixItTests" */;
 			buildPhases = (
-				14C6FA837C874D63EC4FD58D /* [CP] Check Pods Manifest.lock */,
+				F9A13300AC2B855752D23BB2 /* [CP] Check Pods Manifest.lock */,
 				BD6725B723B4158400AB0D5D /* Sources */,
 				BD6725B823B4158400AB0D5D /* Frameworks */,
 				BD6725B923B4158400AB0D5D /* Resources */,
-				C0BA1B5C8867A9C30D5F946E /* [CP] Embed Pods Frameworks */,
+				61EEE4B269785791F8EA8CC7 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -569,12 +588,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = BDF98ECF236B804E007A4F3A /* Build configuration list for PBXNativeTarget "FixIt" */;
 			buildPhases = (
-				65422CC445CA1126363A9651 /* [CP] Check Pods Manifest.lock */,
+				574DE6847298B86C7D41B68D /* [CP] Check Pods Manifest.lock */,
 				BDF98EB4236B8047007A4F3A /* Sources */,
 				BDF98EB5236B8047007A4F3A /* Frameworks */,
 				BDF98EB6236B8047007A4F3A /* Resources */,
-				D461A9F67F6F0F64F1E8AFE5 /* [CP] Embed Pods Frameworks */,
-				6E17E31AC387DA64825F88D7 /* [CP] Copy Pods Resources */,
+				F8E25135D1E14C0ED4A4CB76 /* [CP] Embed Pods Frameworks */,
+				C9A7677421CED1A637870EB8 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -592,7 +611,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 1130;
-				LastUpgradeCheck = 1110;
+				LastUpgradeCheck = 1200;
 				ORGANIZATIONNAME = "Josiah Agosto";
 				TargetAttributes = {
 					BD6725BA23B4158400AB0D5D = {
@@ -643,29 +662,7 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		14C6FA837C874D63EC4FD58D /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-FixItTests-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		65422CC445CA1126363A9651 /* [CP] Check Pods Manifest.lock */ = {
+		574DE6847298B86C7D41B68D /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -687,24 +684,7 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		6E17E31AC387DA64825F88D7 /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-FixIt/Pods-FixIt-resources-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Copy Pods Resources";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-FixIt/Pods-FixIt-resources-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-FixIt/Pods-FixIt-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		C0BA1B5C8867A9C30D5F946E /* [CP] Embed Pods Frameworks */ = {
+		61EEE4B269785791F8EA8CC7 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -721,7 +701,24 @@
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-FixItTests/Pods-FixItTests-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		D461A9F67F6F0F64F1E8AFE5 /* [CP] Embed Pods Frameworks */ = {
+		C9A7677421CED1A637870EB8 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-FixIt/Pods-FixIt-resources-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-FixIt/Pods-FixIt-resources-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-FixIt/Pods-FixIt-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		F8E25135D1E14C0ED4A4CB76 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -736,6 +733,28 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-FixIt/Pods-FixIt-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		F9A13300AC2B855752D23BB2 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-FixItTests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -756,16 +775,17 @@
 				BDF98EC0236B8047007A4F3A /* CustomerViewController.swift in Sources */,
 				BDF98F132377B0BC007A4F3A /* UserTaskModel.swift in Sources */,
 				BDF98EBC236B8047007A4F3A /* AppDelegate.swift in Sources */,
+				BD75A7FC252E450000A69845 /* PresentedObject.swift in Sources */,
 				BDF98F0723709F6D007A4F3A /* UserProfile.swift in Sources */,
 				BDD57C9724787534008C632E /* CustomerTableViewDataSource.swift in Sources */,
 				BDD57CA1247C5007008C632E /* GeofenceViewController.swift in Sources */,
 				BD2D85D8249159180059AB7E /* ErrorControllerProtocol.swift in Sources */,
 				BDCD449723904511000C7A49 /* GeofencingMapView.swift in Sources */,
 				BDF98EBE236B8047007A4F3A /* SceneDelegate.swift in Sources */,
-				BD6725C623C52C6500AB0D5D /* LocationDataProtocol.swift in Sources */,
 				BDF98F1123729DB7007A4F3A /* UserLocationProtocol.swift in Sources */,
 				BD0F15A924AAC72F00D59E43 /* NewTaskFunctions.swift in Sources */,
 				BDD3D8F32389B6DB0028F37E /* EmployeeHome.swift in Sources */,
+				BDF4C95724C75C9100ED5596 /* NewTask.swift in Sources */,
 				BDAD6FFC24BCE6490078CAB2 /* EmptyIssueCustomerCell.swift in Sources */,
 				BDD3D8F0238729F70028F37E /* HomeTableViewData.swift in Sources */,
 				BD7BD3E42475A28D0065BE45 /* EmployeeView.swift in Sources */,
@@ -814,7 +834,7 @@
 /* Begin XCBuildConfiguration section */
 		BD6725C323B4158500AB0D5D /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = C7F2226389EEA461A93F517E /* Pods-FixItTests.debug.xcconfig */;
+			baseConfigurationReference = 7AA12D7179E5F814918CDB78 /* Pods-FixItTests.debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
@@ -835,7 +855,7 @@
 		};
 		BD6725C423B4158500AB0D5D /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 3615B5D5C6580DC55008C906 /* Pods-FixItTests.release.xcconfig */;
+			baseConfigurationReference = 7B83AEDBE4C696AD75458D33 /* Pods-FixItTests.release.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
@@ -880,6 +900,7 @@
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
@@ -904,7 +925,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -940,6 +961,7 @@
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
@@ -958,7 +980,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
@@ -970,7 +992,7 @@
 		};
 		BDF98ED0236B804E007A4F3A /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 7A17A23DEA9F0394BE3A81D9 /* Pods-FixIt.debug.xcconfig */;
+			baseConfigurationReference = 305E490FFD8B63AE370475D1 /* Pods-FixIt.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
@@ -989,7 +1011,7 @@
 		};
 		BDF98ED1236B804E007A4F3A /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 683FBA386EAC297FBF506848 /* Pods-FixIt.release.xcconfig */;
+			baseConfigurationReference = 3281E423D9145D0CE2A37009 /* Pods-FixIt.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;

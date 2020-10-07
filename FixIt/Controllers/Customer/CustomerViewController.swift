@@ -16,6 +16,7 @@ class CustomerViewController: UIViewController {
     public lazy var customerView = CustomerView()
     private var homeData: HomeTableViewData?
     private var locationManager: LocationManager?
+    @State private var isPresented: Bool = false
     // User Variables
     public var userTaskHolder: [UserTaskModel] = []
     // MARK: - Lifecycle
@@ -84,7 +85,12 @@ class CustomerViewController: UIViewController {
     
     
     @objc private func addNewFix(sender: UIBarButtonItem) {
-        let newTaskSwiftUIView = NewTaskView()
+        // Initialized Observed Object
+        let presentedObjectDelegate = PresentedObject()
+        // Assign Object Property
+        presentedObjectDelegate.navigationController = navigationController
+        // Assign Object to New SwiftUI View
+        let newTaskSwiftUIView = NewTaskView().environmentObject(presentedObjectDelegate)
         let hostedView = UIHostingController(rootView: newTaskSwiftUIView)
         navigationController?.present(hostedView, animated: true)
     }

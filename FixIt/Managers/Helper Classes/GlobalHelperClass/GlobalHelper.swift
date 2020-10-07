@@ -29,6 +29,8 @@ class GlobalHelper {
         Constants.dbReference.child("Users").child("byId").child(userId).observeSingleEvent(of: .value) { (snapshot) in
             if let issueCounter = snapshot.value as? [String: Any] {
                 let currentUserValue = issueCounter["issueCounter"] as? Int ?? 0
+                print("UserCount: \(userCount)")
+                print("Current: \(currentUserValue)")
                 userCount = currentUserValue
             }
         }
@@ -40,7 +42,6 @@ class GlobalHelper {
         guard let userId = Constants.currentUser else { print(ValidationError.RetrievingUser.errorDescription!); return }
         Constants.issueCounter += 1
         Constants.dbReference.child("Users").child("byId").child(userId).updateChildValues(["issueCounter": Constants.issueCounter])
-        print("Issue Counter: \(Constants.issueCounter)")
     }
 }
 
