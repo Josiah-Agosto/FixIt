@@ -9,15 +9,18 @@
 import Foundation
 import UIKit
 
-class LoginTextFieldDelegate: NSObject, UITextFieldDelegate {
-    private var loginView: LoginView
-    
-    init(loginView: LoginView) {
-        self.loginView = loginView
+extension LoginView: UITextFieldDelegate {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        print("Hi")
+        textField.resignFirstResponder()
+        return true
     }
     
-    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        textField.resignFirstResponder()
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        if textField == passwordField && !passwordField.isSecureTextEntry {
+            print("Called")
+            passwordField.isSecureTextEntry = true
+        }
         return true
     }
 }

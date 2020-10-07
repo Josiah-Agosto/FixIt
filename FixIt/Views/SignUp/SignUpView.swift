@@ -72,7 +72,7 @@ class SignUpView: UIView {
         passwordField.layer.shadowOpacity = 0.5
         passwordField.layer.masksToBounds = false
         passwordField.isSecureTextEntry = true
-        passwordField.textContentType = .newPassword
+//        passwordField.textContentType = .none
         passwordField.backgroundColor = UIColor.clear
         return passwordField
     }()
