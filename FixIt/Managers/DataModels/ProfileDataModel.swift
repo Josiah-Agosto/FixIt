@@ -24,6 +24,10 @@ class ProfileDataModel: ObservableObject {
     @Published var skill: String = ""
     @Published var phoneNumberText: String = ""
     
+    init() {
+        getUserData()
+    }
+    
     public func getUserData() {
         guard let userId = Auth.auth().currentUser?.uid else { print(ValidationError.RetrievingUser.errorDescription!); return }
         DataRetriever().getAllUserData(id: userId) { (isCustomer, email, location, name, signedUp, skill, state, phone, dob) in

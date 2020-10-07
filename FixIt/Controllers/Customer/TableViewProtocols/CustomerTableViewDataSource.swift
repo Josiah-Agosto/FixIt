@@ -23,8 +23,7 @@ class CustomerTableViewDataSource: NSObject, UITableViewDataSource {
     
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // customerController.userTaskHolder.count
-        return 1
+        return Constants.issueCounter
     }
     
     
