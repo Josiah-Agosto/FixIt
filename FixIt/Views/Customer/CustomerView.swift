@@ -17,7 +17,7 @@ class CustomerView: UIView {
         let tableView = UITableView(frame: .zero, style: .plain)
         tableView.translatesAutoresizingMaskIntoConstraints = false
         tableView.estimatedRowHeight = 100
-        tableView.separatorStyle = .none
+        tableView.separatorStyle = .singleLine
         return tableView
     }()
     // Profile Image

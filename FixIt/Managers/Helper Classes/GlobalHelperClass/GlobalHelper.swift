@@ -23,18 +23,33 @@ class GlobalHelper {
     }
     
     /// Retrieves the number of current User Issues.
-    public func retrieveNumberOfIssues() -> Int {
-        guard let userId = Constants.currentUser else { print(ValidationError.RetrievingUser.errorDescription!); return 0 }
+    public func retrieveNumberOfIssues(completion: @escaping(_ issues: Int) -> Void) {
+        let group = DispatchGroup()
+        guard let userId = Constants.currentUser else { print(ValidationError.RetrievingUser.errorDescription!); return }
         var userCount: Int = 0
+        group.enter()
         Constants.dbReference.child("Users").child("byId").child(userId).observeSingleEvent(of: .value) { (snapshot) in
             if let issueCounter = snapshot.value as? [String: Any] {
                 let currentUserValue = issueCounter["issueCounter"] as? Int ?? 0
-                print("UserCount: \(userCount)")
-                print("Current: \(currentUserValue)")
                 userCount = currentUserValue
+                group.leave()
             }
         }
-        return userCount
+        group.notify(queue: .main) {
+            completion(userCount)
+        }
+    }
+    // TODO: Fix this.
+    /// Retrieves User Tasks in an Array.
+    public func retrieveUserTasks() {
+        let userTasksReference = Constants.dbReference.child("Users").child("byId").child(Constants.currentUser ?? "")
+        userTasksReference.observeSingleEvent(of: .value) { (snapshot) in
+            print(snapshot.value)
+            if let userTasks = snapshot.value as? [String: Any] {
+                let testObject = userTasks["openIssues"]
+                print("User Tasks: \(userTasks["openIssues"])")
+            }
+        }
     }
     
     

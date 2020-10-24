@@ -12,13 +12,11 @@ import SwiftUI
 
 class CustomerViewController: UIViewController {
     // References / Properties
-    private lazy var globalHelper = GlobalHelper()
+    private lazy var globalHelper = GlobalHelper.shared
     public lazy var customerView = CustomerView()
     private var homeData: HomeTableViewData?
     private var locationManager: LocationManager?
     @State private var isPresented: Bool = false
-    // User Variables
-    public var userTaskHolder: [UserTaskModel] = []
     // MARK: - Lifecycle
     override func loadView() {
         super.loadView()
@@ -54,26 +52,29 @@ class CustomerViewController: UIViewController {
     
     // Checks to see whether the table view needs to update to show issues.
     public func checkingIfUserHasIssues() {
-        print("Pre Value: \(customerView.hasIssues)")
-        print("User has \(globalHelper.retrieveNumberOfIssues()) issues.")
-        switch globalHelper.retrieveNumberOfIssues() {
-        case 0:
-            self.customerView.hasIssues = false
-            locationManager = nil
-            print("0 issues: \(self.customerView.hasIssues)")
-            return
-        default:
-            self.customerView.hasIssues = true
-            locationManager = LocationManager()
-            refreshToGetIssues()
-            print("1+ issues: \(self.customerView.hasIssues)")
-            return
+        globalHelper.retrieveNumberOfIssues { (issues) in
+            switch issues {
+                case 0:
+                    self.customerView.hasIssues = false
+                    self.locationManager = nil
+                    return
+                default:
+                    self.customerView.hasIssues = true
+                    self.locationManager = LocationManager()
+                    self.refreshToGetIssues()
+                    self.retrieveUserData()
+                    return
+            }
         }
     }
     
     // MARK: Private Functions
     private func refreshToGetIssues() {
         homeData = HomeTableViewData()
+    }
+    
+    private func retrieveUserData() {
+        globalHelper.retrieveUserTasks()
     }
     
     // MARK: - Actions
@@ -102,7 +103,7 @@ class CustomerViewController: UIViewController {
 extension CustomerViewController: HomeTableViewDataProtocol {
     func retrieveUserTasks(userTaskData: [UserTaskModel]) {
         for task in userTaskData {
-            userTaskHolder.append(task)
+            Constants.userTaskHolder.append(task)
         }
         customerView.tableView.reloadData()
     }

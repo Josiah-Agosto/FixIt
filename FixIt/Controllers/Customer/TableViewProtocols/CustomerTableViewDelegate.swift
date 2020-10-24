@@ -10,7 +10,7 @@ import Foundation
 import UIKit
 
 class CustomerTableViewDelegate: NSObject, UITableViewDelegate {
-    var customerController: CustomerViewController
+    private var customerController: CustomerViewController
     
     init(customerController: CustomerViewController) {
         self.customerController = customerController

@@ -10,8 +10,8 @@ import SwiftUI
 import Firebase
 
 struct NewTaskView: View {
-    // MARK: - Properties
-    var globalHelper = GlobalHelper.shared
+    // MARK: - Properties / References
+    private var globalHelper = GlobalHelper.shared
     @State var mapHelper: MapHelperFunctions?
     @State var locationManager = LocationManager.shared
     @State var taskNameField: String = ""
@@ -21,7 +21,6 @@ struct NewTaskView: View {
     @State var stateField: String = ""
     @State var errorField: String = ""
     @State var passed: Bool = true
-    let reference = Constants.dbReference.child("Users").child("byId")
     var newUser = NewTaskFunctions()
     // Objects
     @ObservedObject var taskData = TaskDataModel()
@@ -91,59 +90,44 @@ struct NewTaskView: View {
             self.errorField = "Please fill in all details."
         }
     }
-    
-    // MARK: - Should refactor from Arrays and use childByAutoId
-    // TODO: Redo this Architecture for Firebase.
+    /// Adding user data to Database.
+    /// - Parameters:
+    ///   - location: String
+    ///   - id: String
     private func addingDataToDatabase(with location: String, and id: String) {
+        let currentUserReference = Constants.dbReference.child("Users").child("byId").child(Constants.currentUser ?? "")
         let taskNameString = "\($taskData.name.wrappedValue)"
         let taskEmailString = "\($taskData.email.wrappedValue)"
         let newTask = NewTask(id: id, taskName: taskNameField, description: detailField, email: taskEmailString, location: location, sender: taskNameString, date: newUser.dateAdded())
-        Constants.openIssuesArray.append(newTask)
-        let newOpenIssuesData = ["openIssues": Constants.openIssuesArray.map({ $0.toAnyObject() })] as [String: Any]
-        reference.child(id).observeSingleEvent(of: .value) { (snapshot) in
+        let newTaskDictionary = newTask.toAnyObject()
+        currentUserReference.observeSingleEvent(of: .value) { (snapshot) in
             if snapshot.hasChild("openIssues") {
-                self.appendingToTasks(with: reference.child(id), and: newTask)
+                self.appendingToTasks(with: currentUserReference.child("openIssues").childByAutoId(), and: newTask)
             } else {
-                self.creatingANewTask(with: reference, with: newOpenIssuesData)
+                self.creatingANewTask(with: currentUserReference.child("openIssues").childByAutoId(), with: newTaskDictionary)
             }
         }
     }
-    
-    
-    private func appendingToTasks(with reference: DatabaseReference, and newTask: NewTask) {
-        reference.observeSingleEvent(of: .value) { (issueSnapshot) in
-            self.convertJsonBackToTasks(with: reference, and: issueSnapshot, and: newTask)
-        } // Observing End
-    }
-    
-    
-    private func convertJsonBackToTasks(with reference: DatabaseReference, and snapshot: DataSnapshot, and newData: NewTask) {
-        if let issues = snapshot.value as? NSArray {
-            do {
-                let issueData = try! JSONSerialization.data(withJSONObject: issues, options: [])
-                var decodeData = try! JSONDecoder().decode([NewTask].self, from: issueData)
-                decodeData.append(newData)
-                Constants.openIssuesArray = decodeData
-                self.updateDatabaseForNewTask(with: reference, and: snapshot, and: Constants.openIssuesArray)
-            }
-        } // Array End
-    }
-    
-    
-    private func updateDatabaseForNewTask(with reference: DatabaseReference, and snapshot: DataSnapshot, and data: [NewTask]) {
-        reference.updateChildValues(["openIssues": data.map({ $0.toAnyObject() })]) { (error, reference) in
-            if let error = error {
-                print("Updating Issue: \(error.localizedDescription)")
-            }
-            self.globalHelper.addingToIssueCounter()
-        }
-    }
-    
-    
+    /// Call when there are no open issues.
+    /// - Parameters:
+    ///   - databaseReference: DatabaseReference
+    ///   - data: [String: Any]
     private func creatingANewTask(with databaseReference: DatabaseReference, with data: [String: Any]) {
         databaseReference.updateChildValues(data) { (error, _) in
             if let error = error {
                 print(error.localizedDescription)
+            }
+            globalHelper.addingToIssueCounter()
+        }
+    }
+    /// Call when there is already open issues.
+    /// - Parameters:
+    ///   - reference: DatabaseReference
+    ///   - data: NewTask
+    private func appendingToTasks(with reference: DatabaseReference, and data: NewTask) {
+        reference.updateChildValues(data.toAnyObject()) { (error, reference) in
+            if let error = error {
+                print("Updating Issue: \(error.localizedDescription)")
             }
             globalHelper.addingToIssueCounter()
         }
