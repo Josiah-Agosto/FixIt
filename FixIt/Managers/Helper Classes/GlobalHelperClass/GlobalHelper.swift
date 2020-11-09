@@ -22,41 +22,10 @@ class GlobalHelper {
         completion(errorController)
     }
     
-    /// Retrieves the number of current User Issues.
-    public func retrieveNumberOfIssues(completion: @escaping(_ issues: Int) -> Void) {
-        let group = DispatchGroup()
-        guard let userId = Constants.currentUser else { print(ValidationError.RetrievingUser.errorDescription!); return }
-        var userCount: Int = 0
-        group.enter()
-        Constants.dbReference.child("Users").child("byId").child(userId).observeSingleEvent(of: .value) { (snapshot) in
-            if let issueCounter = snapshot.value as? [String: Any] {
-                let currentUserValue = issueCounter["issueCounter"] as? Int ?? 0
-                userCount = currentUserValue
-                group.leave()
-            }
-        }
-        group.notify(queue: .main) {
-            completion(userCount)
-        }
-    }
-    // TODO: Fix this.
-    /// Retrieves User Tasks in an Array.
-    public func retrieveUserTasks() {
-        let userTasksReference = Constants.dbReference.child("Users").child("byId").child(Constants.currentUser ?? "")
-        userTasksReference.observeSingleEvent(of: .value) { (snapshot) in
-            print(snapshot.value)
-            if let userTasks = snapshot.value as? [String: Any] {
-                let testObject = userTasks["openIssues"]
-                print("User Tasks: \(userTasks["openIssues"])")
-            }
-        }
-    }
-    
-    
     public func addingToIssueCounter() {
-        guard let userId = Constants.currentUser else { print(ValidationError.RetrievingUser.errorDescription!); return }
-        Constants.issueCounter += 1
-        Constants.dbReference.child("Users").child("byId").child(userId).updateChildValues(["issueCounter": Constants.issueCounter])
+        guard let userId = Constants.shared.currentUser else { print(ValidationError.RetrievingUser.errorDescription!); return }
+        Constants.shared.issueCounter += 1
+        Constants.shared.dbReference.child("Users").child("byId").child(userId).updateChildValues(["issueCounter": Constants.shared.issueCounter])
     }
 }
 

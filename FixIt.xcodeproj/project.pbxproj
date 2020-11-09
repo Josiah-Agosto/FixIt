@@ -27,7 +27,7 @@
 		BDCD448F238C5C35000C7A49 /* DataRetriever.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDCD448E238C5C35000C7A49 /* DataRetriever.swift */; };
 		BDCD4494238DA3EB000C7A49 /* LocationNameProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDCD4493238DA3EB000C7A49 /* LocationNameProtocol.swift */; };
 		BDCD449723904511000C7A49 /* GeofencingMapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDCD449623904511000C7A49 /* GeofencingMapView.swift */; };
-		BDD3D8F0238729F70028F37E /* HomeTableViewData.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDD3D8EF238729F70028F37E /* HomeTableViewData.swift */; };
+		BDD3D8F0238729F70028F37E /* CustomerTableViewData.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDD3D8EF238729F70028F37E /* CustomerTableViewData.swift */; };
 		BDD3D8F32389B6DB0028F37E /* EmployeeHome.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDD3D8F22389B6DB0028F37E /* EmployeeHome.swift */; };
 		BDD3D8F52389B92F0028F37E /* EmployeeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDD3D8F42389B92F0028F37E /* EmployeeCell.swift */; };
 		BDD57C9524787526008C632E /* CustomerTableViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDD57C9424787526008C632E /* CustomerTableViewDelegate.swift */; };
@@ -38,6 +38,7 @@
 		BDD57CA4247D7903008C632E /* LaunchScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDD57CA3247D7903008C632E /* LaunchScreenView.swift */; };
 		BDD57CA7247D85BD008C632E /* LaunchScreenController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDD57CA6247D85BD008C632E /* LaunchScreenController.swift */; };
 		BDD57CAA247EFCB4008C632E /* LoginTextFieldDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDD57CA9247EFCB4008C632E /* LoginTextFieldDelegate.swift */; };
+		BDD762842543E38C00ABE2D4 /* CustomerIssueMonitor.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDD762832543E38C00ABE2D4 /* CustomerIssueMonitor.swift */; };
 		BDF4C95724C75C9100ED5596 /* NewTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDF4C95624C75C9100ED5596 /* NewTask.swift */; };
 		BDF98EBC236B8047007A4F3A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDF98EBB236B8047007A4F3A /* AppDelegate.swift */; };
 		BDF98EBE236B8047007A4F3A /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDF98EBD236B8047007A4F3A /* SceneDelegate.swift */; };
@@ -98,7 +99,7 @@
 		BDCD448E238C5C35000C7A49 /* DataRetriever.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataRetriever.swift; sourceTree = "<group>"; };
 		BDCD4493238DA3EB000C7A49 /* LocationNameProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationNameProtocol.swift; sourceTree = "<group>"; };
 		BDCD449623904511000C7A49 /* GeofencingMapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeofencingMapView.swift; sourceTree = "<group>"; };
-		BDD3D8EF238729F70028F37E /* HomeTableViewData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeTableViewData.swift; sourceTree = "<group>"; };
+		BDD3D8EF238729F70028F37E /* CustomerTableViewData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomerTableViewData.swift; sourceTree = "<group>"; };
 		BDD3D8F22389B6DB0028F37E /* EmployeeHome.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmployeeHome.swift; sourceTree = "<group>"; };
 		BDD3D8F42389B92F0028F37E /* EmployeeCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmployeeCell.swift; sourceTree = "<group>"; };
 		BDD57C9424787526008C632E /* CustomerTableViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomerTableViewDelegate.swift; sourceTree = "<group>"; };
@@ -109,6 +110,7 @@
 		BDD57CA3247D7903008C632E /* LaunchScreenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchScreenView.swift; sourceTree = "<group>"; };
 		BDD57CA6247D85BD008C632E /* LaunchScreenController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchScreenController.swift; sourceTree = "<group>"; };
 		BDD57CA9247EFCB4008C632E /* LoginTextFieldDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginTextFieldDelegate.swift; sourceTree = "<group>"; };
+		BDD762832543E38C00ABE2D4 /* CustomerIssueMonitor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomerIssueMonitor.swift; sourceTree = "<group>"; };
 		BDF4C95624C75C9100ED5596 /* NewTask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewTask.swift; sourceTree = "<group>"; };
 		BDF98EB8236B8047007A4F3A /* FixIt.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FixIt.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BDF98EBB236B8047007A4F3A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -342,6 +344,7 @@
 			isa = PBXGroup;
 			children = (
 				BDCD448E238C5C35000C7A49 /* DataRetriever.swift */,
+				BDD762832543E38C00ABE2D4 /* CustomerIssueMonitor.swift */,
 			);
 			path = DataRetriever;
 			sourceTree = "<group>";
@@ -546,7 +549,7 @@
 			children = (
 				BDF98F092370C1E7007A4F3A /* ProfileDataModel.swift */,
 				BDF98F00236E592C007A4F3A /* TaskDataModel.swift */,
-				BDD3D8EF238729F70028F37E /* HomeTableViewData.swift */,
+				BDD3D8EF238729F70028F37E /* CustomerTableViewData.swift */,
 				BD60B91924C0D9B000B3B1DE /* Protocols */,
 			);
 			path = DataModels;
@@ -780,6 +783,7 @@
 				BDD57C9724787534008C632E /* CustomerTableViewDataSource.swift in Sources */,
 				BDD57CA1247C5007008C632E /* GeofenceViewController.swift in Sources */,
 				BD2D85D8249159180059AB7E /* ErrorControllerProtocol.swift in Sources */,
+				BDD762842543E38C00ABE2D4 /* CustomerIssueMonitor.swift in Sources */,
 				BDCD449723904511000C7A49 /* GeofencingMapView.swift in Sources */,
 				BDF98EBE236B8047007A4F3A /* SceneDelegate.swift in Sources */,
 				BDF98F1123729DB7007A4F3A /* UserLocationProtocol.swift in Sources */,
@@ -787,7 +791,7 @@
 				BDD3D8F32389B6DB0028F37E /* EmployeeHome.swift in Sources */,
 				BDF4C95724C75C9100ED5596 /* NewTask.swift in Sources */,
 				BDAD6FFC24BCE6490078CAB2 /* EmptyIssueCustomerCell.swift in Sources */,
-				BDD3D8F0238729F70028F37E /* HomeTableViewData.swift in Sources */,
+				BDD3D8F0238729F70028F37E /* CustomerTableViewData.swift in Sources */,
 				BD7BD3E42475A28D0065BE45 /* EmployeeView.swift in Sources */,
 				BDF98EF6236E22CC007A4F3A /* CustomerModel.swift in Sources */,
 				BDD3D8F52389B92F0028F37E /* EmployeeCell.swift in Sources */,

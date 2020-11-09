@@ -136,8 +136,8 @@ struct UserProfile: View {
                 ActionSheet.Button.destructive(Text("Log Out"), action: {
                     do {
                         try Auth.auth().signOut()
-                        Constants.loggedIn = false
-                        DataRetriever().saveSetting(for: Constants.loggedIn, forKey: "logInKey")
+                        Constants.shared.loggedIn = false
+                        DataRetriever().saveSetting(for: Constants.shared.loggedIn, forKey: "logInKey")
                         self.showingSheet = false
                         print("Logged Out!")
                     } catch let error {

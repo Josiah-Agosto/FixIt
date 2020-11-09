@@ -15,13 +15,15 @@ struct UserTaskModel {
     var userLocation: String?
     var userName: String
     var userTaskName: String
+    var userId: String
     
-    init(userTaskName: String, userName: String, userTaskDescription: String, userEmail: String?, userLocation: String?, userTaskDate: String) {
+    init(userTaskName: String, userName: String, userTaskDescription: String, userEmail: String?, userLocation: String?, userTaskDate: String, userId: String) {
         self.userTaskName = userTaskName
         self.userName = userName
         self.taskDescription = userTaskDescription
-        self.userEmail = userEmail ?? "Add Email in Profile"
-        self.userLocation = userLocation ?? "Unavailable Location"
+        self.userEmail = userEmail ?? "N/A"
+        self.userLocation = userLocation ?? "N/A"
         self.userDateAdded = userTaskDate
+        self.userId = userId
     }
 }

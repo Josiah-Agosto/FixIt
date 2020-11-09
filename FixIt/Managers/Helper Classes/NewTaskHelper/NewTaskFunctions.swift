@@ -23,8 +23,8 @@ struct NewTaskFunctions {
     
     /// Retrieves current users Location State.
     public func getUserState(completion: @escaping (_ location: String?, _ userId: String) -> Void) -> Void {
-        guard let userId = Constants.currentUser else { print(ValidationError.RetrievingUser.errorDescription!); return }
-        Constants.dbReference.child("Users").child("byId").child(userId).observeSingleEvent(of: .value, with: {
+        guard let userId = Constants.shared.currentUser else { print(ValidationError.RetrievingUser.errorDescription!); return }
+        Constants.shared.dbReference.child("Users").child("byId").child(userId).observeSingleEvent(of: .value, with: {
             (snapshot) in
             if let userDictionary = snapshot.value as? [String: Any] {
                 let userLocation = userDictionary["location"] as? String ?? ""

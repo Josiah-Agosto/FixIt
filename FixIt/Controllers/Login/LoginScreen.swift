@@ -45,11 +45,14 @@ class LoginScreen: UIViewController {
     
     @objc private func loggingIn(sender: UIButton) {
         guard let email = loginView.emailField.text, let password = loginView.passwordField.text else {
+            // TODO: This doesn't show when entering wrong login.
             loginView.errorLabel.isHidden = false
             loginView.errorLabel.text = ValidationError.InvalidLoginInput.errorDescription
             return
         }
         signingIn(with: email, and: password)
+        sender.isEnabled = false
+        sender.isOpaque = true
     } // Func End
     
     // MARK: - Functions
@@ -68,22 +71,22 @@ class LoginScreen: UIViewController {
     private func errorSigningIn() {
         self.loginView.errorLabel.isHidden = false
         self.loginView.errorLabel.text = ValidationError.SigningIn.errorDescription
-        Constants.loggedIn = false
-        DataRetriever().saveSetting(for: Constants.loggedIn, forKey: "logInKey")
+        Constants.shared.loggedIn = false
+        DataRetriever().saveSetting(for: Constants.shared.loggedIn, forKey: "logInKey")
     }
     
     
     private func successSigningIn(userId: String) {
         DataRetriever().retrieveUserDataToGet(id: userId, data: .isCustomer) { (isCustomer, _) in
             guard let isCustomer = isCustomer else { return }
-            Constants.loggedIn = true
+            Constants.shared.loggedIn = true
             self.loginView.errorLabel.isHidden = true
             switch isCustomer {
             case true:
-                DataRetriever().saveSetting(for: Constants.loggedIn, forKey: "logInKey")
+                DataRetriever().saveSetting(for: Constants.shared.loggedIn, forKey: "logInKey")
                 self.navigationController?.show(self.customerHome, sender: nil)
             case false:
-                DataRetriever().saveSetting(for: Constants.loggedIn, forKey: "logInKey")
+                DataRetriever().saveSetting(for: Constants.shared.loggedIn, forKey: "logInKey")
                 self.navigationController?.show(self.employeeHome, sender: nil)
             }
         } // Data Retriever End

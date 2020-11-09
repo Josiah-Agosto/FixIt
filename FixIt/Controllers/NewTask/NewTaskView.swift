@@ -77,7 +77,7 @@ struct NewTaskView: View {
                     self.addingDataToDatabase(with: self.taskData.location, and: userId)
                 } // getUserState End
             }
-            self.addingDataToDatabase(with: self.taskData.location, and: Constants.currentUser!)
+            self.addingDataToDatabase(with: self.taskData.location, and: Constants.shared.currentUser!)
             self.presentedObject.navigationController?.dismiss(animated: true, completion: nil)
         } else {
             self.passed = false
@@ -95,7 +95,7 @@ struct NewTaskView: View {
     ///   - location: String
     ///   - id: String
     private func addingDataToDatabase(with location: String, and id: String) {
-        let currentUserReference = Constants.dbReference.child("Users").child("byId").child(Constants.currentUser ?? "")
+        let currentUserReference = Constants.shared.dbReference.child("Users").child("byId").child(Constants.shared.currentUser ?? "")
         let taskNameString = "\($taskData.name.wrappedValue)"
         let taskEmailString = "\($taskData.email.wrappedValue)"
         let newTask = NewTask(id: id, taskName: taskNameField, description: detailField, email: taskEmailString, location: location, sender: taskNameString, date: newUser.dateAdded())

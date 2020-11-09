@@ -9,38 +9,27 @@
 import Foundation
 import UIKit
 
-class CustomerTableViewDataSource: NSObject, UITableViewDataSource {
-    var customerController: CustomerViewController
-    
-    init(customerController: CustomerViewController) {
-        self.customerController = customerController
-    }
-    
-    
+extension CustomerView: UITableViewDataSource {
+    // MARK: - Methods
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         return "Your Issues"
     }
     
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return Constants.issueCounter
+        return customerController.numberOfIssues
     }
     
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        switch customerController.customerView.hasIssues {
+        switch customerController.hasIssues {
         case true:
             let customerCell = tableView.dequeueReusableCell(withIdentifier: CustomerCell.reuseIdentifier, for: indexPath) as! CustomerCell
-            //        let modelForIndex = customerController.userTaskHolder[indexPath.row] as UserTaskModel
-            customerCell.taskName.text = "Broken Window Frame"
-            //        cell.taskName.text = modelForIndex.userTaskName
-            customerCell.descriptionLabel.text = "This is going to be long and it needs to be able to shrink or truncate the words in order for it to keep the same size for the label. I hope this is large enough to not see this."
-            //        cell.descriptionLabel.text = modelForIndex.taskDescription
-            customerCell.userName.text = "Josiah Agosto"
-            //        cell.userName.text = modelForIndex.userName
-            customerCell.dateCreatedLabel.text = "September 22, 2000"
-            //        cell.dateCreatedLabel.text = modelForIndex.date
-            //        Add coordinates for mapView here
+            customerCell.taskName.text = customerController.customerIssueTasks[indexPath.row].userTaskName
+            customerCell.descriptionLabel.text = customerController.customerIssueTasks[indexPath.row].taskDescription
+            customerCell.userName.text = customerController.customerIssueTasks[indexPath.row].userName
+            customerCell.dateCreatedLabel.text = customerController.customerIssueTasks[indexPath.row].userDateAdded
+            print("Here.")
             return customerCell
         case false:
             let emptyCell = tableView.dequeueReusableCell(withIdentifier: EmptyIssueCustomerCell.reuseIdentifier, for: indexPath) as! EmptyIssueCustomerCell

@@ -28,7 +28,7 @@ public class DataRetriever {
     public func retrieveUserDataToGet(id userId: String, data fromEnum: AccessibleData, completionHandler: @escaping(_ boolData: Bool?, _ stringData: String?) -> Void) {
         switch fromEnum {
         case .email:
-            Constants.dbReference.child("Users").child("byId").child(userId).observeSingleEvent(of: .value, with: { (snapshot) in
+            Constants.shared.dbReference.child("Users").child("byId").child(userId).observeSingleEvent(of: .value, with: { (snapshot) in
                 if let userDictionary = snapshot.value as? [String: Any] {
                     let userAccess = userDictionary["email"] as? String ?? ""
                     let convertedString = userAccess.reconvertSymbols(from: userAccess)
@@ -38,7 +38,7 @@ public class DataRetriever {
                 print(ValidationError.RetrievingData.errorDescription!)
             }
         case .isCustomer:
-            Constants.dbReference.child("Users").child("byId").child(userId).observeSingleEvent(of: .value, with: { (snapshot) in
+            Constants.shared.dbReference.child("Users").child("byId").child(userId).observeSingleEvent(of: .value, with: { (snapshot) in
                 if let userDictionary = snapshot.value as? [String: Any] {
                     let userAccess = userDictionary["isCustomer"] as? Bool ?? false
                     completionHandler(userAccess, nil)
@@ -47,7 +47,7 @@ public class DataRetriever {
                 print(ValidationError.RetrievingData.errorDescription!)
             }
         case .location:
-            Constants.dbReference.child("Users").child("byId").child(userId).observeSingleEvent(of: .value, with: { (snapshot) in
+            Constants.shared.dbReference.child("Users").child("byId").child(userId).observeSingleEvent(of: .value, with: { (snapshot) in
                 if let userDictionary = snapshot.value as? [String: Any] {
                     let userAccess = userDictionary["location"] as? String ?? ""
                     completionHandler(nil, userAccess)
@@ -56,7 +56,7 @@ public class DataRetriever {
                 print(ValidationError.RetrievingData.errorDescription!)
             }
         case .name:
-            Constants.dbReference.child("Users").child("byId").child(userId).observeSingleEvent(of: .value, with: { (snapshot) in
+            Constants.shared.dbReference.child("Users").child("byId").child(userId).observeSingleEvent(of: .value, with: { (snapshot) in
                 if let userDictionary = snapshot.value as? [String: Any] {
                     let userAccess = userDictionary["name"] as? String ?? ""
                     completionHandler(nil, userAccess)
@@ -65,7 +65,7 @@ public class DataRetriever {
                 print(error.localizedDescription)
             }
         case .signedUp:
-            Constants.dbReference.child("Users").child("byId").child(userId).observeSingleEvent(of: .value, with: { (snapshot) in
+            Constants.shared.dbReference.child("Users").child("byId").child(userId).observeSingleEvent(of: .value, with: { (snapshot) in
                 if let userDictionary = snapshot.value as? [String: Any] {
                     let userAccess = userDictionary["signedUp"] as? String ?? ""
                     completionHandler(nil, userAccess)
@@ -74,7 +74,7 @@ public class DataRetriever {
                 print(ValidationError.RetrievingData.errorDescription!)
             }
         case .skill:
-            Constants.dbReference.child("Users").child("byId").child(userId).observeSingleEvent(of: .value, with: { (snapshot) in
+            Constants.shared.dbReference.child("Users").child("byId").child(userId).observeSingleEvent(of: .value, with: { (snapshot) in
                 if let userDictionary = snapshot.value as? [String: Any] {
                     let userAccess = userDictionary["skill"] as? String ?? ""
                     completionHandler(nil, userAccess)
@@ -83,7 +83,7 @@ public class DataRetriever {
                 print(ValidationError.RetrievingData.errorDescription!)
             }
         case .state:
-            Constants.dbReference.child("Users").child("byId").child(userId).observeSingleEvent(of: .value, with: { (snapshot) in
+            Constants.shared.dbReference.child("Users").child("byId").child(userId).observeSingleEvent(of: .value, with: { (snapshot) in
                 if let userDictionary = snapshot.value as? [String: Any] {
                     let userAccess = userDictionary["state"] as? String ?? ""
                     completionHandler(nil, userAccess)
@@ -96,7 +96,7 @@ public class DataRetriever {
     
     
     public func getAllUserData(id userId: String, completion: @escaping (_ isCustomer: Bool, _ email: String, _ location: String, _ name: String, _ signedUp: String, _ skill: String, _ state: String, _ userPhone: String, _ userDob: String) -> Void) -> Void {
-        Constants.dbReference.child("Users").child("byId").child(userId).observeSingleEvent(of: .value, with: { (snapshot) in
+        Constants.shared.dbReference.child("Users").child("byId").child(userId).observeSingleEvent(of: .value, with: { (snapshot) in
             if let userDictionary = snapshot.value as? [String: Any] {
                 let customerBool = userDictionary["isCustomer"] as? Bool ?? false
                 let userEmail = userDictionary["email"] as? String ?? ""
@@ -117,7 +117,7 @@ public class DataRetriever {
     
 
     public func saveSetting(for object: Bool, forKey key: String) {
-        Constants.defaults.set(object, forKey: key)
+        Constants.shared.defaults.set(object, forKey: key)
     }
     
     
@@ -141,7 +141,7 @@ public class DataRetriever {
     
     public func testIfLoggedInWorks() -> UIViewController {
         let group = DispatchGroup()
-        let localLogin = Constants.defaults.object(forKey: "logInKey") as? Bool
+        let localLogin = Constants.shared.defaults.object(forKey: "logInKey") as? Bool
         guard let safeLocalLogin = localLogin else { print("Error with Log In Key"); return UIViewController() }
         print("Safe Login, \(safeLocalLogin)")
         switch safeLocalLogin {

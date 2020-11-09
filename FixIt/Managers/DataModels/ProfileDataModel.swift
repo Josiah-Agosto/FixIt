@@ -47,7 +47,7 @@ class ProfileDataModel: ObservableObject {
             guard let isCustomer = isCustomer else { return }
             switch isCustomer {
             case true:
-                let customerData = Constants.dbReference.child("Users").child("byId").child(userId)
+                let customerData = Constants.shared.dbReference.child("Users").child("byId").child(userId)
                 switch key {
                 case .phoneNumber:
                     let phoneKeyWithValue = ["phoneNumber": value]
@@ -72,7 +72,7 @@ class ProfileDataModel: ObservableObject {
                     }
             } // Switch End
             case false:
-                let employeeData = Constants.dbReference.child("Users").child("byId").child(userId)
+                let employeeData = Constants.shared.dbReference.child("Users").child("byId").child(userId)
                 switch key {
                 case .phoneNumber:
                     let phoneKeyWithValue = ["phoneNumber": value]

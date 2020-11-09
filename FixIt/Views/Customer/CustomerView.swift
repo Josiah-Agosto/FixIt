@@ -10,13 +10,11 @@ import UIKit
 
 class CustomerView: UIView {
     // Properties / References
-    // No issue Bool
-    public var hasIssues: Bool = false
     // Table View
     public lazy var tableView: UITableView = {
         let tableView = UITableView(frame: .zero, style: .plain)
         tableView.translatesAutoresizingMaskIntoConstraints = false
-        tableView.estimatedRowHeight = 100
+        tableView.estimatedRowHeight = 150
         tableView.separatorStyle = .singleLine
         return tableView
     }()
@@ -41,9 +39,6 @@ class CustomerView: UIView {
         return item
     }()
     public lazy var customerController = CustomerViewController()
-    // Delegates
-    public var customerTableViewDelegate: CustomerTableViewDelegate?
-    public var customerTableViewDataSource: CustomerTableViewDataSource?
 
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -55,11 +50,10 @@ class CustomerView: UIView {
         // View
         backgroundColor = UIColor(red: 220/255, green: 220/255, blue: 220/255, alpha: 1.0)
         // Table View
-        customerTableViewDelegate = CustomerTableViewDelegate(customerController: customerController)
-        customerTableViewDataSource = CustomerTableViewDataSource(customerController: customerController)
-        tableView.delegate = customerTableViewDelegate
-        tableView.dataSource = customerTableViewDataSource
-        tableView.register(hasIssues ? CustomerCell.self : EmptyIssueCustomerCell.self, forCellReuseIdentifier: hasIssues ? CustomerCell.reuseIdentifier : EmptyIssueCustomerCell.reuseIdentifier)
+        tableView.delegate = self
+        tableView.dataSource = self
+        tableView.register(CustomerCell.self, forCellReuseIdentifier: CustomerCell.reuseIdentifier)
+        tableView.register(EmptyIssueCustomerCell.self, forCellReuseIdentifier: EmptyIssueCustomerCell.reuseIdentifier)
         // Subviews
         addSubview(tableView)
         // Constraints

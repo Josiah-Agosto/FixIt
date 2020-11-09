@@ -55,13 +55,13 @@ class SignUpController: UIViewController, LocationNameProtocol {
         signUpView.isExpanded = !sender.isOn
         switch sender.isOn {
         case true:
-            Constants.isCustomer = false
+            Constants.shared.isCustomer = false
             signUpView.cityField.isEnabled = true
             signUpView.cityField.isHidden = false
             signUpView.employeeSkill.isEnabled = true
             signUpView.employeeSkill.isHidden = false
         case false:
-            Constants.isCustomer = true
+            Constants.shared.isCustomer = true
             signUpView.cityField.isEnabled = false
             signUpView.cityField.isHidden = true
             signUpView.employeeSkill.isEnabled = false
@@ -132,8 +132,8 @@ class SignUpController: UIViewController, LocationNameProtocol {
     
     
     private func createCustomer(with uid: String, with name: String, with email: String) {
-        Constants.isCustomer = true
-        let customerReference = Constants.dbReference.child("Users").child("byId").child(uid)
+        Constants.shared.isCustomer = true
+        let customerReference = Constants.shared.dbReference.child("Users").child("byId").child(uid)
         let customerValues = ["name": name, "email": email.convertForbiddenFirebaseSymbols(from: email), "signedUp": self.createAtSignUpDate(), "isCustomer": self.localIsCustomer, "issueCounter": 0] as [String : Any]
         customerReference.updateChildValues(customerValues) { (error, _) in
             if error != nil {
@@ -144,8 +144,8 @@ class SignUpController: UIViewController, LocationNameProtocol {
                 }
                 self.errorOccurred()
             } else {
-                Constants.loggedIn = true
-                DataRetriever().saveSetting(for: Constants.loggedIn, forKey: "logInKey")
+                Constants.shared.loggedIn = true
+                DataRetriever().saveSetting(for: Constants.shared.loggedIn, forKey: "logInKey")
                 self.navigationController?.show(self.customerHome, sender: self)
             }
         }
@@ -153,8 +153,8 @@ class SignUpController: UIViewController, LocationNameProtocol {
     
     
     private func createEmployee(with uid: String, with name: String, with email: String, with location: String, with skill: String, and state: String) {
-        Constants.isCustomer = false
-        let employeeReference = Constants.dbReference.child("Users").child("byId").child(uid)
+        Constants.shared.isCustomer = false
+        let employeeReference = Constants.shared.dbReference.child("Users").child("byId").child(uid)
         let employeeValues = ["name": name, "email": email.convertForbiddenFirebaseSymbols(from: email), "location": location, "skill": skill, "state": state, "signedUp": self.createAtSignUpDate(), "isCustomer": self.localIsCustomer] as [String : Any]
         employeeReference.updateChildValues(employeeValues) { (error, _) in
             if error != nil {
@@ -165,8 +165,8 @@ class SignUpController: UIViewController, LocationNameProtocol {
                 }
                 self.errorOccurred()
             } else {
-                Constants.loggedIn = true
-                DataRetriever().saveSetting(for: Constants.loggedIn, forKey: "logInKey")
+                Constants.shared.loggedIn = true
+                DataRetriever().saveSetting(for: Constants.shared.loggedIn, forKey: "logInKey")
                 self.navigationController?.show(self.employeeHome, sender: self)
             }
         }
@@ -176,8 +176,8 @@ class SignUpController: UIViewController, LocationNameProtocol {
     private func errorOccurred() {
         self.signUpView.errorLabel.isHidden = false
         self.signUpView.errorLabel.text = UserError.UpdatingValues.errorDescription
-        Constants.loggedIn = false
-        DataRetriever().saveSetting(for: Constants.loggedIn, forKey: "logInKey")
+        Constants.shared.loggedIn = false
+        DataRetriever().saveSetting(for: Constants.shared.loggedIn, forKey: "logInKey")
     }
 } // Class End
 

@@ -9,5 +9,7 @@
 import Foundation
 
 protocol HomeTableViewDataProtocol {
-    func retrieveUserTasks(userTaskData: [UserTaskModel])
+    var customerIssueTasks: [UserTaskModel] { get set }
+    var hasIssues: Bool { get set }
+    var numberOfIssues: Int { get set }
 }

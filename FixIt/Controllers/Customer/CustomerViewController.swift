@@ -10,12 +10,18 @@ import Foundation
 import UIKit
 import SwiftUI
 
-class CustomerViewController: UIViewController {
+class CustomerViewController: UIViewController, HomeTableViewDataProtocol {
     // References / Properties
     private lazy var globalHelper = GlobalHelper.shared
+    public lazy var customerMonitor = CustomerIssueMonitor.shared
     public lazy var customerView = CustomerView()
-    private var homeData: HomeTableViewData?
+    public var homeData: CustomerTableViewData?
     private var locationManager: LocationManager?
+    // Protocol Properties
+    var customerIssueTasks: [UserTaskModel] = []
+    var hasIssues: Bool = false
+    var numberOfIssues: Int = 0
+    // New Issue Bool
     @State private var isPresented: Bool = false
     // MARK: - Lifecycle
     override func loadView() {
@@ -26,11 +32,7 @@ class CustomerViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setup()
-    }
-    
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
+        customerMonitor.fetchUpdates()
         checkingIfUserHasIssues()
     }
     
@@ -47,34 +49,46 @@ class CustomerViewController: UIViewController {
         customerView.addBarButtonItem = UIBarButtonItem(image: customerView.addImage, style: .plain, target: self, action: #selector(addNewFix(sender:)))
         navigationItem.rightBarButtonItem = customerView.addBarButtonItem
         // Delegate
+        homeData = CustomerTableViewData()
         homeData?.delegate = self
+        // Notifications
+        NotificationCenter.default.addObserver(self, selector: #selector(customerIssuesChanged(_:)), name: .customerIssues, object: nil)
+        
     }
     
     // Checks to see whether the table view needs to update to show issues.
     public func checkingIfUserHasIssues() {
-        globalHelper.retrieveNumberOfIssues { (issues) in
+        getUserIssues()
+        homeData?.retrieveNumberOfIssues { (issues) in
             switch issues {
                 case 0:
-                    self.customerView.hasIssues = false
                     self.locationManager = nil
                     return
                 default:
-                    self.customerView.hasIssues = true
-                    self.locationManager = LocationManager()
-                    self.refreshToGetIssues()
-                    self.retrieveUserData()
+                    DispatchQueue.main.async {
+                        self.locationManager = LocationManager()
+                    }
+                    self.setupReloadTableView()
                     return
             }
         }
     }
     
-    // MARK: Private Functions
-    private func refreshToGetIssues() {
-        homeData = HomeTableViewData()
+    // MARK: - Private Functions
+    private func getUserIssues() {
+        homeData?.getUserTasks()
     }
     
-    private func retrieveUserData() {
-        globalHelper.retrieveUserTasks()
+    /// Called only after view did load.
+    private func setupReloadTableView() {
+        DispatchQueue.main.async {
+            self.customerView.tableView.reloadData()
+        }
+    }
+    
+    // MARK: - Actions
+    @objc private func customerIssuesChanged(_ notification: Notification) {
+        print("Changed!!!")
     }
     
     // MARK: - Actions
@@ -96,15 +110,3 @@ class CustomerViewController: UIViewController {
         navigationController?.present(hostedView, animated: true)
     }
 } // Class End
-
-
-
-// MARK: User Task Extension
-extension CustomerViewController: HomeTableViewDataProtocol {
-    func retrieveUserTasks(userTaskData: [UserTaskModel]) {
-        for task in userTaskData {
-            Constants.userTaskHolder.append(task)
-        }
-        customerView.tableView.reloadData()
-    }
-}

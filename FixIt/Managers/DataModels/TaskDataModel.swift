@@ -18,7 +18,7 @@ class TaskDataModel: ObservableObject {
     @Published var skill: String = ""
     
     public func retrieveUserData() {
-        guard let userId = Constants.currentUser else { print(ValidationError.RetrievingUser.errorDescription!); return }
+        guard let userId = Constants.shared.currentUser else { print(ValidationError.RetrievingUser.errorDescription!); return }
         DataRetriever().getAllUserData(id: userId) { (isCustomer, email, location, name, signedUp, skill, state, phone, dob) in
             self.name = name
             self.email = email
