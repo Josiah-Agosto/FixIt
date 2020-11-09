@@ -38,11 +38,15 @@ class SignUpController: UIViewController, LocationNameProtocol {
     
     
     private func setup() {
-        navigationController?.navigationBar.topItem?.titleView = signUpView.registerLabel
+        title = "Sign Up"
+        navigationItem.hidesBackButton = true
+        navigationItem.leftBarButtonItem = signUpView.cancelBackButton
         signUpView.registerButton.addTarget(self, action: #selector(createSpecifiedUser(sender:)), for: .touchUpInside)
         signUpView.employeeSwitch.addTarget(self, action: #selector(signedInWithEmployee(sender:)), for: .valueChanged)
         signUpView.cityField.addTarget(self, action: #selector(showMapView(sender:)), for: .touchUpInside)
         signUpView.accountHolderButton.addTarget(self, action: #selector(accountHolderAction(sender:)), for: .touchUpInside)
+        signUpView.cancelBackButton.target = self
+        signUpView.cancelBackButton.action = #selector(goBackToMainScreen(sender:))
     }
     
 
@@ -82,6 +86,11 @@ class SignUpController: UIViewController, LocationNameProtocol {
     
 
     @objc private func accountHolderAction(sender: UIButton) {
+        self.navigationController?.popToRootViewController(animated: true)
+    }
+    
+    
+    @objc private func goBackToMainScreen(sender: UIBarButtonItem) {
         self.navigationController?.popToRootViewController(animated: true)
     }
     

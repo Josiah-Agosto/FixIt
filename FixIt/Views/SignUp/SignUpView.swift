@@ -10,16 +10,6 @@ import UIKit
 
 class SignUpView: UIView {
     // Properties / References
-    public lazy var registerLabel: UILabel = {
-        let label = UILabel(frame: .zero)
-        label.sizeToFit()
-        label.text = "Sign Up"
-        label.backgroundColor = UIColor.clear
-        label.font = UIFont(name: "AvenirNext-Medium", size: 20)
-        label.textColor = UIColor(red: 20 / 255, green: 20 / 255, blue: 20 / 255, alpha: 1.0)
-        label.textAlignment = NSTextAlignment.center
-        return label
-    }()
     // Empty View
     public lazy var emptyView: UIView = {
         let view = UIView(frame: .zero)
@@ -162,6 +152,11 @@ class SignUpView: UIView {
         registerButton.layer.cornerRadius = 20
         registerButton.backgroundColor = UIColor(red: 77/255, green: 130/255, blue: 199/255, alpha: 1.0)
         return registerButton
+    }()
+    // Back Button
+    public lazy var cancelBackButton: UIBarButtonItem = {
+        let button = UIBarButtonItem(title: "Cancel", style: .done, target: nil, action: nil)
+        return button
     }()
     // Constraints
     private var customerConstraint: [NSLayoutConstraint]? = nil
