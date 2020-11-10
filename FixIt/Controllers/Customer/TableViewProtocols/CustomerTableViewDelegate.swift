@@ -9,10 +9,17 @@
 import Foundation
 import UIKit
 
-extension CustomerView: UITableViewDelegate {
+class CustomerTableViewDelegate: NSObject, UITableViewDelegate {
+    // MARK: - References / Properties
+    private var customerController: CustomerViewController
+    
+    init(customerController: CustomerViewController) {
+        self.customerController = customerController
+    }
+    
     // MARK: - Methods
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return customerController.hasIssues ? 115.0 : 50.0
+        return customerController.customerDataSource.hasIssues ? 115.0 : 50.0
     }
     
     

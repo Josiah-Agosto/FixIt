@@ -9,7 +9,12 @@
 import Foundation
 import UIKit
 
-extension CustomerView: UITableViewDataSource {
+class CustomerTableViewDataSource: NSObject, UITableViewDataSource, HomeTableViewDataProtocol {
+    // MARK: - References / Properties
+    // Protocol Properties
+    var customerIssueTasks: [UserTaskModel] = []
+    var hasIssues: Bool = false
+    var numberOfIssues: Int = 0
     // MARK: - Methods
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         return "Your Issues"
@@ -17,19 +22,18 @@ extension CustomerView: UITableViewDataSource {
     
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return customerController.numberOfIssues
+        return numberOfIssues
     }
     
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        switch customerController.hasIssues {
+        switch hasIssues {
         case true:
             let customerCell = tableView.dequeueReusableCell(withIdentifier: CustomerCell.reuseIdentifier, for: indexPath) as! CustomerCell
-            customerCell.taskName.text = customerController.customerIssueTasks[indexPath.row].userTaskName
-            customerCell.descriptionLabel.text = customerController.customerIssueTasks[indexPath.row].taskDescription
-            customerCell.userName.text = customerController.customerIssueTasks[indexPath.row].userName
-            customerCell.dateCreatedLabel.text = customerController.customerIssueTasks[indexPath.row].userDateAdded
-            print("Here.")
+            customerCell.taskName.text = customerIssueTasks[indexPath.row].userTaskName
+            customerCell.descriptionLabel.text = customerIssueTasks[indexPath.row].taskDescription
+            customerCell.userName.text = customerIssueTasks[indexPath.row].userName
+            customerCell.dateCreatedLabel.text = customerIssueTasks[indexPath.row].userDateAdded
             return customerCell
         case false:
             let emptyCell = tableView.dequeueReusableCell(withIdentifier: EmptyIssueCustomerCell.reuseIdentifier, for: indexPath) as! EmptyIssueCustomerCell

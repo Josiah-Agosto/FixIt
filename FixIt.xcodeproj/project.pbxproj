@@ -343,6 +343,8 @@
 		BDCD4490238C5EFD000C7A49 /* DataRetriever */ = {
 			isa = PBXGroup;
 			children = (
+				BD60B91924C0D9B000B3B1DE /* Protocols */,
+				BDD3D8EF238729F70028F37E /* CustomerTableViewData.swift */,
 				BDCD448E238C5C35000C7A49 /* DataRetriever.swift */,
 				BDD762832543E38C00ABE2D4 /* CustomerIssueMonitor.swift */,
 			);
@@ -549,8 +551,6 @@
 			children = (
 				BDF98F092370C1E7007A4F3A /* ProfileDataModel.swift */,
 				BDF98F00236E592C007A4F3A /* TaskDataModel.swift */,
-				BDD3D8EF238729F70028F37E /* CustomerTableViewData.swift */,
-				BD60B91924C0D9B000B3B1DE /* Protocols */,
 			);
 			path = DataModels;
 			sourceTree = "<group>";

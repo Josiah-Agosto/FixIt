@@ -10,17 +10,16 @@ import Foundation
 import UIKit
 import SwiftUI
 
-class CustomerViewController: UIViewController, HomeTableViewDataProtocol {
+class CustomerViewController: UIViewController {
     // References / Properties
     private lazy var globalHelper = GlobalHelper.shared
     public lazy var customerMonitor = CustomerIssueMonitor.shared
     public lazy var customerView = CustomerView()
     public var homeData: CustomerTableViewData?
     private var locationManager: LocationManager?
-    // Protocol Properties
-    var customerIssueTasks: [UserTaskModel] = []
-    var hasIssues: Bool = false
-    var numberOfIssues: Int = 0
+    // Table View Protocols
+    private var customerDelegate: CustomerTableViewDelegate?
+    public let customerDataSource = CustomerTableViewDataSource()
     // New Issue Bool
     @State private var isPresented: Bool = false
     // MARK: - Lifecycle
@@ -38,6 +37,14 @@ class CustomerViewController: UIViewController, HomeTableViewDataProtocol {
     
     // MARK: - Setup Functions
     private func setup() {
+        // Table View
+        customerDelegate = CustomerTableViewDelegate(customerController: self)
+        customerView.tableView.delegate = customerDelegate
+        customerView.tableView.dataSource = customerDataSource
+        // Delegate
+        homeData = CustomerTableViewData()
+        homeData?.delegate = customerDataSource
+        // Navigation Controller
         navigationController?.isNavigationBarHidden = false
         navigationController?.navigationBar.prefersLargeTitles = false
         navigationController?.navigationBar.barTintColor = UIColor.white
@@ -48,9 +55,6 @@ class CustomerViewController: UIViewController, HomeTableViewDataProtocol {
         navigationItem.leftBarButtonItem = customerView.profileBarButtonItem
         customerView.addBarButtonItem = UIBarButtonItem(image: customerView.addImage, style: .plain, target: self, action: #selector(addNewFix(sender:)))
         navigationItem.rightBarButtonItem = customerView.addBarButtonItem
-        // Delegate
-        homeData = CustomerTableViewData()
-        homeData?.delegate = self
         // Notifications
         NotificationCenter.default.addObserver(self, selector: #selector(customerIssuesChanged(_:)), name: .customerIssues, object: nil)
         

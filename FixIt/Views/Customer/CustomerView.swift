@@ -49,9 +49,7 @@ class CustomerView: UIView {
     private func setup() {
         // View
         backgroundColor = UIColor(red: 220/255, green: 220/255, blue: 220/255, alpha: 1.0)
-        // Table View
-        tableView.delegate = self
-        tableView.dataSource = self
+        // Cells
         tableView.register(CustomerCell.self, forCellReuseIdentifier: CustomerCell.reuseIdentifier)
         tableView.register(EmptyIssueCustomerCell.self, forCellReuseIdentifier: EmptyIssueCustomerCell.reuseIdentifier)
         // Subviews
