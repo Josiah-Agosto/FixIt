@@ -1,5 +1,5 @@
 //
-//  MapHelperFunctions.swift
+//  LocationHelperClass.swift
 //  FixIt
 //
 //  Created by Josiah Agosto on 5/21/20.
@@ -10,7 +10,7 @@ import UIKit
 import CoreLocation
 import MapKit
 
-class MapHelperFunctions {
+class LocationHelperClass {
     // Properties / References
     private var locationManager: CLLocationManager?
     public var userLocationName: String? = ""
@@ -57,6 +57,22 @@ class MapHelperFunctions {
                 self.userState = self.userState ?? "Couldn't find your Location" + "\(state)"
                 self.userLocationName = self.userLocationName ?? "Couldn't find your Location" + " \(state)"
             }
+        }
+    }
+    
+    /// Retrieves current users Location State.
+    public func getUserState(from address: String, completion: @escaping(String) -> Void) {
+        let geoCoder = CLGeocoder()
+        var userState: String = ""
+        let group = DispatchGroup()
+        group.enter()
+        geoCoder.geocodeAddressString(address, completionHandler: { (placemarks, error) in
+            guard let placemarks = placemarks, let state = placemarks.first?.administrativeArea else { return }
+            userState = state
+            group.leave()
+        })
+        group.notify(queue: .main) {
+            completion(userState)
         }
     }
     

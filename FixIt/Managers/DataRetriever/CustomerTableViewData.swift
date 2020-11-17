@@ -44,6 +44,7 @@ class CustomerTableViewData {
         Constants.shared.dbReference.child("Users").child("byId").child(userId).observeSingleEvent(of: .value) { (snapshot) in
             if let issueCounter = snapshot.value as? [String: Any] {
                 let currentUserValue = issueCounter["issueCounter"] as? Int ?? 0
+                print("Has Issue: \(currentUserValue)")
                 userCount = currentUserValue
                 group.leave()
             }

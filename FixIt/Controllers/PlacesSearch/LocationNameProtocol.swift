@@ -10,4 +10,5 @@ import Foundation
 
 protocol LocationNameProtocol {
     func userEnteredLocation(forString: String)
+    var usersLocation: String { get set }
 }

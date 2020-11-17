@@ -171,7 +171,6 @@ class SignUpView: UIView {
                 customerConstraint = [NSLayoutConstraint(item: emptyView, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .height, multiplier: 1.0, constant: 144)]
                 NSLayoutConstraint.activate(customerConstraint ?? [NSLayoutConstraint()])
             } else {
-                print("Else, \(isExpanded)")
                 NSLayoutConstraint.deactivate(customerConstraint ?? [NSLayoutConstraint()])
                 employeeConstraint = [NSLayoutConstraint(item: emptyView, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .height, multiplier: 1.0, constant: 236)]
                 NSLayoutConstraint.activate(employeeConstraint ?? [NSLayoutConstraint()])
@@ -188,6 +187,10 @@ class SignUpView: UIView {
     private func setup() {
         // View
         backgroundColor = UIColor(red: 220/255, green: 220/255, blue: 220/255, alpha: 1.0)
+        // Delegates
+        nameField.delegate = TextFieldDelegate.shared
+        emailField.delegate = TextFieldDelegate.shared
+        passwordField.delegate = TextFieldDelegate.shared
         // Subviews
         addSubview(emptyView)
         addSubview(nameField)

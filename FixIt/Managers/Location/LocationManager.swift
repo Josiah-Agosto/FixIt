@@ -14,8 +14,8 @@ class LocationManager: NSObject, CLLocationManagerDelegate {
     // Properties / References
     static let shared = LocationManager()
     public var locationManager: CLLocationManager
-    private let mapHelperFunctions = MapHelperFunctions()
-    private let profileDataModel = ProfileDataModel()
+    private let locationHelper = LocationHelperClass()
+    private var profileDataModel: ProfileDataModel?
     public var userLocation: String = ""
     private weak var errorControllerDelegate: ErrorControllerProtocol?
     
@@ -36,7 +36,6 @@ class LocationManager: NSObject, CLLocationManagerDelegate {
         locationManager.requestWhenInUseAuthorization()
         locationManager.desiredAccuracy = kCLLocationAccuracyHundredMeters
         locationManager.requestLocation()
-        startLocating()
     }
     
     
@@ -72,29 +71,41 @@ class LocationManager: NSObject, CLLocationManagerDelegate {
     }
     
     
-    func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
-        switch status {
-        case .notDetermined:
-            return
-        case .restricted:
-            self.errorControllerDelegate?.locationErrorController(with: "FixIt requires location", and: "Seems like we couldn't access your location. To do so go to Settings.")
-        case .denied:
-            self.errorControllerDelegate?.locationErrorController(with: "FixIt requires location", and: "Seems like we couldn't access your location. To do so go to Settings.")
-        case .authorizedAlways:
-            startLocating()
-        case .authorizedWhenInUse:
-            startLocating()
-        @unknown default:
-            self.errorControllerDelegate?.locationErrorController(with: "FixIt requires location", and: "Seems like we couldn't access your location. To do so go to settings to enable.")
+    func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {
+        if #available(iOS 14.0, *) {
+            switch manager.authorizationStatus {
+                case .notDetermined:
+                    print("Not determined")
+                    return
+                case .restricted:
+                    self.errorControllerDelegate?.locationErrorController(with: "FixIt requires location", and: "Seems like we couldn't access your location. To do so go to Settings.")
+                case .denied:
+                    self.errorControllerDelegate?.locationErrorController(with: "FixIt requires location", and: "Seems like we couldn't access your location. To do so go to Settings.")
+                case .authorizedAlways:
+                    startLocating()
+                case .authorizedWhenInUse:
+                    startLocating()
+                @unknown default:
+                    startLocating()
+            }
+        } else {
+            print("Pre iOS 14.")
         }
     }
     
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         guard let location = locations.first else { return }
+        var userLocation = ""
+        let group = DispatchGroup()
+        group.enter()
         reverseUserLocationToAddress(from: location.coordinate.longitude, and: location.coordinate.latitude) { (locationString) in
-            self.userLocation = locationString
-            self.profileDataModel.addUserData(to: .location, with: locationString)
+            userLocation = locationString
+            group.leave()
+        }
+        group.notify(queue: .main) {
+            self.userLocation = userLocation
+            self.profileDataModel?.addUserData(to: .location, with: userLocation)
         }
     }
     

@@ -26,4 +26,8 @@ struct UserTaskModel {
         self.userDateAdded = userTaskDate
         self.userId = userId
     }
+    
+    func toAnyObject() -> Dictionary<String, Any> {
+        return ["dateAdded": userDateAdded, "description": taskDescription, "email": userEmail ?? "", "location": userLocation ?? "", "name": userName, "taskName": userTaskName, "id": userId]
+    }
 }

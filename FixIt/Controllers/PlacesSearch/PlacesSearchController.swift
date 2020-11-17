@@ -15,7 +15,7 @@ import Firebase
 class PlacesSearchController: UIViewController {
     // References / Properties
     public lazy var placesSearchView = PlacesSearchView()
-    private lazy var mapHelperFunctions = MapHelperFunctions()
+    private lazy var locationHelper = LocationHelperClass()
     private lazy var signUpController = SignUpController()
     // Variables
     var delegate: LocationNameProtocol?
@@ -65,7 +65,7 @@ extension PlacesSearchController: GMSAutocompleteViewControllerDelegate {
         placesSearchView.textField.text = place.formattedAddress
         dismiss(animated: true, completion: nil)
         guard let location = place.formattedAddress else { print("Invalid Place"); return }
-        mapHelperFunctions.centerMapOnLocation(forString: location) { (region) in
+        locationHelper.centerMapOnLocation(forString: location) { (region) in
             self.placesSearchView.mapView.setRegion(region, animated: true)
         }
         userEnteredLocation = location

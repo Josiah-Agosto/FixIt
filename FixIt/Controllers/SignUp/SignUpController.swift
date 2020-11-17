@@ -17,10 +17,13 @@ class SignUpController: UIViewController, LocationNameProtocol {
     private lazy var customerHome = CustomerViewController()
     private lazy var employeeHome = EmployeeViewController()
     private let globalHelper = GlobalHelper.shared
-    private let mapHelper = MapHelperFunctions()
+    private let locationHelper = LocationHelperClass()
     private var localIsCustomer: Bool = true
+    // Protocol Properties
+    var usersLocation: String = ""
     // MARK: - Lifecycle
     override func loadView() {
+        super.loadView()
         view = signUpView
     }
     
@@ -104,9 +107,10 @@ class SignUpController: UIViewController, LocationNameProtocol {
         return formatter.string(from: signUpDate)
     }
     
+    // TODO: Put Auth error in global helper.
     
     private func createUser() {
-        guard let email = signUpView.emailField.text, let password = signUpView.passwordField.text, let name = signUpView.nameField.text, let location = mapHelper.userLocationName, let skill = signUpView.employeeSkill.text, let state = mapHelper.userState else {
+        guard let email = signUpView.emailField.text, let password = signUpView.passwordField.text, let name = signUpView.nameField.text, let skill = signUpView.employeeSkill.text, let state = locationHelper.userState else {
             // TODO: Add error controller here
             self.globalHelper.globalError(with: "Sign Up Error", and: "All fields must be filled in.") { (controller) in
                 DispatchQueue.main.async {
@@ -130,20 +134,20 @@ class SignUpController: UIViewController, LocationNameProtocol {
                 switch self.localIsCustomer {
                 case true:
                     // Customer
-                    self.createCustomer(with: uid, with: name, with: email)
+                    self.createCustomer(with: uid, with: name, with: email, and: self.usersLocation)
                 case false:
                     // Employee
-                    self.createEmployee(with: uid, with: name, with: email, with: location, with: skill, and: state)
+                    self.createEmployee(with: uid, with: name, with: email, with: self.usersLocation, with: skill, and: state)
                 } // Switch End
             }
         } // Auth End
     } // Func End
     
     
-    private func createCustomer(with uid: String, with name: String, with email: String) {
+    private func createCustomer(with uid: String, with name: String, with email: String, and location: String?) {
         Constants.shared.isCustomer = true
         let customerReference = Constants.shared.dbReference.child("Users").child("byId").child(uid)
-        let customerValues = ["name": name, "email": email.convertForbiddenFirebaseSymbols(from: email), "signedUp": self.createAtSignUpDate(), "isCustomer": self.localIsCustomer, "issueCounter": 0] as [String : Any]
+        let customerValues = ["name": name, "email": email.convertForbiddenFirebaseSymbols(from: email), "signedUp": self.createAtSignUpDate(), "isCustomer": self.localIsCustomer, "issueCounter": 0, "location": location ?? "Not Available"] as [String : Any]
         customerReference.updateChildValues(customerValues) { (error, _) in
             if error != nil {
                 self.globalHelper.globalError(with: "Error Creating User", and: error!.localizedDescription) { (alertController) in
@@ -194,7 +198,7 @@ class SignUpController: UIViewController, LocationNameProtocol {
 // MARK: - Location Error Delegate
 extension SignUpController: ErrorControllerProtocol {
     func locationErrorController(with title: String, and description: String) {
-        mapHelper.locationRequestError(with: title, and: description) { (controller) in
+        locationHelper.locationRequestError(with: title, and: description) { (controller) in
             DispatchQueue.main.async {
                 self.present(controller, animated: true)
             }

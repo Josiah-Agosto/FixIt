@@ -12,7 +12,7 @@ class CustomerIssueMonitor {
     // Properties / References
     static let shared = CustomerIssueMonitor()
     //
-    private let globalHelper = GlobalHelper()
+    private let globalHelper = GlobalHelper.shared
     //
     private let customerIssuesNotification = NotificationCenter.default
     
