@@ -10,7 +10,7 @@ import UIKit
 import Firebase
 import CoreLocation
 
-class SignUpController: UIViewController, LocationNameProtocol {
+class SignUpController: UIViewController, LocationManagerProtocol {
     // References / Properties
     public lazy var signUpView = SignUpView()
     private lazy var locationManager = LocationManager.shared
@@ -31,12 +31,8 @@ class SignUpController: UIViewController, LocationNameProtocol {
     override func viewDidLoad() {
         super.viewDidLoad()
         setup()
-    }
-    
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
         locationManager.startLocating()
+        locationManager.locationSetup()
     }
     
     
@@ -50,11 +46,16 @@ class SignUpController: UIViewController, LocationNameProtocol {
         signUpView.accountHolderButton.addTarget(self, action: #selector(accountHolderAction(sender:)), for: .touchUpInside)
         signUpView.cancelBackButton.target = self
         signUpView.cancelBackButton.action = #selector(goBackToMainScreen(sender:))
+        // Delegates
+        locationManager.locationManagerDelegate = self
+        // Error controller delegate
     }
     
 
     func userEnteredLocation(forString: String) {
-        signUpView.cityField.setTitle(forString, for: .normal)
+        if signUpView.isExpanded {
+            signUpView.cityField.setTitle(forString, for: .normal)
+        }
     }
     
     // MARK: - Actions
@@ -133,6 +134,7 @@ class SignUpController: UIViewController, LocationNameProtocol {
             } else {
                 switch self.localIsCustomer {
                 case true:
+                    print("Location: \(self.usersLocation)")
                     // Customer
                     self.createCustomer(with: uid, with: name, with: email, and: self.usersLocation)
                 case false:

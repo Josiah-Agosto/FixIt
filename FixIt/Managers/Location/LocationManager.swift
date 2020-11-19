@@ -9,21 +9,19 @@
 import UIKit
 import CoreLocation
 
-// TODO: User Location isn't being written to when changing location.
 class LocationManager: NSObject, CLLocationManagerDelegate {
     // Properties / References
     static let shared = LocationManager()
     public var locationManager: CLLocationManager
     private let locationHelper = LocationHelperClass()
     private var profileDataModel: ProfileDataModel?
-    public var userLocation: String = ""
-    private weak var errorControllerDelegate: ErrorControllerProtocol?
+    public weak var errorControllerDelegate: ErrorControllerProtocol?
+    public weak var locationManagerDelegate: LocationManagerProtocol?
     
     override init() {
         locationManager = CLLocationManager()
         super.init()
         locationManager.delegate = self
-        locationSetup()
     }
     
     
@@ -41,7 +39,6 @@ class LocationManager: NSObject, CLLocationManagerDelegate {
     
     public func startLocating() {
         locationManager.startUpdatingLocation()
-        locationManager.startMonitoringSignificantLocationChanges()
         locationManager.distanceFilter = 100.0
         locationManager.pausesLocationUpdatesAutomatically = true
     }
@@ -64,8 +61,10 @@ class LocationManager: NSObject, CLLocationManagerDelegate {
                 guard let city = place.first?.subLocality else { return }
                 guard let state = place.first?.locality else { return }
                 let fullAddress = "\(address), \(city), \(state)"
-                print("String: \(fullAddress)")
-                completion(fullAddress)
+                print("Full Address: \(fullAddress)")
+                DispatchQueue.main.async {
+                    completion(fullAddress)
+                }
             }
         }
     }
@@ -95,17 +94,14 @@ class LocationManager: NSObject, CLLocationManagerDelegate {
     
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        print("Location Changed.")
         guard let location = locations.first else { return }
-        var userLocation = ""
-        let group = DispatchGroup()
-        group.enter()
-        reverseUserLocationToAddress(from: location.coordinate.longitude, and: location.coordinate.latitude) { (locationString) in
-            userLocation = locationString
-            group.leave()
-        }
-        group.notify(queue: .main) {
-            self.userLocation = userLocation
-            self.profileDataModel?.addUserData(to: .location, with: userLocation)
+        print("First: \(location)")
+        reverseUserLocationToAddress(from: location.coordinate.longitude, and: location.coordinate.latitude) { (userAddress) in
+            print("Location: \(userAddress)")
+            self.locationManagerDelegate?.usersLocation = userAddress
+            self.locationManagerDelegate?.userEnteredLocation(forString: userAddress)
+            self.profileDataModel?.addUserData(to: .location, with: userAddress)
         }
     }
     

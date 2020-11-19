@@ -8,7 +8,6 @@
 
 import Foundation
 import Firebase
-import CoreLocation.CLLocationManager
 
 struct NewTaskHelper {
     /// Gets the users date of when the account was created

@@ -17,6 +17,7 @@ class CustomerViewController: UIViewController {
     public lazy var customerView = CustomerView()
     public var homeData: CustomerTableViewData?
     private var locationManager: LocationManager?
+    private let firebaseHelper = FirebaseHelperClass()
     // Table View Protocols
     private var customerDelegate: CustomerTableViewDelegate?
     public let customerDataSource = CustomerTableViewDataSource()
@@ -60,17 +61,17 @@ class CustomerViewController: UIViewController {
         
     }
     
-    // Checks to see whether the table view needs to update to show issues.
+    /// Checks to see whether the table view needs to update to show issues.
     public func checkingIfUserHasIssues() {
         getUserIssues()
-        homeData?.retrieveNumberOfIssues { (issues) in
+        firebaseHelper.numberOfUserIssues { (issues) in
             switch issues {
                 case 0:
                     self.locationManager = nil
                     return
                 default:
                     DispatchQueue.main.async {
-                        self.locationManager = LocationManager()
+                        self.locationManager = LocationManager.shared
                     }
                     self.setupReloadTableView()
                     return
@@ -92,7 +93,7 @@ class CustomerViewController: UIViewController {
     
     // MARK: - Actions
     @objc private func customerIssuesChanged(_ notification: Notification) {
-        print("Changed!!!")
+        checkingIfUserHasIssues()
     }
     
     // MARK: - Actions

@@ -10,6 +10,7 @@ import UIKit
 import CoreLocation
 import MapKit
 
+// TODO: Fix this so CoreLocation isn't here.
 class LocationHelperClass {
     // Properties / References
     private var locationManager: CLLocationManager?

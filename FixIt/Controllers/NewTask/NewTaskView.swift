@@ -62,9 +62,11 @@ struct NewTaskView: View {
             .background(Color(.white))
             .edgesIgnoringSafeArea(.bottom)
             .onAppear {
-                self.locationManager.startLocating()
-                self.mapHelper = LocationHelperClass(locationManager: self.locationManager.locationManager)
-                self.taskData.retrieveUserData()
+                if taskData.location.isEmpty {
+                    self.locationManager.locationSetup()
+                    self.locationManager.startLocating()
+                    self.mapHelper = LocationHelperClass(locationManager: self.locationManager.locationManager)
+                }
             }
     } // body End
     
@@ -90,7 +92,7 @@ struct NewTaskView: View {
         }
     }
     
-    ///
+    
     private func addingDataToDatabase() {
         let newTask = NewTask(id: Constants.shared.currentUser ?? "", taskName: taskNameField, description: detailField, email: String($taskData.name.wrappedValue), location: taskData.location, sender: String($taskData.name.wrappedValue), date: newUser.dateAdded())
         firebaseHelper.creatingANewIssue(task: newTask, location: newTask.location)

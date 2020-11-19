@@ -21,12 +21,6 @@ class GlobalHelper {
         errorController.addAction(dismissAction)
         completion(errorController)
     }
-    
-    public func addingToIssueCounter() {
-        guard let userId = Constants.shared.currentUser else { print(ValidationError.RetrievingUser.errorDescription!); return }
-        Constants.shared.issueCounter += 1
-        Constants.shared.dbReference.child("Users").child("byId").child(userId).updateChildValues(["issueCounter": Constants.shared.issueCounter])
-    }
 }
 
 // MARK: - String Extension

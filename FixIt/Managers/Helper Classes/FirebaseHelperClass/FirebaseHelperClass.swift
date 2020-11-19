@@ -11,7 +11,6 @@ import Firebase
 
 class FirebaseHelperClass {
     // MARK: - References / Properties
-    private let globalHelper = GlobalHelper.shared
     
     // MARK: - Methods
     /// Adding User Data to Database.
@@ -40,7 +39,7 @@ class FirebaseHelperClass {
             if let error = error {
                 print(error.localizedDescription)
             }
-            self.globalHelper.addingToIssueCounter()
+            self.addingToIssueCounter()
         }
     }
     
@@ -53,7 +52,7 @@ class FirebaseHelperClass {
             if let error = error {
                 print("Updating Issue: \(error.localizedDescription)")
             }
-            self.globalHelper.addingToIssueCounter()
+            self.addingToIssueCounter()
         }
     }
     
@@ -62,14 +61,34 @@ class FirebaseHelperClass {
         let locationHelper = LocationHelperClass()
         let globalIssueReference = Constants.shared.dbReference.child("globalIssues").child("byState")
         locationHelper.getUserState(from: data.location) { (state) in
-            // TODO: Fix the autoById
             globalIssueReference.child("\(state)").childByAutoId().updateChildValues(data.toAnyObject())
         }
     }
     
+    
+    public func addingToIssueCounter() {
+        guard let userId = Constants.shared.currentUser else { print(ValidationError.RetrievingUser.errorDescription!); return }
+        Constants.shared.issueCounter += 1
+        Constants.shared.dbReference.child("Users").child("byId").child(userId).updateChildValues(["issueCounter": Constants.shared.issueCounter])
+    }
+    
     ///
     public func removingUserIssueFromCorrespondingState() {
-        
+        guard let userId = Constants.shared.currentUser else { print(ValidationError.RetrievingUser.errorDescription!); return }
+        // TODO: Fix so it doesn't go into negatives.
+        Constants.shared.issueCounter -= 1
+        Constants.shared.dbReference.child("Users").child("byId").child(userId).updateChildValues(["issueCounter": Constants.shared.issueCounter])
+    }
+    
+    ///
+    public func numberOfUserIssues(completion: @escaping(Int) -> Void) {
+        guard let currentUserId = Constants.shared.currentUser else { print(ValidationError.RetrievingUser.errorDescription!); return }
+        let openIssues = Constants.shared.dbReference.child("Users").child("byId").child(currentUserId).child("openIssues")
+        openIssues.observeSingleEvent(of: .value) { (snapshot) in
+            let issues = snapshot.childrenCount
+            let issuesInt = Int(issues)
+            completion(issuesInt)
+        }
     }
     
 }

@@ -16,7 +16,6 @@ class PlacesSearchController: UIViewController {
     // References / Properties
     public lazy var placesSearchView = PlacesSearchView()
     private lazy var locationHelper = LocationHelperClass()
-    private lazy var signUpController = SignUpController()
     // Variables
     var delegate: LocationNameProtocol?
     private var userEnteredLocation: String? = ""
@@ -35,7 +34,6 @@ class PlacesSearchController: UIViewController {
     
     
     override func viewWillDisappear(_ animated: Bool) {
-        self.delegate = signUpController
         delegate?.userEnteredLocation(forString: userEnteredLocation ?? "Not Available")
     }
     

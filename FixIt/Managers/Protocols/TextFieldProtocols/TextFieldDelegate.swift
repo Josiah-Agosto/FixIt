@@ -9,12 +9,21 @@
 import Foundation
 import UIKit
 
-class TextFieldDelegate: NSObject, UITextFieldDelegate {
+final class TextFieldDelegate: NSObject, UITextFieldDelegate {
     // MARK: - References / Properties
     static let shared = TextFieldDelegate()
+    var forPassword: Bool = false
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()
+        return true
+    }
+    
+    
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        if forPassword == true {
+            textField.isSecureTextEntry = true
+        }
         return true
     }
 

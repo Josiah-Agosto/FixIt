@@ -57,9 +57,6 @@ class LoginView: UIView {
         textField.layer.cornerRadius = 5
         textField.layer.borderColor = UIColor.lightGray.cgColor
         textField.layer.borderWidth = 1
-        textField.autocorrectionType = .no
-        textField.isSecureTextEntry = true
-        textField.textContentType = .none
         let passwordEmptyView = UIView()
         passwordEmptyView.frame = CGRect(x: 0, y: 0, width: 10, height: 10)
         textField.leftViewMode = .always
@@ -110,7 +107,9 @@ class LoginView: UIView {
         backgroundColor = UIColor(red: 220/255, green: 220/255, blue: 220/255, alpha: 1.0)
         // Delegates
         emailField.delegate = TextFieldDelegate.shared
-        passwordField.delegate = TextFieldDelegate.shared
+        let passwordDelegate = TextFieldDelegate()
+        passwordDelegate.forPassword = true
+        passwordField.delegate = passwordDelegate
         // Subviews
         authenticationContainer.addSubview(emailField)
         authenticationContainer.addSubview(passwordField)

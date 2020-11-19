@@ -8,7 +8,7 @@
 
 import Foundation
 
-protocol HomeTableViewDataProtocol {
+protocol HomeTableViewDataProtocol: class {
     var customerIssueTasks: [UserTaskModel] { get set }
     var hasIssues: Bool { get set }
     var numberOfIssues: Int { get set }

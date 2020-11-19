@@ -62,7 +62,6 @@ class SignUpView: UIView {
         passwordField.layer.shadowOpacity = 0.5
         passwordField.layer.masksToBounds = false
         passwordField.isSecureTextEntry = true
-//        passwordField.textContentType = .none
         passwordField.backgroundColor = UIColor.clear
         return passwordField
     }()
@@ -190,7 +189,9 @@ class SignUpView: UIView {
         // Delegates
         nameField.delegate = TextFieldDelegate.shared
         emailField.delegate = TextFieldDelegate.shared
-        passwordField.delegate = TextFieldDelegate.shared
+        let passwordDelegate = TextFieldDelegate()
+        passwordDelegate.forPassword = true
+        passwordField.delegate = passwordDelegate
         // Subviews
         addSubview(emptyView)
         addSubview(nameField)

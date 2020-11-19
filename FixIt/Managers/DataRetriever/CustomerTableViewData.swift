@@ -11,11 +11,11 @@ import Firebase
 
 class CustomerTableViewData {
     // MARK: - References / Properties
-    var delegate: HomeTableViewDataProtocol?
+    public weak var delegate: HomeTableViewDataProtocol?
     // Tasks
-    /// Retrieves users Tasks.
+    /// Retrieves users Tasks and number of issues with boolean of has issues.
     public func getUserTasks() {
-        guard let currentUserId = Auth.auth().currentUser?.uid else { print(ValidationError.RetrievingUser.errorDescription!); return }
+        guard let currentUserId = Constants.shared.currentUser else { print(ValidationError.RetrievingUser.errorDescription!); return }
         let openIssues = Constants.shared.dbReference.child("Users").child("byId").child(currentUserId).child("openIssues")
         var userTasks: [UserTaskModel] = []
         openIssues.observeSingleEvent(of: .value) { (snapshot) in
@@ -32,29 +32,10 @@ class CustomerTableViewData {
                 userTasks.append(UserTaskModel(userTaskName: taskName, userName: sender, userTaskDescription: description, userEmail: email, userLocation: location, userTaskDate: date, userId: id))
             }
             self.delegate?.customerIssueTasks = userTasks
+            self.delegate?.numberOfIssues = userTasks.count
+            self.delegate?.hasIssues = self.containsAnIssue(from: userTasks.count)
         }
     } // Func End
-
-    /// Retrieves the number of current User Issues.
-    public func retrieveNumberOfIssues(completion: @escaping(_ issues: Int) -> Void) {
-        let group = DispatchGroup()
-        guard let userId = Constants.shared.currentUser else { print(ValidationError.RetrievingUser.errorDescription!); return }
-        var userCount: Int = 0
-        group.enter()
-        Constants.shared.dbReference.child("Users").child("byId").child(userId).observeSingleEvent(of: .value) { (snapshot) in
-            if let issueCounter = snapshot.value as? [String: Any] {
-                let currentUserValue = issueCounter["issueCounter"] as? Int ?? 0
-                print("Has Issue: \(currentUserValue)")
-                userCount = currentUserValue
-                group.leave()
-            }
-        }
-        group.notify(queue: .global()) {
-            self.delegate?.numberOfIssues = userCount
-            self.delegate?.hasIssues = self.containsAnIssue(from: userCount)
-            completion(userCount)
-        }
-    }
     
     /// Checks if inputed number is zero.
     private func containsAnIssue(from number: Int) -> Bool {

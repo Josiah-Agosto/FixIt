@@ -27,9 +27,9 @@
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
-	<string>FixIt would like to temporarily use your location.</string>
+	<string>This allows for your issue to be fixed.</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>FixIt would like to temporarily use your location.</string>
+	<string>This allows for your issue to be fixed.</string>
 	<key>UIApplicationSceneManifest</key>
 	<dict>
 		<key>UIApplicationSupportsMultipleScenes</key>
