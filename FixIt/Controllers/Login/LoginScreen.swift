@@ -57,8 +57,9 @@ class LoginScreen: UIViewController {
     
     // MARK: - Functions
     private func signingIn(with email: String, and password: String) {
-        Auth.auth().signIn(withEmail: email, password: password) { (_, error) in
-            guard let userId = Auth.auth().currentUser?.uid else { print(ValidationError.RetrievingUser.errorDescription!); return }
+        Auth.auth().signIn(withEmail: email, password: password) { (user, error) in
+            guard let userId = user?.user.uid else { print(ValidationError.RetrievingUser.errorDescription!); return }
+            Constants.shared.currentUser = userId
             if error != nil {
                 self.errorSigningIn()
             } else {

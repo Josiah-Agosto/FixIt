@@ -80,7 +80,7 @@ class FirebaseHelperClass {
         Constants.shared.dbReference.child("Users").child("byId").child(userId).updateChildValues(["issueCounter": Constants.shared.issueCounter])
     }
     
-    ///
+    /// Only get's the number of user Issues.
     public func numberOfUserIssues(completion: @escaping(Int) -> Void) {
         guard let currentUserId = Constants.shared.currentUser else { print(ValidationError.RetrievingUser.errorDescription!); return }
         let openIssues = Constants.shared.dbReference.child("Users").child("byId").child(currentUserId).child("openIssues")

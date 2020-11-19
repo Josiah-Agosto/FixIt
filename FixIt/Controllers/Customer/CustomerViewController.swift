@@ -36,6 +36,11 @@ class CustomerViewController: UIViewController {
         checkingIfUserHasIssues()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        customerMonitor.fetchUpdates()
+    }
+    
     // MARK: - Setup Functions
     private func setup() {
         // Table View
@@ -58,7 +63,11 @@ class CustomerViewController: UIViewController {
         navigationItem.rightBarButtonItem = customerView.addBarButtonItem
         // Notifications
         NotificationCenter.default.addObserver(self, selector: #selector(customerIssuesChanged(_:)), name: .customerIssues, object: nil)
-        
+    }
+    
+    
+    deinit {
+        resetCustomerData()
     }
     
     /// Checks to see whether the table view needs to update to show issues.
@@ -113,5 +122,12 @@ class CustomerViewController: UIViewController {
         let newTaskSwiftUIView = NewTaskView().environmentObject(presentedObjectDelegate)
         let hostedView = UIHostingController(rootView: newTaskSwiftUIView)
         navigationController?.present(hostedView, animated: true)
+    }
+    
+    
+    private func resetCustomerData() {
+        customerDataSource.customerIssueTasks = []
+        customerDataSource.hasIssues = false
+        customerDataSource.numberOfIssues = 0
     }
 } // Class End
