@@ -20,6 +20,7 @@
 		BD6725B123B1430200AB0D5D /* ValidationError.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD6725B023B1430200AB0D5D /* ValidationError.swift */; };
 		BD6725B523B15C6D00AB0D5D /* UserError.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD6725B423B15C6D00AB0D5D /* UserError.swift */; };
 		BD6725BE23B4158400AB0D5D /* FixItTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD6725BD23B4158400AB0D5D /* FixItTests.swift */; };
+		BD73ABC9257747A700D376B6 /* AccessibleDataEnum.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD73ABC8257747A700D376B6 /* AccessibleDataEnum.swift */; };
 		BD75A7FC252E450000A69845 /* PresentedObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD75A7FB252E450000A69845 /* PresentedObject.swift */; };
 		BD7BD3E22475A2810065BE45 /* CustomerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD7BD3E12475A2810065BE45 /* CustomerView.swift */; };
 		BD7BD3E42475A28D0065BE45 /* EmployeeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD7BD3E32475A28D0065BE45 /* EmployeeView.swift */; };
@@ -92,6 +93,7 @@
 		BD6725BB23B4158400AB0D5D /* FixItTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = FixItTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		BD6725BD23B4158400AB0D5D /* FixItTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FixItTests.swift; sourceTree = "<group>"; };
 		BD6725BF23B4158500AB0D5D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		BD73ABC8257747A700D376B6 /* AccessibleDataEnum.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccessibleDataEnum.swift; sourceTree = "<group>"; };
 		BD75A7FB252E450000A69845 /* PresentedObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PresentedObject.swift; sourceTree = "<group>"; };
 		BD7BD3E12475A2810065BE45 /* CustomerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomerView.swift; sourceTree = "<group>"; };
 		BD7BD3E32475A28D0065BE45 /* EmployeeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmployeeView.swift; sourceTree = "<group>"; };
@@ -223,6 +225,7 @@
 		BD48DBB8255C7D1B008A0AE0 /* FirebaseHelperClass */ = {
 			isa = PBXGroup;
 			children = (
+				BDCD448E238C5C35000C7A49 /* DataRetriever.swift */,
 				BD48DBB9255C7D43008A0AE0 /* FirebaseHelperClass.swift */,
 			);
 			path = FirebaseHelperClass;
@@ -268,6 +271,22 @@
 				BD6725BF23B4158500AB0D5D /* Info.plist */,
 			);
 			path = FixItTests;
+			sourceTree = "<group>";
+		};
+		BD73ABC6257746DB00D376B6 /* Monitors */ = {
+			isa = PBXGroup;
+			children = (
+				BDD762832543E38C00ABE2D4 /* CustomerIssueMonitor.swift */,
+			);
+			path = Monitors;
+			sourceTree = "<group>";
+		};
+		BD73ABC7257746F500D376B6 /* CustomerTableView */ = {
+			isa = PBXGroup;
+			children = (
+				BDD3D8EF238729F70028F37E /* CustomerTableViewData.swift */,
+			);
+			path = CustomerTableView;
 			sourceTree = "<group>";
 		};
 		BD75A7FA252E44F100A69845 /* PresentedObject */ = {
@@ -380,10 +399,9 @@
 		BDCD4490238C5EFD000C7A49 /* DataRetriever */ = {
 			isa = PBXGroup;
 			children = (
+				BD73ABC7257746F500D376B6 /* CustomerTableView */,
+				BD73ABC6257746DB00D376B6 /* Monitors */,
 				BD60B91924C0D9B000B3B1DE /* Protocols */,
-				BDD3D8EF238729F70028F37E /* CustomerTableViewData.swift */,
-				BDCD448E238C5C35000C7A49 /* DataRetriever.swift */,
-				BDD762832543E38C00ABE2D4 /* CustomerIssueMonitor.swift */,
 			);
 			path = DataRetriever;
 			sourceTree = "<group>";
@@ -536,6 +554,7 @@
 				BDF98EF5236E22CC007A4F3A /* CustomerModel.swift */,
 				BDF98EF7236E2334007A4F3A /* EmployeeModel.swift */,
 				BDF98F122377B0BC007A4F3A /* UserTaskModel.swift */,
+				BD73ABC8257747A700D376B6 /* AccessibleDataEnum.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -831,6 +850,7 @@
 				BDAD6FFC24BCE6490078CAB2 /* EmptyIssueCustomerCell.swift in Sources */,
 				BDD3D8F0238729F70028F37E /* CustomerTableViewData.swift in Sources */,
 				BD15F9E02564225400D59CC4 /* LocationManagerProtocol.swift in Sources */,
+				BD73ABC9257747A700D376B6 /* AccessibleDataEnum.swift in Sources */,
 				BD7BD3E42475A28D0065BE45 /* EmployeeView.swift in Sources */,
 				BDF98EF6236E22CC007A4F3A /* CustomerModel.swift in Sources */,
 				BDD3D8F52389B92F0028F37E /* EmployeeCell.swift in Sources */,

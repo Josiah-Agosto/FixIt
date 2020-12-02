@@ -160,7 +160,7 @@ class SignUpController: UIViewController, LocationManagerProtocol {
                 self.errorOccurred()
             } else {
                 Constants.shared.loggedIn = true
-                DataRetriever().saveSetting(for: Constants.shared.loggedIn, forKey: "logInKey")
+                FirebaseHelperClass().saveSetting(for: Constants.shared.loggedIn, forKey: "logInKey")
                 self.navigationController?.show(self.customerHome, sender: self)
             }
         }
@@ -181,7 +181,7 @@ class SignUpController: UIViewController, LocationManagerProtocol {
                 self.errorOccurred()
             } else {
                 Constants.shared.loggedIn = true
-                DataRetriever().saveSetting(for: Constants.shared.loggedIn, forKey: "logInKey")
+                FirebaseHelperClass().saveSetting(for: Constants.shared.loggedIn, forKey: "logInKey")
                 self.navigationController?.show(self.employeeHome, sender: self)
             }
         }
@@ -192,7 +192,7 @@ class SignUpController: UIViewController, LocationManagerProtocol {
         self.signUpView.errorLabel.isHidden = false
         self.signUpView.errorLabel.text = UserError.UpdatingValues.errorDescription
         Constants.shared.loggedIn = false
-        DataRetriever().saveSetting(for: Constants.shared.loggedIn, forKey: "logInKey")
+        FirebaseHelperClass().saveSetting(for: Constants.shared.loggedIn, forKey: "logInKey")
     }
 } // Class End
 

@@ -30,7 +30,7 @@ class ProfileDataModel: ObservableObject {
     
     public func getUserData() {
         guard let userId = Auth.auth().currentUser?.uid else { print(ValidationError.RetrievingUser.errorDescription!); return }
-        DataRetriever().getAllUserData(id: userId) { (isCustomer, email, location, name, signedUp, skill, state, phone, dob) in
+        FirebaseHelperClass().getAllUserData(id: userId) { (isCustomer, email, location, name, signedUp, skill, state, phone, dob) in
             self.name = name
             self.email = email
             self.location = location
@@ -43,7 +43,7 @@ class ProfileDataModel: ObservableObject {
     
     public func addUserData(to key: AddValue, with value: String) {
         guard let userId = Auth.auth().currentUser?.uid else { print(ValidationError.RetrievingUser.errorDescription!); return }
-        DataRetriever().retrieveUserDataToGet(id: userId, data: .isCustomer) { (isCustomer, _) in
+        FirebaseHelperClass().retrieveUserDataToGet(id: userId, data: .isCustomer) { (isCustomer, _) in
             guard let isCustomer = isCustomer else { return }
             switch isCustomer {
             case true:

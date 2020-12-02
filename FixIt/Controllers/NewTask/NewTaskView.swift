@@ -61,13 +61,6 @@ struct NewTaskView: View {
         } // NavigationView End
             .background(Color(.white))
             .edgesIgnoringSafeArea(.bottom)
-            .onAppear {
-                if taskData.location.isEmpty {
-                    self.locationManager.locationSetup()
-                    self.locationManager.startLocating()
-                    self.mapHelper = LocationHelperClass(locationManager: self.locationManager.locationManager)
-                }
-            }
     } // body End
     
     // MARK: - Methods

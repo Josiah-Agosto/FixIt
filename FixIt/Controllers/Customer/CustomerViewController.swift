@@ -32,7 +32,6 @@ class CustomerViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setup()
-        customerMonitor.fetchUpdates()
         checkingIfUserHasIssues()
     }
     
@@ -62,7 +61,9 @@ class CustomerViewController: UIViewController {
         customerView.addBarButtonItem = UIBarButtonItem(image: customerView.addImage, style: .plain, target: self, action: #selector(addNewFix(sender:)))
         navigationItem.rightBarButtonItem = customerView.addBarButtonItem
         // Notifications
-        NotificationCenter.default.addObserver(self, selector: #selector(customerIssuesChanged(_:)), name: .customerIssues, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(issuesAdded(_:)), name: .issuesAdded, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(issuesChanged(_:)), name: .issuesChanged, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(issuesRemoved(_:)), name: .issuesRemoved, object: nil)
     }
     
     
@@ -100,8 +101,22 @@ class CustomerViewController: UIViewController {
         }
     }
     
-    // MARK: - Actions
-    @objc private func customerIssuesChanged(_ notification: Notification) {
+    // MARK: - Observers
+    // Issue was added.
+    @objc private func issuesAdded(_ notification: Notification) {
+        print("Added")
+        checkingIfUserHasIssues()
+    }
+    
+    // Issue was changed.
+    @objc private func issuesChanged(_ notification: Notification) {
+        print("Changed")
+        checkingIfUserHasIssues()
+    }
+    
+    // issue was removed.
+    @objc private func issuesRemoved(_ notification: Notification) {
+        print("Removed")
         checkingIfUserHasIssues()
     }
     

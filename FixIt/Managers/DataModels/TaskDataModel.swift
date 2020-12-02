@@ -24,7 +24,7 @@ class TaskDataModel: ObservableObject {
     /// Get's user's data upon initialization.
     public func retrieveUserData() {
         guard let userId = Constants.shared.currentUser else { print(ValidationError.RetrievingUser.errorDescription!); return }
-        DataRetriever().getAllUserData(id: userId) { (isCustomer, email, location, name, signedUp, skill, state, phone, dob) in
+        FirebaseHelperClass().getAllUserData(id: userId) { (isCustomer, email, location, name, signedUp, skill, state, phone, dob) in
             self.name = name
             self.email = email
             self.location = location

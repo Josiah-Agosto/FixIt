@@ -73,21 +73,21 @@ class LoginScreen: UIViewController {
         self.loginView.errorLabel.isHidden = false
         self.loginView.errorLabel.text = ValidationError.SigningIn.errorDescription
         Constants.shared.loggedIn = false
-        DataRetriever().saveSetting(for: Constants.shared.loggedIn, forKey: "logInKey")
+        FirebaseHelperClass().saveSetting(for: Constants.shared.loggedIn, forKey: "logInKey")
     }
     
     
     private func successSigningIn(userId: String) {
-        DataRetriever().retrieveUserDataToGet(id: userId, data: .isCustomer) { (isCustomer, _) in
+        FirebaseHelperClass().retrieveUserDataToGet(id: userId, data: .isCustomer) { (isCustomer, _) in
             guard let isCustomer = isCustomer else { return }
             Constants.shared.loggedIn = true
             self.loginView.errorLabel.isHidden = true
             switch isCustomer {
             case true:
-                DataRetriever().saveSetting(for: Constants.shared.loggedIn, forKey: "logInKey")
+                FirebaseHelperClass().saveSetting(for: Constants.shared.loggedIn, forKey: "logInKey")
                 self.navigationController?.show(self.customerHome, sender: nil)
             case false:
-                DataRetriever().saveSetting(for: Constants.shared.loggedIn, forKey: "logInKey")
+                FirebaseHelperClass().saveSetting(for: Constants.shared.loggedIn, forKey: "logInKey")
                 self.navigationController?.show(self.employeeHome, sender: nil)
             }
         } // Data Retriever End

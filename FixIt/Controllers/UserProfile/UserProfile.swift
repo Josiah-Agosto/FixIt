@@ -137,7 +137,7 @@ struct UserProfile: View {
                     do {
                         try Auth.auth().signOut()
                         Constants.shared.loggedIn = false
-                        DataRetriever().saveSetting(for: Constants.shared.loggedIn, forKey: "logInKey")
+                        FirebaseHelperClass().saveSetting(for: Constants.shared.loggedIn, forKey: "logInKey")
                         self.showingSheet = false
                         print("Logged Out!")
                     } catch let error {
